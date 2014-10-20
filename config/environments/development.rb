@@ -17,6 +17,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   # Don't send emails
+  config.action_mailer.default_url_options = {host: 'localhost'}
   config.action_mailer.perform_deliveries = false
 
   # Print deprecation notices to the Rails logger.

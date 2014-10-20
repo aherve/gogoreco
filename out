@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gogoreco</title>
+  <link data-turbolinks-track="true" href="/assets/application.css" media="all" rel="stylesheet" />
+  <script data-turbolinks-track="true" src="/assets/application.js"></script>
+  <meta content="authenticity_token" name="csrf-param" />
+<meta content="0W0dcKVIGpyQW/gp9NNPkq2+O7lhOKlgA5rEuEBpeBU=" name="csrf-token" />
+</head>
+<body>
+
+<h2>Sign up</h2>
+
+<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="0W0dcKVIGpyQW/gp9NNPkq2+O7lhOKlgA5rEuEBpeBU=" /></div>
+      <div id="error_explanation">
+      <h2>1 error prohibited this user from being saved:</h2>
+      <ul><li>Email is already taken</li></ul>
+    </div>
+
+
+  <div><div class="field_with_errors"><label for="user_email">Email</label></div><br />
+  <div class="field_with_errors"><input autofocus="autofocus" id="user_email" name="user[email]" type="email" value="foo@bar.com" /></div></div>
+
+  <div><label for="user_password">Password</label> <i>(4 characters minimum)</i><br />
+    <input autocomplete="off" id="user_password" name="user[password]" type="password" /></div>
+
+  <div><label for="user_password_confirmation">Password confirmation</label><br />
+    <input autocomplete="off" id="user_password_confirmation" name="user[password_confirmation]" type="password" /></div>
+
+  <div><input name="commit" type="submit" value="Sign up" /></div>
+</form>
+  <a href="/users/sign_in">Log in</a><br />
+
+
+
+  <a href="/users/confirmation/new">Didn&#39;t receive confirmation instructions?</a><br />
+
+
+    <a href="/users/auth/facebook">Sign in with Facebook</a><br />
+
+
+
+</body>
+</html>
