@@ -1,4 +1,4 @@
-ShapterApi::Application.routes.draw do
+GogorecoApi::Application.routes.draw do
   get "facebook_pages/:base64Params" => 'facebook_pages#index'
   get "home/index"
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks"}

@@ -1,5 +1,5 @@
 class ReportCommentMailer < ActionMailer::Base
-  default from: "report@shapter.com"
+  default from: "report@gogoreco.com"
 
   def report_comment_email(comment_report)
     @reporter_email     = comment_report.reporter.email
@@ -10,7 +10,7 @@ class ReportCommentMailer < ActionMailer::Base
       comment_id: comment_report.comment_id,
     }
     mail(
-      to: "moderate@shapter.com",
+      to: "moderate@gogoreco.com",
       subject: "[COMMENT REPORT] #{comment_report.id}",
     )
   end

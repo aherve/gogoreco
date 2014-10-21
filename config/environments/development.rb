@@ -1,4 +1,4 @@
-ShapterApi::Application.configure do
+GogorecoApi::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -26,7 +26,7 @@ ShapterApi::Application.configure do
   #config.action_mailer.delivery_method = :ses
 
   #use this to truly debug email sending:
-  #config.action_mailer.default_url_options = { :host => 'shapter.com'}
+  #config.action_mailer.default_url_options = { :host => 'gogoreco.com'}
   #config.action_mailer.perform_deliveries = true #try to force sending in development 
   #config.action_mailer.raise_delivery_errors = true
 
@@ -35,6 +35,6 @@ ShapterApi::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-  config.cache_store = :redis_store, 'redis://localhost:6379/1/shapter_api_cache', { expires_in: 10.minutes }
+  config.cache_store = :redis_store, 'redis://localhost:6379/1/gogoreco_api_cache', { expires_in: 10.minutes }
   config.action_controller.perform_caching = true
 end

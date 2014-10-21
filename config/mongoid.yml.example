@@ -1,7 +1,7 @@
 test:
   sessions:
     default:
-      database: shapter_api_test
+      database: gogoreco_api_test
       hosts:
         - localhost:27017
       options:

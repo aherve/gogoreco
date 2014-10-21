@@ -11,7 +11,7 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
-module ShapterApi
+module GogorecoApi
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -31,7 +31,7 @@ module ShapterApi
 
     config.middleware.use Rack::Cors do 
       allow do 
-        #origins 'localhost:8100','shapter.com','137.194.15.150'
+        #origins 'localhost:8100','gogoreco.com','137.194.15.150'
         origins '*'
         resource '*', :headers => :any, :methods => [:get, :post, :options, :delete, :put]
       end

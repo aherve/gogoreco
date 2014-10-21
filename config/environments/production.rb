@@ -1,4 +1,4 @@
-ShapterApi::Application.configure do
+GogorecoApi::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -12,7 +12,7 @@ ShapterApi::Application.configure do
 
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
-  config.cache_store = :redis_store, 'redis://localhost:6379/1/shapter_api_cache', { expires_in: 10.minutes }
+  config.cache_store = :redis_store, 'redis://localhost:6379/1/gogoreco_api_cache', { expires_in: 10.minutes }
   config.action_controller.perform_caching = true
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
@@ -79,7 +79,7 @@ ShapterApi::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  config.action_mailer.default_url_options = { :host => 'shapter.com'}
+  config.action_mailer.default_url_options = { :host => 'gogoreco.com'}
   config.action_mailer.delivery_method = :ses
 
 end

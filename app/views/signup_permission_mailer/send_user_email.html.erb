@@ -2,7 +2,7 @@
 <html>
   <body>
 
-    <h1>Tu viens d'être invité sur Shapter !</h1>
+    <h1>Tu viens d'être invité sur Gogoreco !</h1>
 
     <% if User.where(email: @user_email).exists?%>
       <p>
@@ -11,22 +11,22 @@
   </p>
 
     <p>
-      Enjoy, et à bientôt sur <a href="http://shapter.com">shapter</a> !
+      Enjoy, et à bientôt sur <a href="http://gogoreco.io">gogoreco</a> !
     </p>
 
   <% else %>
       <p>
-      Bonjour, tu viens d'être invité sur Shapter avec l'adresse <%= @user_email %>.<br/>
-      Concrètement, ça veut dire que tu peux créer un compte avec cette adresse, qui t'identifiera en tant qu'étudiant de <%= @schools %> sur <a href="http://shapter.com">shapter</a>.
+      Bonjour, tu viens d'être invité sur Gogoreco avec l'adresse <%= @user_email %>.<br/>
+      Concrètement, ça veut dire que tu peux créer un compte avec cette adresse, qui t'identifiera en tant qu'étudiant de <%= @schools %> sur <a href="http://gogoreco.io">gogoreco</a>.
     </p>
 
     <p>
-      Enjoy, et à bientôt sur <a href="http://shapter.com">Shapter</a> ! 
+      Enjoy, et à bientôt sur <a href="http://gogoreco.io">Gogoreco</a> ! 
     </p>
   <% end %>
 
     <p>
-      En cas de problème, n'hésite pas à nous contacter : team@shapter.com
+      En cas de problème, n'hésite pas à nous contacter : team@gogoreco.io
     </p>
 
   </body>

@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-ShapterApi::Application.load_tasks
+GogorecoApi::Application.load_tasks
