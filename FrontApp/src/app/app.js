@@ -9,6 +9,7 @@ angular.module( 'gogoreco', [
   'security.service',
   'gogoreco.config',
   'gogoreco.contribute',
+  'gogoreco.cursus',
   'gogoreco.header',
   'services.analytics',
   'services.alerts',
@@ -17,6 +18,10 @@ angular.module( 'gogoreco', [
 
 .config( ['$stateProvider', '$urlRouterProvider', function myAppConfig ( $stateProvider, $urlRouterProvider ) {
   $urlRouterProvider.otherwise( '/contribute' );
+}])
+
+.config( ['$locationProvider', function( $locationProvider ){
+  $locationProvider.html5Mode(true);
 }])
 
 .run(['ENV', function( ENV ){
@@ -34,6 +39,10 @@ angular.module( 'gogoreco', [
       $scope.pageTitle = toState.data.pageTitle + ' | gogoreco' ;
     }
   });
+
+  $scope.nav = function( path ){
+    $location.path( path );
+  };
 }])
 
 .config(['localStorageServiceProvider', function(localStorageServiceProvider){

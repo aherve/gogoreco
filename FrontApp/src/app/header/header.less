@@ -1,6 +1,8 @@
 .navbar-inverse {
-  @navbar-color: @grapefruit;
-  @navbar-color-d: @grapefruit-d;
+  @navbar-color: @mint;
+  @navbar-color-d: @navbar-color;
+
+  @navbar-color-2: @s-bluejeans;
 
   @media (max-width: @screen-xs-max ){
     & .navbar-nav .open .dropdown-menu .divider {
@@ -21,14 +23,19 @@
   }
 
   & .navbar-toggle {
-    border-color: @navbar-color-d;
+    border-color: white;
     &:hover,
     &.collapsed {
-      background-color: @navbar-color-d;
+      background-color: transparent;
     }
   }
   & .navbar-collapse {
+    border: 0;
     border-color: @navbar-color;
+    -moz-box-shadow: 0px 0px 0px #656565;
+    -webkit-box-shadow: 0px 0px 0px #656565;
+    -o-box-shadow: 0px 0px 0px #656565;
+    box-shadow: 0px 0px 0px #656565;
   }
   & .navbar-form {
     border: 0px;
@@ -36,23 +43,28 @@
     -webkit-box-shadow: 0px 0px 0px #656565;
     -o-box-shadow: 0px 0px 0px #656565;
     box-shadow: 0px 0px 0px #656565;
+    & .form-control {
+      border-radius: 0;
+    }
   }
   background-color: @navbar-color;
   border-color: @navbar-color;
   border-radius: 0;
   border-top: 0;
   & .navbar-nav li > a {
+    padding: 7px 15px;
+    margin: 8px 0px;
     color: white;
   }
   & .navbar-nav li.active > a,
   & .navbar-nav li.active:hover > a {
-    color: @navbar-color;
+    color: @navbar-color-2;
     background-color: white;
   }
 
   & .navbar-nav li.open > a,
   & .navbar-nav li.open:hover > a {
-    background-color: @navbar-color;
+    background-color: transparent;
   }
 
   & .dropdown-menu {
@@ -60,7 +72,7 @@
       color: #333333;
     }
     & li.active > a {
-      background-color: @navbar-color;
+      background-color: saturate(@navbar-color, 30%);
       color: white;
     }
   }
@@ -68,4 +80,6 @@
   & .navbar-brand {
     color: white;
   }
+  border: 0px;
+  background-image: linear-gradient(to left, saturate(@mint, 100%), saturate(@bluejeans, 100%) );
 }

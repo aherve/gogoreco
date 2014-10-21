@@ -20,8 +20,8 @@ angular.module( 'gogoreco.header', [
 
 .constant('headerDict', {
   'contribute': {
-    en: 'contribute',
-    fr: 'contribuer'
+    en: 'Contribute',
+    fr: 'Contribuer'
   },
   'my_classes': {
     en: 'My classes',
