@@ -23,9 +23,9 @@ gem 'mongoid', :github => 'mongoid/mongoid'
 gem 'devise', :github => 'plataformatec/devise', :branch => 'master'
 
 group :test, :development do
-  gem 'rspec-rails', '~> 2'
+  gem 'rspec-rails', '~> 3'
   gem 'factory_girl_rails'
-  #gem 'rspec-autotest'
+  gem 'rspec-autotest'
   gem 'autotest-rails'
   gem 'byebug'
 end

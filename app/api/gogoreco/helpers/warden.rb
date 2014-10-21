@@ -10,6 +10,10 @@ module Gogoreco
         warden.user
       end
 
+      def check_login!
+        !!current_user || error!("please login")
+      end
+
     end
   end
 end
