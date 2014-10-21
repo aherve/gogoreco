@@ -35,7 +35,7 @@ set :deploy_to, '/var/www/gogoreco'
 # set :pty, true
 
 # Default value for :linked_files is []
- set :linked_files, %w{config/mongoid.yml config/initializers/behave_io.rb config/initializers/secret_token.rb config/initializers/aws_credentials.rb FrontApp/src/app/config/config.js}
+ set :linked_files, %w{config/mongoid.yml config/initializers/behave_io.rb config/initializers/secret_token.rb config/initializers/aws_credentials.rb config/initializers/facebook.rb FrontApp/src/app/config/config.js}
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
