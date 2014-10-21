@@ -1,17 +1,16 @@
-require File.expand_path('../facebook.rb', __FILE__)
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  # config.secret_key = '4f1f1193e378add54a07435f446baa6d32e82ab08c408b360c178a0114eda3977512b612921e069687a7770ddad9acdb1f51d9fe5644c38ee2b85cf599a4e62f'
+  # config.secret_key = 'bbc6d6aa5ed1a7aa8ee3174baf35cdb1ba760f055bc33e21f6ed145e41bbd570de7a818b935c63bf861a7c65163e1dbb47208d3efa54f44dc7b37857b53b1843'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'team@shapter.com'
+  config.mailer_sender = 'teamShapter@shapter.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -62,7 +61,7 @@ Devise.setup do |config|
   # :database      = Support basic authentication with authentication key + password
   # config.http_authenticatable = false
 
-  # If 401 status code should be returned for AJAX requests. True by default.
+  # If http headers should be returned for AJAX requests. True by default.
   # config.http_authenticatable_on_xhr = true
 
   # The realm used in Http Basic Authentication. 'Application' by default.
@@ -98,7 +97,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = 'a9a48bd70b2c65d9d5fec049e10e003d0cde2f7202fe91c1b2169f68982a806296cdf8e5422840656b570c511f48ad2425a7c72cc35acb95ba498535ed059991'
+  # config.pepper = '4a5f0fea8361948f3b7a29191a94d96f04c12c3a8a9d62becd2ed67d2d234310f6a2350dc5d78c7dae9322bf3a89e64f975429e97363877a9734fc011bd78b3a'
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -106,7 +105,7 @@ Devise.setup do |config|
   # able to access the website for two days without confirming their account,
   # access will be blocked just in the third day. Default is 0.days, meaning
   # the user cannot access the website without confirming their account.
-  # config.allow_unconfirmed_access_for = 2.days
+  #config.allow_unconfirmed_access_for = 3.years
 
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm
@@ -120,17 +119,14 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed, new email is stored in
   # unconfirmed_email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
+  # config.reconfirmable = true
 
   # Defines which key will be used when confirming an account
-  # config.confirmation_keys = [ :email ]
+   config.confirmation_keys = [ :email ]
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
   # config.remember_for = 2.weeks
-
-  # Invalidates all the remember me tokens when the user signs out.
-  config.expire_all_remember_me_on_sign_out = true
 
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false
@@ -180,7 +176,7 @@ Devise.setup do |config|
   # config.unlock_in = 1.hour
 
   # Warn on the last attempt before the account is locked.
-  # config.last_attempt_warning = true
+  # config.last_attempt_warning = false
 
   # ==> Configuration for :recoverable
   #
@@ -235,7 +231,11 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  config.omniauth :facebook, FACEBOOK_APP_TOKEN, FACEBOOK_APP_SECRET
+  if Rails.env.production?
+    config.omniauth :facebook, "1407104136209264", "8326a17c2df050b66a4683177504ada4"
+  else
+    config.omniauth :facebook, "213583302154494", "558b2acd1fa49b5312f0ada135b9bc9e"
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
