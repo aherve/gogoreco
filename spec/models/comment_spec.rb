@@ -13,15 +13,4 @@ RSpec.describe Comment, :type => :model do
   end
   #}}}
 
-  #{{{ autodestroy
-  describe :autodestroy do
-    it "autodestroys when emptied" do 
-      c = FactoryGirl.create(:comment)
-      expect{
-        c.update_attributes(content:nil,score:nil)
-      }.to change{Comment.count}.by(-1)
-    end
-  end
-  #}}}
-
 end

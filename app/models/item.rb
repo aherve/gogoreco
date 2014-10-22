@@ -18,4 +18,8 @@ class Item
 
   has_many :comments, class_name: "Comment", inverse_of: "item"
 
+  has_and_belongs_to_many :haters, class_name: "User", inverse_of: :hated_items
+  has_and_belongs_to_many :likers, class_name: "User", inverse_of: :liked_items
+  has_and_belongs_to_many :lovers, class_name: "User", inverse_of: :loved_items
+
 end

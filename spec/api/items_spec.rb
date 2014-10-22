@@ -88,4 +88,20 @@ describe Gogoreco::V1::Items do
   end
   #}}}
 
+  #{{{ evals
+  describe :evals do 
+    before do 
+      @item = FactoryGirl.create(:item)
+    end
+
+    it "evaluates item" do 
+      expect{
+      put "items/#{@item.id}/evals", score: 3 
+      @item.reload
+      }.to change{@item.lover_ids}.from([]).to([@user.id])
+    end
+
+  end
+  #}}}
+
 end

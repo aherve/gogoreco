@@ -11,6 +11,10 @@ class User
   has_many :created_items, class_name: "Item", inverse_of: "creator"
   has_many :comments, class_name: "Comment", inverse_of: "author"
 
+  has_and_belongs_to_many :hated_items, class_name: "Item", inverse_of: "haters"
+  has_and_belongs_to_many :liked_items, class_name: "Item", inverse_of: "likers"
+  has_and_belongs_to_many :loved_items, class_name: "Item", inverse_of: "lovers"
+
 
   #{{{ devise
   # Include default devise modules. Others available are:
@@ -68,6 +72,29 @@ class User
 
   def confirmed_user?
     confirmed? or provider.to_s == "facebook"
+  end
+
+  def evaluate_item!(item,score)
+    raise "#{item} is no Item" unless item.is_a? Item
+    raise "score should be in [0..3]" unless score.is_a? Integer and score >= 0 and score <= 3
+
+      item.haters.delete(self)
+      item.likers.delete(self)
+      item.lovers.delete(self)
+
+      if score == 1
+        item.haters << self
+      elsif score == 2
+        item.likers << self
+      elsif score == 3
+        item.lovers << self
+      end
+
+      if loved_item_ids_changed? or liked_item_ids_changed? or loved_item_ids_changed?
+        item.save
+        self.save
+      end
+
   end
 
 end

@@ -100,6 +100,19 @@ module Gogoreco
 
           end
 
+          namespace :evals do 
+
+            #{{{ evaluates
+            desc "evaluates an item"
+            params do 
+              requires :score, desc: "integer between 0 and 3"
+            end
+            put do
+            end
+            #}}}
+
+          end
+
         end
       end
     end
