@@ -5,6 +5,7 @@ describe Gogoreco::V1::Items do
     Item.delete_all
     School.delete_all
     User.delete_all
+    Tag.delete_all
     @user = FactoryGirl.create(:user)
     @user.confirm!
     login(@user)
@@ -39,6 +40,15 @@ describe Gogoreco::V1::Items do
       post "/items", {item_name: "myItem", school_names: ["haha",s.name.capitalize]}
       expect(Item.last.creator).to eq @user
       expect(@user.created_items.include?(Item.last)).to be true
+    end
+
+    it "creates tags" do 
+      t = FactoryGirl.create(:tag)
+      expect{
+      post "/items", {item_name: "myItem", school_names: ["haha"], tag_names: ['hoho',t.name.capitalize]}
+      }.to change{Tag.count}.by(1)
+      expect(Tag.last.items.include?(Item.last)).to be true
+      expect(Item.last.tags.include?(Tag.last)).to be true
     end
 
   end

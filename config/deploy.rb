@@ -83,6 +83,16 @@ namespace :deploy do
     end
   end
 
+  desc "creating indexes"
+  task :create_indexes do 
+    on roles(:web), in: :sequence  do 
+      within release_path.join("FrontApp") do 
+        execute :rake, "db:mongoid:create_indexes"
+      end
+    end
+  end
+
+  before :build_front, :create_indexes
   before :publishing, :build_front
   after :publishing, :restart
   after :restart, :delayed_jobs
