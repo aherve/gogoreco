@@ -67,15 +67,16 @@ angular.module('security.service', [
 
     // Show the modal login dialog
     showLogin: function() {
-      openLoginModal( reason );
+      openLoginModal();
       Analytics.showLogin();
     },
 
     // Attempt to authenticate a user by the given email and password
     login: function(email, password) {
-      var request = $http.post('/login', {email: email, password: password});
+      var user = {email: email, password: password};
+      var request = Restangular.all('users').all('sign_in').post({user: user});
       return request.then(function(response) {
-        service.currentUser = response.data.user;
+        service.currentUser = response.user;
         if ( service.isAuthenticated() ) {
           closeLoginDialog(true);
         }
@@ -100,11 +101,21 @@ angular.module('security.service', [
     // Ask the backend to see if a user is already authenticated - this may be from a previous session.
     requestCurrentUser: function() {
       if ( service.isAuthenticated() ) {
+        console.log( service.currentUser );
         return $q.when(service.currentUser);
       } else {
-        return $http.get('/current-user').then(function(response) {
-          service.currentUser = response.data.user;
+        var params = {
+          entities: {
+            user: {
+              firstname: true
+            }
+          }
+        };
+        return Restangular.all('users').customPOST(params, 'me' ).then(function(response) {
+          service.currentUser = response;
           return service.currentUser;
+        }, function( err ){
+          console.log( err );
         });
       }
     },
@@ -116,7 +127,7 @@ angular.module('security.service', [
     isAuthenticated: function(){
       return !!service.currentUser;
     },
-    
+
     // Is the current user an adminstrator?
     isAdmin: function() {
       return !!(service.currentUser && service.currentUser.admin);

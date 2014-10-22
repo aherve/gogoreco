@@ -1,0 +1,71 @@
+.recommendation {
+  margin-bottom: 30px;
+  @profile-pic-height: 22px;
+  @profile-pic-border: 2px;
+  border-radius: 5px;
+  background-color: white;
+  & .recommendation-divider {
+    text-align: center;
+  }
+  & .recommendation-heading {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    padding: 20px 20px 0px 20px;
+  }
+  & .recommendation-body {
+    & .inline-block-text {
+      width: calc(~"100% - 50px");
+    }
+    & .profile-pic {
+      margin-right: 20px;
+      height: @profile-pic-height + 2 * @profile-pic-border; 
+      width: @profile-pic-height + 2 * @profile-pic-border; 
+      border-radius: ( @profile-pic-height ) / 2 + @profile-pic-border;
+      background-image: linear-gradient(to right, saturate(@pinkrose, 100%), saturate(@orange, 100%) );
+      text-align: center;
+      & img {
+        margin-top: @profile-pic-border;
+        height: @profile-pic-height;
+        width: @profile-pic-height;
+        border-radius: @profile-pic-height / 2;
+      }
+    }
+    padding: 0px 20px 20px 20px;
+  }
+
+  & .recommendation-tags {
+    padding: 20px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: @lightgray;
+  }
+}
+
+.reco-hr {
+  margin-top: 55px;
+}
+
+.comment-in-reco + .comment-in-reco {
+  margin-top: 20px;
+}
+
+.reco-bars {
+  & .reco-bar {
+    width: 23px;
+    &:extend( .inline-block );
+    vertical-align: bottom;
+    & .reco-stack {
+      display: block;
+      width: 23px;
+      height: 7px;
+      //border-radius: 3px;
+      background-color: transparent;
+      &.reco-stack-full {
+  background-image: linear-gradient(to left, saturate(@sun-flower, 100%), saturate(@pinkrose, 100%) );
+      }
+    }
+    & .reco-stack + .reco-stack {
+      //margin-top: 3px;
+    }
+  }
+}

@@ -10,9 +10,10 @@ angular.module( 'gogoreco.header', [
   };
 }])
 
-.controller( 'HeaderCtrl', ['$scope', 'Alerts', 'AppText', 'headerDict', '$state', function ContribtueController( $scope, Alerts, AppText, headerDict, $state ){
+.controller( 'HeaderCtrl', ['$scope', 'Alerts', 'AppText', 'headerDict', '$state', 'security', function ContribtueController( $scope, Alerts, AppText, headerDict, $state, security ){
   $scope.Alerts = Alerts;
   $scope.$state = $state;
+  $scope.security = security;
   $scope.translate = function( string ){
     return AppText.translate( headerDict, string );
   };
@@ -23,9 +24,9 @@ angular.module( 'gogoreco.header', [
     en: 'Contribute',
     fr: 'Contribuer'
   },
-  'my_classes': {
-    en: 'My classes',
-    fr: 'Mes cours'
+  'recommendations': {
+    en: 'Recommendations',
+    fr: 'Recommandations'
   },
   'search': {
     en: 'Search',

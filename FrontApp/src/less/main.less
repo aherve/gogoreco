@@ -20,6 +20,8 @@
 
 @import 'variables.less';
 @import 'animations.less';
+@import 'badge.less';
+@import 'login.less';
 
 
 
@@ -31,10 +33,11 @@
  */
 
 @import '../app/header/header.less';
+@import '../app/recommendations/recommendations.less';
 
 
 html, body {
-  background-color: @lightgray;
+  background-color: @lightgray-d;
 }
 
 .form-control {
@@ -51,39 +54,118 @@ html, body {
   text-align: center;
 }
 
-.badge {
-  padding: 4px 7px;
-  border-radius: 3px;
+.bold {
+  font-weight: bold;
 }
 
-.badge-orange {
-  background-color: @s-orange;
+.text-inverse {
+  color: white;
 }
 
-.badge-peter-river {
-  background-color: @s-peter-river;
+.inline-block {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
 }
 
-.badge-grapefruit {
-  background-color: @s-grapefruit;
+.text-pinkrose {
+  color: @pinkrose;
 }
 
-.badge-emerald {
-  background-color: @s-emerald;
+.text-sun-flower {
+  color: @sun-flower;
 }
 
-.badge-turquoise {
-  background-color: @s-turquoise;
+.text-emerald {
+  color: @emerald;
 }
 
-.badge-aqua {
-  background-color: @s-aqua;
+.text-grass {
+  color: @grass;
 }
 
-.badge-sunflower {
-  background-color: @s-sunflower;
+.text-lavander {
+  color: @lavander;
 }
 
-.badge-pinkrose {
-  background-color: @s-pinkrose;
+.text-orange {
+  color: @orange;
+}
+
+.text-sunflower {
+  color: @sunflower;
+}
+
+.text-peter {
+  color: @peter-river;
+}
+
+.text-carrot {
+  color: @carrot;
+}
+
+.text-turquoise {
+  color: @turquoise;
+}
+
+.text-mint {
+  color: @mint;
+}
+
+.text-emerald {
+  color: @emerald !important;
+}
+
+.text-sun {
+  color: @sun-flower;
+}
+
+.text-grapefruit {
+  color: @grapefruit;
+}
+
+.text-grass {
+  color: @grass;
+}
+
+.text-bittersweet {
+  color: @bittersweet;
+}
+
+.text-blue {
+  color: @brand-info;
+}
+
+.text-aqua {
+  color: @aqua;
+}
+
+.text-white {
+  color: white;
+}
+
+.text-purple {
+  color: @amethyst;
+}
+
+.form-search {
+  position: relative;
+}
+
+input.search-query {
+  padding-left: 30px;
+}
+
+.form-search:before {
+    content:'';
+    display: block;
+    width: 14px;
+    height: 14px;
+    background-image: url(http://getbootstrap.com/2.3.2/assets/img/glyphicons-halflings.png);
+    background-position: -48px 0;
+    position: absolute;
+    top:8px;
+    left:8px;
+    opacity: .5;
+    z-index: 1000;
 }

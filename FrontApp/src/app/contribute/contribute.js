@@ -1,6 +1,6 @@
 angular.module( 'gogoreco.contribute', [])
 
-.config(function config( $stateProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
   $stateProvider.state( 'contribute', {
     url: '/contribute',
     views: {
@@ -11,7 +11,7 @@ angular.module( 'gogoreco.contribute', [])
     },
     data:{ pageTitle: 'Contribute' }
   });
-})
+}])
 
 /**
  * And of course we define a controller for our route.
