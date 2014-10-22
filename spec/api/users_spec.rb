@@ -64,30 +64,30 @@ describe Gogoreco::V1::Users do
   end
   #}}}
 
-  #{{{ /me/add_schools
-  describe :add_schools do 
-    it "adds school to my account" do 
-      expect{
-        post 'users/me/add_schools', school_names: [n1 = 'haha',n2='hoho']
-        @user.reload
-      }.to change{School.count}.by(2)
-      expect(@user.school_ids.count).to eq 2
-      expect(School.last.student_ids).to eq [@user.id]
-    end
+  #{{{ /me/add_schools (deactivated)
+  #describe :add_schools do 
+  #  it "adds school to my account" do 
+  #    expect{
+  #      post 'users/me/add_schools', school_names: [n1 = 'haha',n2='hoho']
+  #      @user.reload
+  #    }.to change{School.count}.by(2)
+  #    expect(@user.school_ids.count).to eq 2
+  #    expect(School.last.student_ids).to eq [@user.id]
+  #  end
 
-    it "does not create new school if already existing" do 
-      s = FactoryGirl.create(:school)
-      expect(s.valid?).to be true
+  #  it "does not create new school if already existing" do 
+  #    s = FactoryGirl.create(:school)
+  #    expect(s.valid?).to be true
 
-      expect{
-        post 'users/me/add_schools', school_names: [s.name]
-        @user.reload
-        s.reload
-      }.to change{School.count}.by(0)
-      expect(@user.school_ids.count).to eq 1
-      expect(s.student_ids).to eq [@user.id]
-    end
-  end
+  #    expect{
+  #      post 'users/me/add_schools', school_names: [s.name]
+  #      @user.reload
+  #      s.reload
+  #    }.to change{School.count}.by(0)
+  #    expect(@user.school_ids.count).to eq 1
+  #    expect(s.student_ids).to eq [@user.id]
+  #  end
+  #end
   #}}}
 
 end

@@ -14,4 +14,6 @@ class School
 
   has_and_belongs_to_many :students, class_name: "User", inverse_of: :schools
 
+  has_and_belongs_to_many :items, class_name: "Item", inverse_of: :schools
+
 end
