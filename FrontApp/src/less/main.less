@@ -22,6 +22,7 @@
 @import 'animations.less';
 @import 'badge.less';
 @import 'login.less';
+@import 'buttons.less';
 
 
 
@@ -42,6 +43,8 @@ html, body {
 
 .form-control {
   border: 0;
+  border-radius: 0;
+  background-color: @lightgray-d;
 }
 
 .gr-well {
@@ -60,6 +63,10 @@ html, body {
 
 .text-inverse {
   color: white;
+}
+
+.text-bluejeans {
+  color: @bluejeans;
 }
 
 .inline-block {
@@ -168,4 +175,20 @@ input.search-query {
     left:8px;
     opacity: .5;
     z-index: 1000;
+}
+
+.btn-facebook {
+  background-color: @bluejeans;
+  color: white;
+  &:hover {
+    background-color: @bluejeans;
+  }
+}
+
+.text-facebook {
+  color: @bluejeans;
+}
+
+.pointer {
+  cursor: pointer;
 }
