@@ -91,8 +91,7 @@ class User
       end
 
       if loved_item_ids_changed? or liked_item_ids_changed? or loved_item_ids_changed?
-        item.save
-        self.save
+        return (item.save and self.save)
       end
 
   end

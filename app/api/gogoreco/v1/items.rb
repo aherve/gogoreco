@@ -105,9 +105,10 @@ module Gogoreco
             #{{{ evaluates
             desc "evaluates an item"
             params do 
-              requires :score, desc: "integer between 0 and 3"
+              requires :score, type: Integer, desc: "integer between 0 and 3"
             end
             put do
+
             end
             #}}}
 
