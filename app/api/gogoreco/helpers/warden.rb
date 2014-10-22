@@ -14,6 +14,11 @@ module Gogoreco
         !!current_user || error!("please login")
       end
 
+      def check_confirmed_user!
+        check_login!
+        current_user.confirmed_user? || error!("please confirm account")
+      end
+
     end
   end
 end
