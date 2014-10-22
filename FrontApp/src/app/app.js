@@ -7,18 +7,20 @@ angular.module( 'gogoreco', [
   'ui.bootstrap',
   'LocalStorageModule',
   'security',
+  'gogoreco.header',
   'gogoreco.config',
+  'gogoreco.welcome',
+  'gogoreco.startpage',
   'gogoreco.contribute',
   'gogoreco.recommendations',
   'gogoreco.usersConfirmation',
-  'gogoreco.header',
   'services.analytics',
   'services.alerts',
   'services.appText'
 ])
 
 .config( ['$stateProvider', '$urlRouterProvider', function myAppConfig ( $stateProvider, $urlRouterProvider ) {
-  $urlRouterProvider.otherwise( '/contribute' );
+  $urlRouterProvider.otherwise( '/start' );
 }])
 
 .config( ['$locationProvider', function( $locationProvider ){

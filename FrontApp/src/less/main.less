@@ -35,13 +35,15 @@
 
 @import '../app/header/header.less';
 @import '../app/recommendations/recommendations.less';
+@import '../app/welcome/welcome.less';
 
 
 html, body {
   background-color: @lightgray-d;
+  height: 100%;
 }
 
-.form-control {
+.form-control-grey {
   border: 0;
   border-radius: 0;
   background-color: @lightgray-d;
@@ -164,17 +166,17 @@ input.search-query {
 }
 
 .form-search:before {
-    content:'';
-    display: block;
-    width: 14px;
-    height: 14px;
-    background-image: url(http://getbootstrap.com/2.3.2/assets/img/glyphicons-halflings.png);
-    background-position: -48px 0;
-    position: absolute;
-    top:8px;
-    left:8px;
-    opacity: .5;
-    z-index: 1000;
+  content:'';
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-image: url(http://getbootstrap.com/2.3.2/assets/img/glyphicons-halflings.png);
+  background-position: -48px 0;
+  position: absolute;
+  top:8px;
+  left:8px;
+  opacity: .5;
+  z-index: 1000;
 }
 
 .btn-facebook {
@@ -182,7 +184,7 @@ input.search-query {
   color: white;
   &:hover {
     background-color: @bluejeans;
-  }
+}
 }
 
 .text-facebook {

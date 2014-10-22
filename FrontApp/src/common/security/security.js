@@ -5,12 +5,12 @@ angular.module('security.service', [
   'security.login'         // Contains the login form template and controller
 ])
 
-.factory('security', ['Analytics', 'Restangular', '$q', '$location', 'securityRetryQueue', '$modal', function(Analytics, Restangular, $q, $location, queue, $modal) {
+.factory('security', ['Analytics', 'Restangular', '$q', '$location', 'securityRetryQueue', '$modal', '$rootScope', function(Analytics, Restangular, $q, $location, queue, $modal, $rootScope) {
 
   // Redirect to the given url (defaults to '/')
   function redirect(url) {
-    url = url || '/';
-    $location.path(url);
+    url = url || '/start';
+    $location.path( url );
   }
 
   // Login form dialog stuff
@@ -112,7 +112,7 @@ angular.module('security.service', [
         lastname: lastname
       };
       return Restangular.all('users').post({user: user}).then(function(response) {
-        service.currentUser = response;
+        service.currentUser = response.user;
         try {
           Analytics.identify( response );
         }
@@ -136,11 +136,8 @@ angular.module('security.service', [
       return Restangular.all('users')
       .customGET('confirmation', {"confirmation_token": activationToken})
       .then(function(response) {
-        console.log( 'confirmation success' );
-        console.log( response );
         redirect("/start");
       }, function(error) {
-        console.log( 'confirmation error' );
         redirect("/start");
       });
     },
@@ -168,27 +165,39 @@ angular.module('security.service', [
 
     // Attempt to authenticate a user by the given email and password
     login: function(email, password) {
-      var user = {email: email, password: password};
-      var request = Restangular.all('users').all('sign_in').post({user: user});
-      return request.then(function(response) {
-        service.currentUser = response.user;
-        if ( service.isAuthenticated() ) {
-          closeLoginDialog(true);
+      var params = {
+        entities: {
+          user: {
+            firstname: true,
+            lastname: true
+          }
         }
-        return service.isAuthenticated();
+      };
+      var user = {email: email, password: password};
+      Restangular.all('users').all('sign_in').post({user: user}).then(function(response) {
+        return Restangular.all('users').customPOST(params, 'me').then( function( response ){
+          service.currentUser = response.user;
+          if ( service.isAuthenticated() ) {
+            $rootScope.$broadcast('login success');
+            closeEmailLoginModal(true);
+          }
+          return service.isAuthenticated();
+        });
       });
     },
 
     // Give up trying to login and clear the retry queue
     cancelLogin: function() {
-      closeLoginModal(false);
+      closeEmailLoginModal(false);
       redirect();
     },
 
     // Logout the current user and redirect
     logout: function(redirectTo) {
-      $http.post('/logout').then(function() {
+      return Restangular.all('users').customGET('sign_out').then(function() {
+        $rootScope.$broadcast('logout');
         service.currentUser = null;
+        Analytics.logout();
         redirect(redirectTo);
       });
     },
@@ -196,21 +205,20 @@ angular.module('security.service', [
     // Ask the backend to see if a user is already authenticated - this may be from a previous session.
     requestCurrentUser: function() {
       if ( service.isAuthenticated() ) {
-        console.log( service.currentUser );
         return $q.when(service.currentUser);
       } else {
         var params = {
           entities: {
             user: {
-              firstname: true
+              firstname: true,
+              lastname: true
             }
           }
         };
         return Restangular.all('users').customPOST(params, 'me' ).then(function(response) {
-          service.currentUser = response;
+          service.currentUser = response.user;
           return service.currentUser;
         }, function( err ){
-          console.log( err );
         });
       }
     },

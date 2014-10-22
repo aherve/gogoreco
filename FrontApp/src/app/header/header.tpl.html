@@ -13,15 +13,7 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="navbar-collapse" collapse="!isOpened">
-
-      <ul class="nav navbar-nav navbar-left" ng-show="security.isAuthenticated()">
-        <li ng-class="{'active': $state.$current == 'contribute'}" ng-click="nav('contribute')"><a href="" ng-bind="translate('contribute')"></a></li>
-        <li ng-class="{'active': $state.$current == 'recommendations'}" ng-click="nav('/recommendations')"><a href="" ng-bind="translate( 'recommendations' )"></a></li>
-      </ul>
-
-
-      
-      <form class="navbar-form navbar-right" role="search" ng-show="security.isAuthenticated()">
+      <form class="navbar-form navbar-left" role="search" ng-show="security.isAuthenticated()">
         <div class="form-group form-search">
           <input type="text" class="form-control search-query" ng-model="searchString" placeholder="{{ translate('search') }}" typeahead="result for result in ['lol', 'haha']">
         </div>
@@ -30,6 +22,7 @@
         -->
       </form>
 
+
       <ul class="nav navbar-nav navbar-right">
         <li ng-hide="security.isAuthenticated()" ng-click="security.showLogin()"><a>Connect</a></li>
         <li class="dropdown" ng-show="security.isAuthenticated()">
@@ -37,10 +30,16 @@
           <ul class="dropdown-menu" role="menu">
             <li><a href="#">Mon profil</a></li>
             <li class="divider"></li>
-            <li><a href="#">Déconnexion</a></li>
+            <li ng-click="security.logout()"><a href="#">Déconnexion</a></li>
           </ul>
         </li>
       </ul>
+
+      <ul class="nav navbar-nav navbar-left" ng-show="security.isAuthenticated()">
+        <li ng-class="{'active': $state.$current == 'contribute'}" ng-click="nav('contribute')"><a href="" ng-bind="translate('contribute')"></a></li>
+        <li ng-class="{'active': $state.$current == 'recommendations'}" ng-click="nav('/recommendations')"><a href="" ng-bind="translate( 'recommendations' )"></a></li>
+      </ul>
+
 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container -->

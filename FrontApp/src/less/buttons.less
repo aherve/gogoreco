@@ -1,0 +1,111 @@
+@btn-default-color: white;
+
+.btn {
+  .transition(~"border 0s linear, color 0s linear, background-color 0s linear");
+  //border-radius: 0px !important;
+  padding: 10px 16px;
+}
+
+.button-variant(@color; @background; @hover-background; @active-background; @disabled-background: @gray-light) {
+  color: @color;
+  background-color: @background;
+
+  &:hover,
+  &.hover,
+  &:focus,
+  &:active,
+  &.active,
+  .open .dropdown-toggle& {
+    color: @color;
+    background-color: @hover-background;
+    border-color: @hover-background;
+  }
+  &:active,
+  &.active,
+  .open .dropdown-toggle& {
+    background: @active-background;
+    border-color: @active-background;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &.hover,
+    &:focus,
+    &:active,
+    &.active {
+      background-color: @background;
+      border-color: @background;
+    }
+  }
+}
+
+.btn-pinkrose {
+  .button-variant(@btn-default-color, @pinkrose, @pinkrose, @pinkrose);
+}
+
+.btn-asphalt {
+  .button-variant(@btn-default-color, @wet-asphalt, lighten(@wet-asphalt, 8%), @wet-asphalt);
+}
+
+.btn-orange {
+  // font-weight: bold;
+  .button-variant(@btn-default-color, @orange, @orange, @orange);
+}
+
+.btn-bittersweet {
+  .button-variant(@btn-default-color, @bittersweet, @bittersweet, @bittersweet);
+}
+
+.btn-grapefruit {
+  .button-variant(@btn-default-color, @grapefruit, @grapefruit, @grapefruit);
+}
+
+.btn-mint {
+  .button-variant(white, @mint, @mint, @mint);
+}
+
+.btn-ss-mint {
+  .button-variant(white, @ss-mint, @ss-mint, @ss-mint);
+}
+
+.btn-sunflower {
+  .button-variant(@btn-default-color, @sunflower, lighten(@sunflower, 10%), @sunflower);
+}
+
+.btn-sunflower-d {
+  .button-variant(@btn-default-color, @sunflower-d, @sunflower-d, @sunflower-d);
+}
+.btn-grass {
+  .button-variant(@btn-default-color, @grass, @grass, @grass);
+}
+
+.btn-purple {
+  // font-weight: bold;
+  .button-variant(@btn-default-color, @amethyst, lighten(@amethyst, 5%), @amethyst);
+}
+
+.btn-bluejeans {
+  .button-variant(@btn-default-color, @bluejeans, @bluejeans, @bluejeans);
+}
+
+.btn-info {
+  &:extend( .btn-bluejeans );
+}
+
+.btn-success {
+  &:extend( .btn-mint );
+}
+
+.btn-warning {
+  &:extend( .btn-sunflower );
+}
+
+.btn-enter {
+  .button-variant(@wet-asphalt, white, white, white);
+  border: 1px solid @mediumgray;
+  &:hover {
+    border: 1px solid @mediumgray;
+  }
+}

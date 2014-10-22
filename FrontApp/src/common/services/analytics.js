@@ -21,6 +21,9 @@ angular.module('services.analytics', [])
     },
     
     cancelForgotPassword: function(){
+    },
+
+    logout: function(){
     }
   };
   return Analytics;
