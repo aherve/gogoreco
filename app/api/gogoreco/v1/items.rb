@@ -28,7 +28,7 @@ module Gogoreco
           if params[:search]
             found = found.where(autocomplete: /#{Autocomplete.normalize(params[:search])}/)
           end
-          
+
           nmax = params[:nmax] || 10
 
           items = found.take(nmax) 
@@ -46,17 +46,7 @@ module Gogoreco
         post :create do 
           check_confirmed_user!
 
-          tags = unless params[:tag_names].blank?
-                   params[:tag_names].uniq{|name| Autocomplete.normalize(name)}.map do |name|
-                     if found = Tag.find_by(autocomplete: Autocomplete.normalize(name))
-                       found
-                     else
-                       Tag.new(name: name)
-                     end
-                   end
-                 else
-                   []
-                 end
+          tags = Tag.find_or_new_by_names(params[:tag_names])
 
           schools = params[:school_names].uniq{|name| Autocomplete.normalize(name)}.map do |name|
             if found = School.find_by(autocomplete: Autocomplete.normalize(name))
@@ -97,6 +87,67 @@ module Gogoreco
             present @item, with: Gogoreco::Entities::Item, entity_options: entity_options
           end
           #}}}
+
+          namespace :tags do 
+
+            #{{{ add
+            desc "add tags by name"
+            params do 
+              requires :tag_names, type: Array, desc: "names of the tags to add"
+            end
+            post do
+              check_confirmed_user!
+              error!("please provide tag_names") if params[:tag_names].blank?
+              tags = Tag.find_or_new_by_names(params[:tag_names])
+
+              @item.tags << tags
+              if (tags.map(&:save) << @item.save).reduce(:&)
+                present @item, with: Gogoreco::Entities::Item, entity_options: entity_options
+              else
+                error!("something went wrong")
+              end
+            end
+            #}}}
+
+            #{{{ remove
+            desc "remove tags by name"
+            params do 
+              requires :tag_names, type: Array, desc: "names of the tags to remove"
+            end
+            delete do 
+              check_confirmed_user!
+              error!("please provide tag_names") if params[:tag_names].blank?
+              tags = Tag.find_or_new_by_names(params[:tag_names])
+
+              @item.tags -= tags
+              if (tags.map(&:save) << @item.save).reduce(:&)
+                present @item, with: Gogoreco::Entities::Item, entity_options: entity_options
+              else
+                error!("something went wrong")
+              end
+            end
+            #}}}
+
+            #{{{ put
+            desc "set the tag list"
+            params do 
+              requires :tag_names, type: Array, desc: "names of the tags to set"
+            end
+            put do 
+              check_confirmed_user!
+              error!("please provide tag_names") if params[:tag_names].blank?
+              tags = Tag.find_or_new_by_names(params[:tag_names])
+
+              @item.tags = tags
+              if (tags.map(&:save) << @item.save).reduce(:&)
+                present @item, with: Gogoreco::Entities::Item, entity_options: entity_options
+              else
+                error!("something went wrong")
+              end
+            end
+            #}}}
+
+          end
 
           namespace :comments do 
 

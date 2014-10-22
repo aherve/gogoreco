@@ -119,4 +119,45 @@ describe Gogoreco::V1::Items do
   end
   #}}}
 
+  #{{{ tags
+  describe :tags do
+    before do 
+      @i = FactoryGirl.create(:item)
+      @t = FactoryGirl.create(:tag)
+      @i.tags << @t ; @t.items << @i 
+      @i.save ; @t.save ; @i.reload ; @t.reload
+
+      @fancy_name = "hahaha hohoho huhuhu"
+    end
+
+    describe :add do
+      it "adds tag" do 
+        expect{
+        post "/items/#{@i.id}/tags", tag_names: [@t.name, @fancy_name]
+        @i.reload
+        }.to change{@i.tags.map(&:name).sort}.from([@t.name]).to([@t.name,@fancy_name].sort)
+      end
+    end
+
+    describe :remove do 
+      it 'removes tags' do 
+        expect{
+        delete "/items/#{@i.id}/tags", tag_names: [@t.name, @fancy_name]
+        @i.reload
+        }.to change{@i.tags.map(&:name).sort}.from([@t.name]).to([])
+      end
+    end
+
+    describe :put do
+      it "set tags" do 
+        expect{
+        put "/items/#{@i.id}/tags", tag_names: [@fancy_name]
+        @i.reload
+        }.to change{@i.tags.map(&:name).sort}.from([@t.name]).to([@fancy_name])
+      end
+    end
+
+  end
+  #}}}
+
 end
