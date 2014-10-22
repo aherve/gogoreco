@@ -1,12 +1,18 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
+  include PrettyId
+
+  field :firstname
+  field :lastname
+
+  has_and_belongs_to_many :schools, class_name: "School", inverse_of: :students
 
   #{{{ devise
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+    :recoverable, :rememberable, :trackable, :validatable, :confirmable
   devise :omniauthable, :omniauth_providers => [:facebook]
 
   ## Database authenticatable
@@ -28,15 +34,32 @@ class User
   field :last_sign_in_ip,    type: String
 
   # Confirmable
-   field :confirmation_token,   type: String
-   field :confirmed_at,         type: Time
-   field :confirmation_sent_at, type: Time
-   field :unconfirmed_email,    type: String # Only if using reconfirmable
+  field :confirmation_token,   type: String
+  field :confirmed_at,         type: Time
+  field :confirmation_sent_at, type: Time
+  field :unconfirmed_email,    type: String # Only if using reconfirmable
 
   ## Lockable
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
+
+  def sign_in_json
+    {
+      id: pretty_id,
+      email: email,
+      firstname: firstname,
+      lastname: lastname,
+    }
+  end
   #}}}
+
+  def public_email(who_asks)
+    public_email = if who_asks == self
+                     email
+                   else
+                     :hidden
+                   end
+  end
 
 end

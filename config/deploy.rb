@@ -1,11 +1,11 @@
 # config valid only for Capistrano 3.1
-lock '3.2.1'
+#lock '3.2.0'
 
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 set :default_shell, "bash -l"
 
-set :application, 'gogoreco'
-set :repo_url, 'git@github.com:ShapterCrew/gogoreco.git'
+set :application, 'gogoreco_api'
+set :repo_url, 'git@github.com:GogorecoCrew/gogoreco.git'
 
 set :user, 'ubuntu'
 set :ssh_options,{
@@ -19,8 +19,7 @@ set :ssh_options,{
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
-# set :deploy_to, '/var/www/my_app'
-set :deploy_to, '/var/www/gogoreco'
+ set :deploy_to, '/var/www/gogoreco_api'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -35,7 +34,7 @@ set :deploy_to, '/var/www/gogoreco'
 # set :pty, true
 
 # Default value for :linked_files is []
- set :linked_files, %w{config/mongoid.yml config/initializers/behave_io.rb config/initializers/secret_token.rb config/initializers/aws_credentials.rb config/initializers/facebook.rb FrontApp/src/app/config/config.js}
+ set :linked_files, %w{config/mongoid.yml config/initializers/behave_io.rb config/initializers/secret_token.rb config/initializers/aws_credentials.rb FrontApp/src/app/config/config.js}
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}

@@ -1,6 +1,21 @@
 GIT
+  remote: git://github.com/intridea/grape.git
+  revision: 1fe9e435c80dd2dd85dd75f8d9a19c44eee2c3f3
+  specs:
+    grape (0.8.1)
+      activesupport
+      builder
+      hashie (>= 2.1.0)
+      multi_json (>= 1.3.2)
+      multi_xml (>= 0.5.2)
+      rack (>= 1.3.0)
+      rack-accept
+      rack-mount
+      virtus (>= 1.0.0)
+
+GIT
   remote: git://github.com/mongoid/mongoid.git
-  revision: f4f489e45adb0059fae6854d8a29ebb79cc6c8fd
+  revision: 8cb17e9839973b76295cf87189e91a5ffcc03ab0
   specs:
     mongoid (4.0.0)
       activemodel (~> 4.0)
@@ -10,56 +25,51 @@ GIT
 
 GIT
   remote: git://github.com/plataformatec/devise.git
-  revision: e96c9c961bc9b928056d6b6b00c2ab01ecb7f73b
+  revision: 447b7030f856a3e1e9a08f3cc038977587420b9c
   branch: master
   specs:
-    devise (3.4.0)
+    devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
-      responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    ZenTest (4.11.0)
-    actionmailer (4.1.6)
-      actionpack (= 4.1.6)
-      actionview (= 4.1.6)
-      mail (~> 2.5, >= 2.5.4)
-    actionpack (4.1.6)
-      actionview (= 4.1.6)
-      activesupport (= 4.1.6)
+    ZenTest (4.10.1)
+    actionmailer (4.0.3)
+      actionpack (= 4.0.3)
+      mail (~> 2.5.4)
+    actionpack (4.0.3)
+      activesupport (= 4.0.3)
+      builder (~> 3.1.0)
+      erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    actionview (4.1.6)
-      activesupport (= 4.1.6)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-    activemodel (4.1.6)
-      activesupport (= 4.1.6)
-      builder (~> 3.1)
-    activerecord (4.1.6)
-      activemodel (= 4.1.6)
-      activesupport (= 4.1.6)
-      arel (~> 5.0.0)
-    activesupport (4.1.6)
-      i18n (~> 0.6, >= 0.6.9)
-      json (~> 1.7, >= 1.7.7)
-      minitest (~> 5.1)
+    activemodel (4.0.3)
+      activesupport (= 4.0.3)
+      builder (~> 3.1.0)
+    activerecord (4.0.3)
+      activemodel (= 4.0.3)
+      activerecord-deprecated_finders (~> 1.0.2)
+      activesupport (= 4.0.3)
+      arel (~> 4.0.0)
+    activerecord-deprecated_finders (1.0.3)
+    activesupport (4.0.3)
+      i18n (~> 0.6, >= 0.6.4)
+      minitest (~> 4.2)
+      multi_json (~> 1.3)
       thread_safe (~> 0.1)
-      tzinfo (~> 1.1)
-    arel (5.0.1.20140414130214)
+      tzinfo (~> 0.3.37)
+    arel (4.0.2)
     autotest-rails (4.2.1)
       ZenTest (~> 4.5)
-    aws-sdk (1.56.0)
-      aws-sdk-v1 (= 1.56.0)
-    aws-sdk-v1 (1.56.0)
+    aws-sdk (1.50.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
-    aws-ses (0.6.0)
+    aws-ses (0.5.0)
       builder
       mail (> 2.2.5)
       mime-types
@@ -74,47 +84,55 @@ GEM
       json (~> 1.8)
     bson (2.3.0)
     bson_ext (1.5.1)
-    builder (3.2.2)
-    byebug (3.5.1)
+    builder (3.1.4)
+    byebug (3.1.2)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
-      slop (~> 3.6)
     capistrano (3.2.1)
       i18n
       rake (>= 10.0.0)
       sshkit (~> 1.3)
-    capistrano-bundler (1.1.3)
-      capistrano (~> 3.1)
+    capistrano-bundler (1.1.2)
+      capistrano (~> 3.0)
       sshkit (~> 1.2)
     capistrano-chruby (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.3)
-    capistrano-rails (1.1.2)
+    capistrano-rails (1.1.1)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
     capistrano-rbenv (2.0.2)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
-    capistrano-rvm (0.1.2)
+    capistrano-rvm (0.1.1)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+    carrierwave-mongoid (0.7.1)
+      carrierwave (>= 0.8.0, < 0.11.0)
+      mongoid (>= 3.0, < 5.0)
+      mongoid-grid_fs (>= 1.3, < 3.0)
     certified (1.0.0)
     chronic (0.10.2)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    coffee-rails (4.1.0)
+    coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
     coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.8.0)
+    coffee-script-source (1.7.1)
     colorize (0.7.3)
     columnize (0.8.9)
     connection_pool (2.0.0)
     daemons (1.1.9)
     debugger-linecache (1.2.0)
-    delayed_job (4.0.4)
+    delayed_job (4.0.2)
       activesupport (>= 3.0, < 4.2)
     delayed_job_mongoid (2.1.0)
       delayed_job (>= 3.0, < 5)
@@ -124,25 +142,40 @@ GEM
     diff-lcs (1.2.5)
     equalizer (0.0.9)
     erubis (2.7.0)
-    execjs (2.2.2)
-    factory_girl (4.5.0)
+    excon (0.38.0)
+    execjs (2.2.1)
+    factory_girl (4.4.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.5.0)
-      factory_girl (~> 4.5.0)
+    factory_girl_rails (4.4.1)
+      factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
-    grape (0.8.0)
-      activesupport
+    fog (1.23.0)
+      fog-brightbox
+      fog-core (~> 1.23)
+      fog-json
+      fog-softlayer
+      ipaddress (~> 0.5)
+      nokogiri (~> 1.5, >= 1.5.11)
+    fog-brightbox (0.1.1)
+      fog-core (~> 1.22)
+      fog-json
+      inflecto
+    fog-core (1.23.0)
       builder
-      hashie (>= 2.1.0)
-      multi_json (>= 1.3.2)
-      multi_xml (>= 0.5.2)
-      rack (>= 1.3.0)
-      rack-accept
-      rack-mount
-      virtus (>= 1.0.0)
-    grape-entity (0.4.4)
+      excon (~> 0.38)
+      formatador (~> 0.2)
+      mime-types
+      net-scp (~> 1.1)
+      net-ssh (>= 2.1.3)
+    fog-json (1.0.0)
+      multi_json (~> 1.0)
+    fog-softlayer (0.3.11)
+      fog-core
+      fog-json
+    formatador (0.2.5)
+    grape-entity (0.4.3)
       activesupport
       multi_json (>= 1.3.2)
     grape-swagger (0.7.2)
@@ -152,30 +185,36 @@ GEM
     grape-swagger-rails (0.0.8)
       grape-swagger (~> 0.7.2)
       railties (>= 3.2.12)
-    hashie (3.3.1)
+    hashie (3.2.0)
     hike (1.2.3)
     httparty (0.13.1)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.6.11)
     ice_nine (0.11.0)
+    inflecto (0.0.2)
+    ipaddress (0.8.0)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
-    jquery-rails (3.1.2)
+    jquery-rails (3.1.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
     jwt (1.0.0)
-    kramdown (1.4.2)
-    mail (2.6.1)
-      mime-types (>= 1.16, < 3)
-    mime-types (2.4.2)
+    kramdown (1.4.0)
+    mail (2.5.4)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    mime-types (1.25.1)
     mini_portile (0.6.0)
-    minitest (5.4.2)
+    minitest (4.7.5)
     mongo_session_store-rails4 (5.1.0)
       actionpack (>= 3.1)
-    moped (2.0.1)
+    mongoid-grid_fs (2.1.0)
+      mime-types (>= 1.0, < 3.0)
+      mongoid (>= 3.0, < 5.0)
+    moped (2.0.0)
       bson (~> 2.2)
       connection_pool (~> 2.0)
       optionable (~> 0.2.0)
@@ -196,8 +235,8 @@ GEM
     omniauth (1.2.2)
       hashie (>= 1.2, < 4)
       rack (~> 1.0)
-    omniauth-facebook (2.0.0)
-      omniauth-oauth2 (~> 1.2)
+    omniauth-facebook (1.6.0)
+      omniauth-oauth2 (~> 1.1)
     omniauth-oauth2 (1.2.0)
       faraday (>= 0.8, < 0.10)
       multi_json (~> 1.3)
@@ -206,6 +245,8 @@ GEM
     optionable (0.2.0)
     origin (2.1.1)
     orm_adapter (0.5.0)
+    pbkdf2_password_hasher (0.1.0)
+    polyglot (0.3.5)
     rack (1.5.2)
     rack-accept (0.4.5)
       rack (>= 0.4)
@@ -216,19 +257,17 @@ GEM
       rack (>= 1.0.0)
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (4.1.6)
-      actionmailer (= 4.1.6)
-      actionpack (= 4.1.6)
-      actionview (= 4.1.6)
-      activemodel (= 4.1.6)
-      activerecord (= 4.1.6)
-      activesupport (= 4.1.6)
+    rails (4.0.3)
+      actionmailer (= 4.0.3)
+      actionpack (= 4.0.3)
+      activerecord (= 4.0.3)
+      activesupport (= 4.0.3)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.1.6)
-      sprockets-rails (~> 2.0)
-    railties (4.1.6)
-      actionpack (= 4.1.6)
-      activesupport (= 4.1.6)
+      railties (= 4.0.3)
+      sprockets-rails (~> 2.0.0)
+    railties (4.0.3)
+      actionpack (= 4.0.3)
+      activesupport (= 4.0.3)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.3.2)
@@ -252,8 +291,6 @@ GEM
       redis-store (~> 1.1.0)
     redis-store (1.1.4)
       redis (>= 2.2)
-    responders (1.1.1)
-      railties (>= 3.2, < 4.2)
     rspec-autotest (1.0.0)
       rspec-core (>= 2.99.0.beta1, < 4.0.0)
     rspec-core (3.1.7)
@@ -272,17 +309,21 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.2)
-    slop (3.6.0)
-    spring (1.1.3)
-    sprockets (2.12.2)
+    sass (3.2.19)
+    sass-rails (4.0.3)
+      railties (>= 4.0.0, < 5.0)
+      sass (~> 3.2.0)
+      sprockets (~> 2.8, <= 2.11.0)
+      sprockets-rails (~> 2.0)
+    sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.2.0)
+    sprockets-rails (2.0.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
-      sprockets (>= 2.8, < 4.0)
+      sprockets (~> 2.8)
     sshkit (1.5.1)
       colorize
       net-scp (>= 1.1.2)
@@ -290,10 +331,15 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
-    turbolinks (2.4.0)
+    treetop (1.4.15)
+      polyglot
+      polyglot (>= 0.3.1)
+    turbolinks (2.2.2)
       coffee-rails
-    tzinfo (1.2.2)
-      thread_safe (~> 0.1)
+    tzinfo (0.3.40)
+    uglifier (2.5.3)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
     virtus (1.0.3)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -319,29 +365,33 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rbenv
   capistrano-rvm
+  carrierwave-mongoid
   certified
+  coffee-rails (~> 4.0.0)
   daemons
   delayed_job_mongoid
   devise!
   factory_girl_rails
   faraday
-  grape (= 0.8.0)
+  fog
+  grape!
   grape-entity
-  grape-swagger (= 0.7.2)
-  grape-swagger-rails (= 0.0.8)
+  grape-swagger-rails
   jbuilder (~> 1.2)
   jquery-rails
   mongo_session_store-rails4
   mongoid!
   omniauth-facebook
+  pbkdf2_password_hasher (~> 0.1.0)
   rack-cors
-  rails (= 4.1.6)
+  rails (= 4.0.3)
   redis-rack-cache
   redis-rails
   redis-store
   rspec-autotest
-  rspec-rails
-  spring
+  rspec-rails (~> 3)
+  sass-rails (~> 4.0.0)
   thor
   turbolinks
+  uglifier (>= 1.3.0)
   whenever
