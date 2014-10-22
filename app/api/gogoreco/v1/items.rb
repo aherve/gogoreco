@@ -108,7 +108,12 @@ module Gogoreco
               requires :score, type: Integer, desc: "integer between 0 and 3"
             end
             put do
-
+              check_confirmed_user!
+              if current_user.evaluate_item!(@item,params[:score])
+                present status: :success
+              else
+                error!("something went wrong")
+              end
             end
             #}}}
 
