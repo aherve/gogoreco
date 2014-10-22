@@ -10,12 +10,7 @@ class User
 
   has_many :created_items, class_name: "Item", inverse_of: "creator"
   has_many :comments, class_name: "Comment", inverse_of: "author"
-
-  has_and_belongs_to_many :hated_items, class_name: "Item", inverse_of: "haters"
-  has_and_belongs_to_many :mehed_items, class_name: "Item", inverse_of: "mehers"
-  has_and_belongs_to_many :liked_items, class_name: "Item", inverse_of: "likers"
-  has_and_belongs_to_many :loved_items, class_name: "Item", inverse_of: "lovers"
-
+  has_many :evaluations, class_name: "Evaluation", inverse_of: :author
 
   #{{{ devise
   # Include default devise modules. Others available are:
@@ -79,25 +74,32 @@ class User
     raise "#{item} is no Item" unless item.is_a? Item
     raise "score should be in [0..4]" unless score.is_a? Integer and score >= 0 and score <= 4
 
-      item.haters.delete(self)
-      item.mehers.delete(self)
-      item.likers.delete(self)
-      item.lovers.delete(self)
-
-      if score == 1
-        item.haters << self
-      elsif score == 2
-        item.mehers << self
-      elsif score == 3
-        item.likers << self
-      elsif score == 4
-        item.lovers << self
+    if score == 0
+      if e = Evaluation.find_by(author_id: self.id, item_id: item.id)
+        e.destroy
       end
+    else
+      e = Evaluation.find_or_create_by(author_id: self.id, item_id: item.id)
+      e.update_attribute(:score, score)
+    end
 
-      if loved_item_ids_changed? or liked_item_ids_changed? or loved_item_ids_changed?
-        return (item.save and self.save)
-      end
 
+  end
+
+  def loved_item_ids
+    Evaluation.where(author_id: self.id, score: 4).distinct(:item_id)
+  end
+
+  def liked_item_ids
+    Evaluation.where(author_id: self.id, score: 3).distinct(:item_id)
+  end
+
+  def mehed_item_ids
+    Evaluation.where(author_id: self.id, score: 2).distinct(:item_id)
+  end
+
+  def hated_item_ids
+    Evaluation.where(author_id: self.id, score: 1).distinct(:item_id)
   end
 
 end

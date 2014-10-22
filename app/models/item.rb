@@ -18,40 +18,52 @@ class Item
 
   has_many :comments, class_name: "Comment", inverse_of: "item"
 
-  has_and_belongs_to_many :haters, class_name: "User", inverse_of: :hated_items
-  has_and_belongs_to_many :mehers, class_name: "User", inverse_of: :mehed_items
-  has_and_belongs_to_many :likers, class_name: "User", inverse_of: :liked_items
-  has_and_belongs_to_many :lovers, class_name: "User", inverse_of: :loved_items
+  has_many :evaluations, class_name: "Evaluation", inverse_of: :item
+
+  #has_and_belongs_to_many :haters, class_name: "User", inverse_of: :hated_items
+  #has_and_belongs_to_many :mehers, class_name: "User", inverse_of: :mehed_items
+  #has_and_belongs_to_many :likers, class_name: "User", inverse_of: :liked_items
+  #has_and_belongs_to_many :lovers, class_name: "User", inverse_of: :loved_items
+
+  def hater_ids
+    evaluations.where(score: 1).distinct(:author_id)
+  end
+
+  def meher_ids
+    evaluations.where(score: 2).distinct(:author_id)
+  end
+
+  def liker_ids
+    evaluations.where(score: 3).distinct(:author_id)
+  end
+
+  def lover_ids
+    evaluations.where(score: 4).distinct(:author_id)
+  end
 
   def comments_count
     comments.count
   end
 
   def haters_count
-    hater_ids.size
+    hater_ids.count
   end
 
   def likers_count
-    liker_ids.size
+    liker_ids.count
   end
 
   def lovers_count
-    lover_ids.size
+    lover_ids.count
   end
 
   def mehers_count
-    meher_ids.size
+    meher_ids.count
   end
 
   def user_eval_score(user)
-    if    lover_ids.include? user.id
-      4
-    elsif liker_ids.include? user.id
-      3
-    elsif meher_ids.include? user.id
-      2
-    elsif hater_ids.include? user.id
-      1
+    if (e = Evaluation.find_by(item_id: id, author_id: user.id))
+      e.score
     else
       0
     end
