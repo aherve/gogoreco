@@ -1,6 +1,7 @@
 // Based loosely around work by Witold Szczerba - https://github.com/witoldsz/angular-http-auth
 angular.module('security.service', [
   'security.retryQueue',    // Keeps track of failed requests that need to be retried once the user logs in
+  'security.forgotPassword',
   'security.login'         // Contains the login form template and controller
 ])
 
@@ -50,6 +51,43 @@ angular.module('security.service', [
     }
   }
 
+  // forgot password dialog stuff
+  var forgotPasswordModal = null;
+  function openForgotPasswordModal () {
+    if ( forgotPasswordModal ) {
+      throw new Error('Trying to open a modal that is already open!');
+    }
+    forgotPasswordModal = $modal.open({
+      templateUrl: 'security/forgotPassword/forgotPassword.tpl.html',
+      controller : 'ForgotPasswordFormController',
+      windowClass : 'show'
+    });
+
+    forgotPasswordModal.result.then(function(success){
+      onForgotPasswordModalClose(success);
+    }, function(error){
+      forgotPasswordModal = null;
+      queue.cancelAll();
+      //redirect();
+    });
+  }
+
+
+  function closeForgotPasswordModal(success) {
+    if (forgotPasswordModal) {
+      forgotPasswordModal.close(success);
+    }
+  }
+
+  function onForgotPasswordModalClose(success) {
+    forgotPasswordModal = null;
+    if ( success ) {
+      //queue.retryAll();
+    } else {
+      queue.cancelAll();
+    }
+  }
+
   // Register a handler for when an item is added to the retry queue
   queue.onItemAddedCallbacks.push(function(retryItem) {
     if ( queue.hasMore() ) {
@@ -65,10 +103,67 @@ angular.module('security.service', [
       return queue.retryReason();
     },
 
+    signup: function(email, password, firstname, lastname){
+      var user = {
+        email: email,
+        password: password,
+        password_confirmation: password,
+        firstname: firstname,
+        lastname: lastname
+      };
+      return Restangular.all('users').post({user: user}).then(function(response) {
+        service.currentUser = response;
+        try {
+          Analytics.identify( response );
+        }
+        catch( err ){
+          console.log( err );
+        }
+
+        Analytics.signupSuccess();
+        Analytics.confirmationMailSent( 'email' );
+
+
+        closeEmailLoginModal(true);
+        redirect('/confirmationSent');
+
+        return {success: true};
+      });
+    },
+
+    //Activate the user
+    activateUser: function(activationToken) {
+      return Restangular.all('users')
+      .customGET('confirmation', {"confirmation_token": activationToken})
+      .then(function(response) {
+        console.log( 'confirmation success' );
+        console.log( response );
+        redirect("/start");
+      }, function(error) {
+        console.log( 'confirmation error' );
+        redirect("/start");
+      });
+    },
+
     // Show the modal login dialog
     showLogin: function() {
       openLoginModal();
       Analytics.showLogin();
+    },
+
+    // open forgot password modal
+    showForgotPassword: function(){
+      Analytics.forgotPassword();
+      openForgotPasswordModal();
+    },
+
+    cancelForgotPassword: function(){
+      Analytics.cancelForgotPassword();
+      closeForgotPasswordModal(false);
+    },
+
+    closeForgotPasswordModalService: function(){
+      closeForgotPasswordModal(true);
     },
 
     // Attempt to authenticate a user by the given email and password
@@ -118,6 +213,16 @@ angular.module('security.service', [
           console.log( err );
         });
       }
+    },
+
+    forgotPassword: function(email){
+      return Restangular.all('users').all("password").post({user: {email:email}}).then(function(response) {
+        Analytics.successChangePassword();
+        service.closeForgotPasswordModalService();
+        return response;
+      }, function(x){
+        return {success: false};
+      });
     },
 
     // Information about the current user

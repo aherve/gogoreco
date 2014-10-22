@@ -10,6 +10,7 @@ angular.module( 'gogoreco', [
   'gogoreco.config',
   'gogoreco.contribute',
   'gogoreco.recommendations',
+  'gogoreco.usersConfirmation',
   'gogoreco.header',
   'services.analytics',
   'services.alerts',
@@ -67,7 +68,7 @@ angular.module( 'gogoreco', [
   };
 
   RestangularProvider
-  .setBaseUrl('/api/v1/')
+  .setBaseUrl('/api/')
   .setRequestSuffix('/?format=json')
   .setDefaultHttpFields({
     withCredentials: true,
