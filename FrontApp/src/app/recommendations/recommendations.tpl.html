@@ -1,0 +1,104 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="lead center">
+      Centrale Lyon <span class="caret"></span>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="form-group form-search" style="margin-bottom: 15px">
+      <input class="form-control search-query" placeholder="Trouve des cours recommandés à Centrale Lyon">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2" ng-repeat="i in [0, 1, 2, 3, 4, 5, 6, 7, 8]">
+    <div class="recommendation">
+      <div class="recommendation-heading">
+        <div class="lead ">Approximation numérique des équations aux dérivées partielles</div>
+      </div>
+      <div class="recommendation-divider">
+        <div class="row">
+          <div class="col-xs-3 col-sm-4">
+            <hr class="reco-hr">
+          </div>
+          <div class="col-xs-6 col-sm-4">
+            <div class="reco-bars">
+
+              <div class="reco-bar reco-bar-love">
+                <div class="reco-stack reco-stack-empty" ng-repeat="i in [0, 1, 2]"></div>
+                <div class="reco-bar-icon">
+                  <span class="fa fa-heart-o"></span>
+                </div>
+                <div class="reco-stack reco-stack-full" ng-repeat="i in [0, 1]"></div>
+                <small>10</small>
+              </div>
+
+              <div class="reco-bar reco-bar-reco">
+                <div class="reco-stack reco-stack-empty" ng-repeat="i in [0, 1]"></div>
+                <div class="reco-bar-icon">
+                  <span class="fa fa-smile-o"></span>
+                </div>
+                <div class="reco-stack reco-stack-full" ng-repeat="i in [0, 1, 2]"></div>
+                <small>12</small>
+              </div>
+              <div class="reco-bar reco-bar-meh">
+                <div class="reco-stack reco-stack-empty" ng-repeat="i in []"></div>
+                <div class="reco-bar-icon">
+                  <span class="fa fa-meh-o"></span>
+                </div>
+                <div class="reco-stack reco-stack-full" ng-repeat="i in [0, 1, 2, 3, 4]"></div>
+                <small>12</small>
+              </div>
+              <div class="reco-bar reco-bar-unreco">
+                <div class="reco-stack reco-stack-empty" ng-repeat="i in [0, 1, 2, 3]"></div>
+                <div class="reco-bar-icon">
+                  <span class="fa fa-frown-o"></span>
+                </div>
+                <div class="reco-stack reco-stack-full" ng-repeat="i in [0]"></div>
+                <small>12</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-3 col-sm-4">
+            <hr class="reco-hr">
+          </div>
+        </div>
+      </div>
+      <div class="recommendation-body">
+        <div class="comment-in-reco">
+          <div class="inline-block">
+            <a class="pull-left">
+              <div class="profile-pic">
+                <img src="assets/images/logo_silver_square.png">
+              </div>
+            </a>
+          </div>
+          <div class="inline-block inline-block-text">
+            <span class="bold">Alexandre Hervé </span>
+            J'ai adoré ce cours, c'était vraiment de la balle, et tout et etout et j'ai plein de choses  à raconter dessus vu que je sais écrire depuis que je suis allé au cp
+          </div>
+        </div>
+        <div class="comment-in-reco">
+          <div class="inline-block">
+            <a class="pull-left">
+              <div class="profile-pic">
+                <img src="assets/images/logo_silver_square.png">
+              </div>
+            </a>
+          </div>
+          <div class="inline-block inline-block-text">
+            <span class="bold">Alexandre Hervé </span>
+            J'ai adoré ce cours, c'était vraiment de la balle, et tout et etout et j'ai plein de choses  à raconter dessus vu que je sais écrire depuis que je suis allé au cp
+          </div>
+        </div>
+      </div>
+      <div class="recommendation-tags">
+        <span class="badge badge-mint">Semestre 8</span>
+        <span class="badge badge-mint">Maths</span>
+        <span class="badge badge-mint">Monsieur trololo</span>
+      </div>
+    </div>
+  </div>
+</div>
