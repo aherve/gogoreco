@@ -9,6 +9,7 @@ module Gogoreco
       expose :schools, using: Gogoreco::Entities::School, if: lambda{|e,o| o[:entity_options]["evaluation"][:schools]}
       expose :author, using: Gogoreco::Entities::User, if: lambda{|e,o| o[:entity_options]["evaluation"][:author]}
       expose :item, using: Gogoreco::Entities::Item, if: lambda{|e,o| o[:entity_options]["evaluation"][:item]}
+      expose :related_comments, using: Gogoreco::Entities::Comment, if: lambda{|e,o| o[:entity_options]["evaluation"][:related_comments]}
 
     end
   end
