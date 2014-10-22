@@ -8,12 +8,30 @@ module Gogoreco
         #{{{ typeahead
         desc "typeahead on item names"
         params do 
-          requires :search, type: String, desc: "search string"
+          optional :search, type: String, desc: "search string"
           optional :nmax, type: Integer, desc: "max number of results (default 10)", default: 10
+          optional :tag_ids, type: Array, desc: "filter by tags"
+          optional :school_ids, type: Array, desc: "filter by schools"
         end
         post :typeahead do
+          error!("please search at least something") if params[:school_ids].blank? and params[:tag_ids].blank? and params[:search].blank?
+
+          found = Item
+          if params[:school_ids]
+            found = found.all_in(school_ids: params[:school_ids])
+          end
+
+          if params[:tag_ids]
+            found = found.all_in(tag_ids: params[:tag_ids])
+          end
+
+          if params[:search]
+            found = found.where(autocomplete: /#{Autocomplete.normalize(params[:search])}/)
+          end
+          
           nmax = params[:nmax] || 10
-          items = Item.where(autocomplete: /#{Autocomplete.normalize(params[:search])}/).take(nmax) 
+
+          items = found.take(nmax) 
           present :items, items, with: Gogoreco::Entities::Item, entity_options: entity_options
         end
         #}}}
@@ -72,6 +90,13 @@ module Gogoreco
             end
             @item = Item.find(params[:item_id]) || error!("item not found",404)
           end
+
+          #{{{ get
+          desc "get an item from its id"
+          post do 
+            present @item, with: Gogoreco::Entities::Item, entity_options: entity_options
+          end
+          #}}}
 
           namespace :comments do 
 

@@ -12,6 +12,7 @@ class User
   has_many :comments, class_name: "Comment", inverse_of: "author"
 
   has_and_belongs_to_many :hated_items, class_name: "Item", inverse_of: "haters"
+  has_and_belongs_to_many :mehed_items, class_name: "Item", inverse_of: "mehers"
   has_and_belongs_to_many :liked_items, class_name: "Item", inverse_of: "likers"
   has_and_belongs_to_many :loved_items, class_name: "Item", inverse_of: "lovers"
 
@@ -76,17 +77,20 @@ class User
 
   def evaluate_item!(item,score)
     raise "#{item} is no Item" unless item.is_a? Item
-    raise "score should be in [0..3]" unless score.is_a? Integer and score >= 0 and score <= 3
+    raise "score should be in [0..4]" unless score.is_a? Integer and score >= 0 and score <= 4
 
       item.haters.delete(self)
+      item.mehers.delete(self)
       item.likers.delete(self)
       item.lovers.delete(self)
 
       if score == 1
         item.haters << self
       elsif score == 2
-        item.likers << self
+        item.mehers << self
       elsif score == 3
+        item.likers << self
+      elsif score == 4
         item.lovers << self
       end
 

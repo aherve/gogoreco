@@ -5,6 +5,8 @@ class API < Grape::API
     helpers Gogoreco::Helpers::Warden
     helpers Gogoreco::Helpers::OptionsHelper
 
+    mount Gogoreco::V1::Entities
+
     mount Gogoreco::V1::Ping
     mount Gogoreco::V1::Users
     mount Gogoreco::V1::Schools

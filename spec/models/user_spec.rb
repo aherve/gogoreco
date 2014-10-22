@@ -31,61 +31,83 @@ RSpec.describe User, :type => :model do
       @item = FactoryGirl.create(:item)
     end
 
-    it "raises error if score > 3" do 
+    it "raises error if score > 4" do 
       expect{
-        @user.evaluate_item!(@item,4)
+        @user.evaluate_item!(@item,5)
       }.to raise_error
     end
 
     it "evaluates item, and updates item" do 
       expect(@item.lover_ids).to eq []
       expect(@item.liker_ids).to eq []
+      expect(@item.meher_ids).to eq []
+      expect(@item.hater_ids).to eq []
+
+      @user.evaluate_item!(@item,4) ; @item.reload
+      expect(@item.lover_ids).to eq [@user.id]
+      expect(@item.liker_ids).to eq []
+      expect(@item.meher_ids).to eq []
       expect(@item.hater_ids).to eq []
 
       @user.evaluate_item!(@item,3) ; @item.reload
-      expect(@item.lover_ids).to eq [@user.id]
-      expect(@item.liker_ids).to eq []
+      expect(@item.lover_ids).to eq []
+      expect(@item.liker_ids).to eq [@user.id]
+      expect(@item.meher_ids).to eq []
       expect(@item.hater_ids).to eq []
 
       @user.evaluate_item!(@item,2) ; @item.reload
       expect(@item.lover_ids).to eq []
-      expect(@item.liker_ids).to eq [@user.id]
+      expect(@item.liker_ids).to eq []
+      expect(@item.meher_ids).to eq [@user.id]
       expect(@item.hater_ids).to eq []
 
       @user.evaluate_item!(@item,1) ; @item.reload
       expect(@item.lover_ids).to eq []
       expect(@item.liker_ids).to eq []
+      expect(@item.meher_ids).to eq []
       expect(@item.hater_ids).to eq [@user.id]
 
       @user.evaluate_item!(@item,0) ; @item.reload
       expect(@item.lover_ids).to eq []
       expect(@item.liker_ids).to eq []
+      expect(@item.meher_ids).to eq []
       expect(@item.hater_ids).to eq []
     end
 
     it "evaluates item, and updates user" do 
       expect(@user.loved_item_ids).to eq []
       expect(@user.liked_item_ids).to eq []
+      expect(@user.mehed_item_ids).to eq []
+      expect(@user.hated_item_ids).to eq []
+
+      @user.evaluate_item!(@item,4) 
+      expect(@user.loved_item_ids).to eq [@item.id]
+      expect(@user.liked_item_ids).to eq []
+      expect(@user.mehed_item_ids).to eq []
       expect(@user.hated_item_ids).to eq []
 
       @user.evaluate_item!(@item,3) 
-      expect(@user.loved_item_ids).to eq [@item.id]
-      expect(@user.liked_item_ids).to eq []
+      expect(@user.loved_item_ids).to eq []
+      expect(@user.liked_item_ids).to eq [@item.id]
+      expect(@user.mehed_item_ids).to eq []
       expect(@user.hated_item_ids).to eq []
 
       @user.evaluate_item!(@item,2) 
       expect(@user.loved_item_ids).to eq []
-      expect(@user.liked_item_ids).to eq [@item.id]
+      expect(@user.liked_item_ids).to eq []
+      expect(@user.mehed_item_ids).to eq [@item.id]
       expect(@user.hated_item_ids).to eq []
 
       @user.evaluate_item!(@item,1) 
       expect(@user.loved_item_ids).to eq []
       expect(@user.liked_item_ids).to eq []
+      expect(@user.mehed_item_ids).to eq []
       expect(@user.hated_item_ids).to eq [@item.id]
 
       @user.evaluate_item!(@item,0) 
       expect(@user.loved_item_ids).to eq []
       expect(@user.liked_item_ids).to eq []
+      expect(@user.mehed_item_ids).to eq []
       expect(@user.hated_item_ids).to eq []
     end
   end
