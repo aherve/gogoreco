@@ -8,7 +8,7 @@ module Gogoreco
         desc "get latest evaluations"
         params do 
           optional :nmax, type: Integer, desc:"max evals (default 10)", default: 10
-          optional :school_ids, desc: "school to filter with"
+          optional :school_ids, desc: "schools to filter with"
         end
         post :latest do
 
