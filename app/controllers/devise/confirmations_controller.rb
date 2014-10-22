@@ -23,7 +23,7 @@ class Devise::ConfirmationsController < DeviseController
 
     if resource.errors.empty?
 
-      resource.track_signup_if_valid_student!
+      #resource.track_signup_if_valid_student!
       resource.set_schools!
 
       set_flash_message(:notice, :confirmed) if is_flashing_format?
