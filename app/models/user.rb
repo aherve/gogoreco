@@ -7,7 +7,10 @@ class User
   field :lastname
 
   has_and_belongs_to_many :schools, class_name: "School", inverse_of: :students
+
   has_many :created_items, class_name: "Item", inverse_of: "creator"
+  has_many :comments, class_name: "Comment", inverse_of: "author"
+  has_many :evaluations, class_name: "Evaluation", inverse_of: :author
 
   #{{{ devise
   # Include default devise modules. Others available are:
@@ -65,6 +68,38 @@ class User
 
   def confirmed_user?
     confirmed? or provider.to_s == "facebook"
+  end
+
+  def evaluate_item!(item,score)
+    raise "#{item} is no Item" unless item.is_a? Item
+    raise "score should be in [0..4]" unless score.is_a? Integer and score >= 0 and score <= 4
+
+    if score == 0
+      if e = Evaluation.find_by(author_id: self.id, item_id: item.id)
+        e.destroy
+      end
+    else
+      e = Evaluation.find_or_create_by(author_id: self.id, item_id: item.id)
+      e.update_attribute(:score, score)
+    end
+
+
+  end
+
+  def loved_item_ids
+    Evaluation.where(author_id: self.id, score: 4).distinct(:item_id)
+  end
+
+  def liked_item_ids
+    Evaluation.where(author_id: self.id, score: 3).distinct(:item_id)
+  end
+
+  def mehed_item_ids
+    Evaluation.where(author_id: self.id, score: 2).distinct(:item_id)
+  end
+
+  def hated_item_ids
+    Evaluation.where(author_id: self.id, score: 1).distinct(:item_id)
   end
 
 end

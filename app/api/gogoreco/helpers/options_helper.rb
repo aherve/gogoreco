@@ -8,6 +8,8 @@ module Gogoreco
           "user" => (params[:entities]["user"] rescue nil )|| {},
           "school" => (params[:entities]["school"] rescue nil )|| {},
           "item" => (params[:entities]["item"] rescue nil )|| {},
+          "comment" => (params[:entities]["comment"] rescue nil )|| {},
+          "evaluation" => (params[:entities]["evaluation"] rescue nil )|| {},
         }
 
         empty_h.merge({:current_user => current_user || User.new})

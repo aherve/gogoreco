@@ -13,4 +13,20 @@ class Tag
 
 
   has_and_belongs_to_many :items, class_name: "Item", inverse_of: "tags"
+
+  class << self
+    def find_or_new_by_names(names)
+      unless names.blank?
+        names.uniq{|name| Autocomplete.normalize(name)}.map do |name|
+          if found = Tag.find_by(autocomplete: Autocomplete.normalize(name))
+            found
+          else
+            Tag.new(name: name)
+          end
+        end
+      else
+        []
+      end
+    end
+  end
 end
