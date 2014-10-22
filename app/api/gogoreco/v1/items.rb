@@ -25,7 +25,7 @@ module Gogoreco
           requires :item_name, type: String, desc: "name of the item"
           optional :tag_names, type: Array, desc: "names of tags"
         end
-        post do 
+        post :create do 
           check_confirmed_user!
 
           tags = unless params[:tag_names].blank?
@@ -65,8 +65,43 @@ module Gogoreco
         end
         #}}}
 
-      end
+        namespace ':item_id' do 
+          before do 
+            params do 
+              requires :item_id, desc: "id of the item"
+            end
+            @item = Item.find(params[:item_id]) || error!("item not found",404)
+          end
 
+          namespace :comments do 
+
+            #{{{ post comment
+            desc "post a comment"
+            params do 
+              requires :content, desc: "the comment content"
+            end
+            post :create do 
+              check_confirmed_user!
+
+              c = Comment.new(
+                author: current_user,
+                item: @item,
+                content: params[:content],
+              )
+
+              if c.save
+                present :comment, c, with: Gogoreco::Entities::Comment, entity_options: entity_options
+                present :status, :saved
+              else
+                error!(c.errors.messages)
+              end
+            end
+            #}}}
+
+          end
+
+        end
+      end
     end
   end
 end

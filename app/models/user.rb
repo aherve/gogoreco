@@ -7,7 +7,10 @@ class User
   field :lastname
 
   has_and_belongs_to_many :schools, class_name: "School", inverse_of: :students
+
   has_many :created_items, class_name: "Item", inverse_of: "creator"
+  has_many :comments, class_name: "Comment", inverse_of: "author"
+
 
   #{{{ devise
   # Include default devise modules. Others available are:

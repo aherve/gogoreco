@@ -2,6 +2,7 @@ require 'spec_helper'
 describe Gogoreco::V1::Items do 
 
   before(:each) do
+    Comment.delete_all
     Item.delete_all
     School.delete_all
     User.delete_all
@@ -18,26 +19,26 @@ describe Gogoreco::V1::Items do
 
     it "creates item" do
       expect{
-      post "/items", {item_name: "myItem", school_names: ["haha","hoho"]}
+      post "/items/create", {item_name: "myItem", school_names: ["haha","hoho"]}
       }.to change{Item.count}.by(1)
     end
 
     it "creates school along with item" do 
       expect{
-      post "/items", {item_name: "myItem", school_names: ["haha","hoho"]}
+      post "/items/create", {item_name: "myItem", school_names: ["haha","hoho"]}
       }.to change{School.count}.by(2)
     end
 
     it "doesn't create school that already exist" do
       s = FactoryGirl.create(:school)
       expect{
-      post "/items", {item_name: "myItem", school_names: ["haha",s.name.capitalize]}
+      post "/items/create", {item_name: "myItem", school_names: ["haha",s.name.capitalize]}
       }.to change{School.count}.by(1)
     end
 
     it "set @user as creator" do
       s = FactoryGirl.create(:school)
-      post "/items", {item_name: "myItem", school_names: ["haha",s.name.capitalize]}
+      post "/items/create", {item_name: "myItem", school_names: ["haha",s.name.capitalize]}
       expect(Item.last.creator).to eq @user
       expect(@user.created_items.include?(Item.last)).to be true
     end
@@ -45,7 +46,7 @@ describe Gogoreco::V1::Items do
     it "creates tags" do 
       t = FactoryGirl.create(:tag)
       expect{
-      post "/items", {item_name: "myItem", school_names: ["haha"], tag_names: ['hoho',t.name.capitalize]}
+      post "/items/create", {item_name: "myItem", school_names: ["haha"], tag_names: ['hoho',t.name.capitalize]}
       }.to change{Tag.count}.by(1)
       expect(Tag.last.items.include?(Item.last)).to be true
       expect(Item.last.tags.include?(Tag.last)).to be true
@@ -65,6 +66,25 @@ describe Gogoreco::V1::Items do
       expect(h["items"].any?).to be true
       expect(h["items"].first["id"]).to eq @s.id.to_s
     end
+  end
+  #}}}
+
+  #{{{ comment
+  describe :comment do 
+    before do 
+      @i = FactoryGirl.create(:item)
+    end
+
+    it "creates comment with proper content,author and item" do 
+      expect{
+        post "/items/#{@i.id}/comments/create", {content: (@content = "lol jé kiffer")}
+      }.to change{Comment.count}.by(1)
+      c = Comment.last
+      expect(c.content).to eq @content
+      expect(c.author_id).to eq @user.id
+      expect(c.item_id).to eq @i.id
+    end
+
   end
   #}}}
 
