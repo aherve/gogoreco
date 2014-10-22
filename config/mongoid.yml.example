@@ -1,13 +1,23 @@
 test:
   sessions:
     default:
-      database: gogoreco_api_test
+      database: gogoreco_test
       hosts:
         - localhost:27017
       options:
         read: primary
-        # In the test environment we lower the retries and retry interval to
-        # low amounts for fast failures.
+        max_retries: 1
+        retry_interval: 0
+  options:
+    raise_not_found_error: false
+development:
+  sessions:
+    default:
+      database: gogoreco_development
+      hosts:
+        - localhost:27017
+      options:
+        read: primary
         max_retries: 1
         retry_interval: 0
   options:
