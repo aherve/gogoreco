@@ -5,45 +5,39 @@ angular.module('security.login.form', [])
 .controller('LoginCtrl', ['$modalInstance', '$scope', 'security', function( $modalInstance, $scope, security) {
   // The model for this form 
   $scope.close = $modalInstance.close;
-  $scope.user = {};
+  $scope.loginUser = {};
+  $scope.signupUser = {};
+  $scope.state = {
+    initialMode: true,
+    emailSignupMode: false
+  };
 
-  // Any error message from failing to login
-  $scope.authError = null;
+  $scope.facebookConnect = function(){
+    localStorageService.set('back url', $location.url());
+    $window.location.href = "/api/v1/users/auth/facebook";
+  };
 
-  // The reason that we are being asked to login - for instance because we tried to access something to which we are not authorized
-  // We could do something diffent for each reason here but to keep it simple...
-  $scope.authReason = null;
-  console.log( security );
-  if ( security.getLoginReason() ) {
-    /*
-    $scope.authReason = ( security.isAuthenticated() ) ?
-      localizedMessages.get('login.reason.notAuthorized') :
-      localizedMessages.get('login.reason.notAuthenticated');
-      */
-  }
-
-  // Attempt to authenticate the user specified in the form's model
-  $scope.login = function() {
-    // Clear any previous security errors
-    $scope.authError = null;
-
-    // Try to login
-    security.login($scope.user.email, $scope.user.password).then(function(loggedIn) {
-      if ( !loggedIn ) {
-        // If we get here then the login failed due to bad credentials
-        $scope.authError = '';//localizedMessages.get('login.error.invalidCredentials');
-      }
-    }, function(x) {
-      // If we get here then there was a problem with the login request to the server
-      $scope.authError = ''; //localizedMessages.get('login.error.serverError', { exception: x });
+  $scope.signup = function(){
+    $scope.pendingRequest = true;
+    security.signup($scope.signupUser.email, $scope.signupUser.password, $scope.signupUser.firstname, $scope.signupUser.lastname).then(function(data){
+      $scope.pendingRequest = false;
     });
   };
 
+  $scope.login = function() {
+    return security.login($scope.loginUser.email, $scope.loginUser.password);
+  };
+
   $scope.clearForm = function() {
-    $scope.user = {};
+    $scope.loginUser = {};
+    $scope.signupUser = {};
   };
 
   $scope.cancelLogin = function() {
     security.cancelLogin();
+  };
+
+  $scope.showForgotPassword = function() {
+    security.showForgotPassword();
   };
 }]);

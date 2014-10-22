@@ -1,9 +1,11 @@
 <div class="row">
-  <div class="col-md-7 signin-col">
+  <div class="col-md-5 signup-col hidden-md hidden-lg" ng-show="state.initialMode" ng-include="'security/login/signupCol.tpl.html'"></div>
+
+  <div class="col-md-7 signin-col" ng-class="{'col-md-7': state.initialMode, 'col-md-12': !state.initialMode}">
     <div class="signin-col-in">
-      <p class="bold" ng-show="initialMode">Signin</p>
-      <p class="bold" ng-hide="initialMode">Signup</p>
-      <div ng-hide="emailSignupMode">
+      <p class="bold" ng-show="state.initialMode">Signin</p>
+      <p class="bold" ng-hide="state.initialMode">Signup</p>
+      <div ng-hide="state.emailSignupMode">
         <!-- facebook -->
         <div class="form-group" style="margin-top: 10px">
           <a class="btn btn-facebook" ng-click="facebookConnect()" style="width: 100%">
@@ -11,10 +13,10 @@
               <i class="fa fa-square fa-stack-2x"></i>
               <i class="fa fa-facebook fa-stack-1x text-facebook"></i>
             </span>
-            <span ng-hide="initialMode">
+            <span ng-hide="state.initialMode">
               signup
             </span>
-            <span ng-show="initialMode">
+            <span ng-show="state.initialMode">
               connect
             </span>
           </a>
@@ -36,24 +38,24 @@
         </div>
 
         <!-- email -->
-        <form calss="css-form" name="loginForm" ng-show="initialMode">
+        <form calss="css-form" name="loginForm" ng-show="state.initialMode">
           <div class="form-group">
-            <input class="form-control" placeholder="{{ AppText.security.email | language }}" ng-model="loginUser.email">
+            <input class="form-control" placeholder="email" ng-model="loginUser.email">
           </div>
           <div class="form-group">
             <input class="form-control" type="password" placeholder="{{ AppText.security.password | language }}" ng-model="loginUser.password">
           </div>
           <div class="form-group" style="margin-top: 20px">
             <div class="pull-right">
-              <small style="position: relative; top: 10px" ng-click="showForgotPassword()">Forgot password</small>
+              <small class="pointer" style="position: relative; top: 10px" ng-click="showForgotPassword()">Forgot password</small>
             </div>
-            <button class="btn btn-info" ng-click="login()">signin</button>
+            <button class="btn btn-bluejeans" ng-click="login()">signin</button>
           </div>
         </form>
-        <button class="btn btn-enter text-default" style="width: 100%" ng-hide="initialMode" ng-click="emailSignupMode = true">email signup</button>
+        <button class="btn btn-enter text-default" style="width: 100%" ng-hide="state.initialMode" ng-click="state.emailSignupMode = true">email signup</button>
       </div><!-- !email signup mode -->
 
-      <div ng-show="emailSignupMode">
+      <div ng-show="state.emailSignupMode">
         <form class="css-form" name="signupFrom" >
           <div class="form-group">
             <input class="form-control" ng-model="signupUser.firstname" type="text" placeholder="{{ AppText.security.first_name | language }}" required>
@@ -73,26 +75,15 @@
         </form>
       </div><!-- email signup mode -->
 
-      <div>
-        <alert class="alert" ng-repeat="alert in reasonAlerts" type="alert.type" ng-show="alert.msg" style="margin-bottom: 0px">
-        {{ alert.msg | language }}
-        </alert>
+      <div ng-hide="state.initialMode" class="pointer form-group" style="position: absolute; bottom: 20px" ng-click="state.initialMode = true; state.emailSignupMode = false">
+        <small>
+          <span class="fa fa-arrow-left"></span> retour
+        </small>
       </div>
+    </div>
+  </div>
 
-      <div style="margin-bottom: 20px">
-        <alert class="alert" ng-repeat="alert in alerts" type="alert.type" ng-show="alert.msg" style="margin-bottom: 0px">
-        {{ alert.msg | language }}
-        </alert>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-5 signup-col">
-    <div class="signup-col-in">
-      <small class="glyphicon glyphicon-remove pull-right" ng-click="close()"></small>
-      <div class="lead bold" style="margin-bottom: 10px; margin-top: 25px">Crée ton compte</div>
-      <p class="thin">Crée un compte pour pouvoir profiter pleinement de Shapter !</p>
-      <button class="btn btn-asphalt" ng-click="initialMode = !initialMode; emailSignupMode = false"><span ng-show="initialMode">{{ AppText.security.signup | language }}</span><span ng-hide="initialMode"><span class="fa fa-arrow-left"> </span> {{ AppText.security.signin | language }} </span></button>
-    </div>
-  </div>
+  <div class="col-md-5 signup-col hidden-sm hidden-xs" ng-show="state.initialMode" ng-include="'security/login/signupCol.tpl.html'"></div>
+</div>
 
 </div>
