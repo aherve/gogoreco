@@ -44,18 +44,21 @@ describe Gogoreco::V1::Users do
     end
 
     it "has firstname" do 
-      expect(@hres.has_key?("firstname")).to be true
-      expect(@hres["firstname"]).to eq @user.firstname
+      expect(@hres.has_key?("user")).to be true
+      expect(@hres["user"].has_key?("firstname")).to be true
+      expect(@hres["user"]["firstname"]).to eq @user.firstname
     end
 
     it "has lastname" do 
-      expect(@hres.has_key?("lastname")).to be true
-      expect(@hres["lastname"]).to eq @user.lastname
+      expect(@hres.has_key?("user")).to be true
+      expect(@hres["user"].has_key?("lastname")).to be true
+      expect(@hres["user"]["lastname"]).to eq @user.lastname
     end
 
     it "has email" do 
-      expect(@hres.has_key?("email")).to be true
-      expect(@hres["email"]).to eq @user.email
+      expect(@hres.has_key?("user")).to be true
+      expect(@hres["user"].has_key?("email")).to be true
+      expect(@hres["user"]["email"]).to eq @user.email
     end
 
   end
