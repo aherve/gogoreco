@@ -6,6 +6,7 @@ module Gogoreco
       def entity_options
         empty_h = {
           "user" => (params[:entities]["user"] rescue nil )|| {},
+          "school" => (params[:entities]["school"] rescue nil )|| {},
         }
 
         empty_h.merge({:current_user => current_user || User.new})

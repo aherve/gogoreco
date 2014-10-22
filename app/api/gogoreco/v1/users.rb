@@ -13,7 +13,7 @@ module Gogoreco
           #{{{ users/me
           desc "get my informations"
           post do 
-            present current_user, with: Gogoreco::Entities::User, entity_options: entity_options
+            present :user, current_user, with: Gogoreco::Entities::User, entity_options: entity_options
           end
           #}}}
 
@@ -34,7 +34,7 @@ module Gogoreco
 
             schools.each{|s| current_user.schools << s }
             if current_user.save
-              present current_user, with: Gogoreco::Entities::User, entity_options: entity_options
+              present :user, current_user, with: Gogoreco::Entities::User, entity_options: entity_options
             else
               error!(user.errors.messages)
             end

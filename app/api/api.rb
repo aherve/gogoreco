@@ -7,6 +7,7 @@ class API < Grape::API
 
     mount Gogoreco::V1::Ping
     mount Gogoreco::V1::Users
+    mount Gogoreco::V1::Schools
 
     add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
   end

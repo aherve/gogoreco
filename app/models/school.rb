@@ -2,6 +2,7 @@ class School
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  include PrettyId
   include Autocomplete
 
   field :name, type: String
