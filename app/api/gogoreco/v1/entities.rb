@@ -10,6 +10,7 @@ module Gogoreco
           present :user, [:id, :firstname, :lastname, :email].sort
           present :comment, [:id, :content].sort
           present :school, [:id, :name].sort
+          present :evaluation, [:id, :score, :created_at, :updated_at, :schools, :author, :item].sort
 
         end
       end

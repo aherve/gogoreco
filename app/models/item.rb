@@ -20,10 +20,7 @@ class Item
 
   has_many :evaluations, class_name: "Evaluation", inverse_of: :item
 
-  #has_and_belongs_to_many :haters, class_name: "User", inverse_of: :hated_items
-  #has_and_belongs_to_many :mehers, class_name: "User", inverse_of: :mehed_items
-  #has_and_belongs_to_many :likers, class_name: "User", inverse_of: :liked_items
-  #has_and_belongs_to_many :lovers, class_name: "User", inverse_of: :loved_items
+  after_save :set_evals_schools_if_needed
 
   def hater_ids
     evaluations.where(score: 1).distinct(:author_id)
@@ -71,6 +68,14 @@ class Item
 
   def user_commented(user)
     comments.where(author_id: user.id).exists?
+  end
+
+  protected
+
+  def set_evals_schools_if_needed
+    if school_ids_changed?
+      evaluations.each{|e| e.update_attribute(:school_ids, self.school_ids)}
+    end
   end
 
 end
