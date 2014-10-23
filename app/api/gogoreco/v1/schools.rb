@@ -33,7 +33,7 @@ module Gogoreco
           end
 
           #{{{get
-          describe "get school from id"
+          desc "get school from id"
           post do 
             present :school, @school, with: Gogoreco::Entities::School, entity_options: entity_options
           end
