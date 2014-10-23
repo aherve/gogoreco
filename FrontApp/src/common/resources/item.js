@@ -97,7 +97,22 @@ angular.module('resources.item', [
         item_name: item_name,
         tag_names: tag_names,
         eval_score: eval_score,
-        comment_content: comment_content
+        comment_content: comment_content,
+        entities: {
+          item: {
+            "comments": false,
+            "comments_count": true,
+            "current_user_commented": true,
+            "current_user_score": true,
+            "id": true,
+            "likers_count": true,
+            "lovers_count": true,
+            "haters_count": true,
+            "mehers_count": true,
+            "name": true,
+            "tags": true
+          }
+        }
       };
       return Restangular.all('items').customPOST( params, 'create' );
     },
