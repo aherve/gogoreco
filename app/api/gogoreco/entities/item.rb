@@ -9,11 +9,11 @@ module Gogoreco
       expose :lovers_count, if: lambda {|i,o| o[:entity_options]["item"][:lovers_count]}
       expose :likers_count, if: lambda {|i,o| o[:entity_options]["item"][:likers_count]}
       expose :mehers_count, if: lambda {|i,o| o[:entity_options]["item"][:mehers_count]}
-      expose :lovers_count, if: lambda {|i,o| o[:entity_options]["item"][:lovers_count]}
+      expose :haters_count, if: lambda {|i,o| o[:entity_options]["item"][:haters_count]}
 
       expose :latest_evaluation_at, if: lambda {|i,o| o[:entity_options]["item"][:latest_evaluation_at]}
 
-      expose :comments, using: Gogoreco::Entities::Item, if: lambda{|i,o| o[:entity_options]["item"][:comments]}
+      expose :comments, using: Gogoreco::Entities::Comment, if: lambda{|i,o| o[:entity_options]["item"][:comments]}
       expose :tags, using: Gogoreco::Entities::Tag, if: lambda{|i,o| o[:entity_options]["item"][:tags]}
 
       expose :current_user_score, if: lambda{|i,o| o[:entity_options]["item"][:current_user_score]} do |i,o|

@@ -4,8 +4,8 @@
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 set :default_shell, "bash -l"
 
-set :application, 'gogoreco_api'
-set :repo_url, 'git@github.com:GogorecoCrew/gogoreco.git'
+set :application, 'gogoreco'
+set :repo_url, 'git@github.com:ShapterCrew/gogoreco.git'
 
 set :user, 'ubuntu'
 set :ssh_options,{
@@ -19,7 +19,7 @@ set :ssh_options,{
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
- set :deploy_to, '/var/www/gogoreco_api'
+ set :deploy_to, '/var/www/gogoreco'
 
 # Default value for :scm is :git
 # set :scm, :git
