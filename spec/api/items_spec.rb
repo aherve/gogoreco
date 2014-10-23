@@ -2,6 +2,7 @@ require 'spec_helper'
 describe Gogoreco::V1::Items do 
 
   before(:each) do
+    Evaluation.delete_all
     Comment.delete_all
     Item.delete_all
     School.delete_all
@@ -50,6 +51,22 @@ describe Gogoreco::V1::Items do
       }.to change{Tag.count}.by(1)
       expect(Tag.last.items.include?(Item.last)).to be true
       expect(Item.last.tags.include?(Tag.last)).to be true
+    end
+
+    it "creates associated comment" do expect{
+        post "/items/create", {item_name: "myItem", school_names: ["haha"], comment_content: "my comment"}
+      }.to change{Comment.count}.by(1)
+      expect(Comment.last.item_id).to eq Item.last.id
+      expect(Item.last.comments.last.id).to eq Comment.last.id
+    end
+
+    it "creates associated evaluation" do 
+      expect{
+        post "/items/create", {item_name: "myItem", school_names: ["haha"], comment_content: "my comment", eval_score: 3}
+      }.to change{Evaluation.count}.by(1)
+      expect(Evaluation.last.item_id).to eq Item.last.id
+      expect(Item.last.evaluations.last.id).to eq Evaluation.last.id
+      expect(Comment.last.related_evaluation_id).to eq Evaluation.last.id
     end
 
   end

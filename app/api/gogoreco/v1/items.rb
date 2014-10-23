@@ -65,10 +65,30 @@ module Gogoreco
             tags: tags,
           )
 
-          if i.save
+          if i.save 
+            if params[:comment_content]
+              c = Comment.new(
+                content: params[:comment_content],
+                author: current_user,
+                item: i,
+              )
+              c.save
+            end
+
+            if params[:eval_score]
+              e = Evaluation.new(
+                score: params[:eval_score],
+                author: current_user,
+                item: i,
+              )
+              e.save
+            end
+
             schools.each{|s| s.save if s.new_record?} ;  schools.each(&:touch)
             tags.each{|t| t.save if t.new_record?} ;  tags.each(&:touch)
+
             present :item, i, with: Gogoreco::Entities::Item, entity_options: entity_options
+
           else
             error!(i.errors.messages)
           end
