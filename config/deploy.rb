@@ -87,7 +87,9 @@ namespace :deploy do
   task :create_indexes do 
     on roles(:web), in: :sequence  do 
       within release_path.join("FrontApp") do 
-        execute :rake, "db:mongoid:create_indexes"
+        with rails_env: :production do 
+          execute :rake, "db:mongoid:create_indexes"
+        end
       end
     end
   end
