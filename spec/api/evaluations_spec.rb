@@ -6,6 +6,7 @@ describe Gogoreco::V1::Evaluations do
     Item.delete_all
   end
 
+  #{{{ latest
   describe :latest do
     it "get latest evaluations" do 
       i = FactoryGirl.create(:item)
@@ -19,6 +20,43 @@ describe Gogoreco::V1::Evaluations do
       expect(h["evaluations"].first.has_key?("id")).to be true
       expect(h["evaluations"].first["id"]).to eq e.id.to_s
     end
+  end
+  #}}}
+
+  describe :crud do 
+    before do 
+      @user = FactoryGirl.create(:user)
+      @user.confirm!
+      login(@user)
+
+      @e = FactoryGirl.create(:evaluation)
+      @e.update_attribute(:author_id, @user.id)
+
+    end
+
+    #{{{ update
+    describe :update do 
+      it "updates score" do
+        initial_score = @e.score
+        new_score = 4
+        expect{
+          put "evaluations/#{@e.id}", score: new_score
+          @e.reload
+        }.to change{@e.score}.from(initial_score).to(new_score)
+      end
+    end
+    #}}}
+
+    #{{{ destroy
+    describe :destroy do 
+      it "destroys evaluation" do 
+        expect{
+          delete "evaluations/#{@e.id}"
+        }.to change{Evaluation.count}.by(-1)
+      end
+    end
+    #}}}
+
   end
 
 end

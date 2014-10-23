@@ -13,6 +13,7 @@ class API < Grape::API
     mount Gogoreco::V1::Items
     mount Gogoreco::V1::Tags
     mount Gogoreco::V1::Evaluations
+    mount Gogoreco::V1::Comments
 
     add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
   end
