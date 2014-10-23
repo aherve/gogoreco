@@ -24,6 +24,23 @@ module Gogoreco
         end
         #}}}
 
+        namespace ':school_id' do 
+          before do 
+            params do 
+              requires :school_id, desc: "id of the school"
+            end
+            @school = School.find(params[:school_id]) || error!("school not found",404)
+          end
+
+          #{{{get
+          describe "get school from id"
+          post do 
+            present :school, @school, with: Gogoreco::Entities::School, entity_options: entity_options
+          end
+          #}}}
+
+        end
+
 
       end
 
