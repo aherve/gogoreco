@@ -42,6 +42,8 @@ module Gogoreco
           requires :school_names, type: Array, desc: "name of the school"
           requires :item_name, type: String, desc: "name of the item"
           optional :tag_names, type: Array, desc: "names of tags"
+          optional :eval_score, type: Integer, desc: "evaluation score if the item has to be linked to an evaluation"
+          optional :comment_content, type: String, desc: "the comment content if any"
         end
         post :create do 
           check_confirmed_user!
