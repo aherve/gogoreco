@@ -18,6 +18,12 @@ module Gogoreco
         end
         #}}}
 
+        #{{{ index
+        post :index do 
+          present :schools, School.all.asc(:name), with: Gogoreco::Entities::School, entity_options: entity_options
+        end
+        #}}}
+
 
       end
 
