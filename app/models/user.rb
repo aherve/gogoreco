@@ -87,6 +87,14 @@ class User
 
   end
 
+  def item_evaluation(item)
+    if (e = Evaluation.where(author_id: self.id, item_id: item.id))
+      e.score
+    else
+      0
+    end
+  end
+
   def loved_item_ids
     Evaluation.where(author_id: self.id, score: 4).distinct(:item_id)
   end
