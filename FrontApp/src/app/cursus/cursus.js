@@ -1,6 +1,6 @@
 angular.module( 'gogoreco.cursus', [])
 
-.config(function config( $stateProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
   $stateProvider.state( 'cursus', {
     url: '/cursus',
     views: {
@@ -11,7 +11,7 @@ angular.module( 'gogoreco.cursus', [])
     },
     data:{ pageTitle: 'Cursus' }
   });
-})
+}])
 
 /**
  * And of course we define a controller for our route.
