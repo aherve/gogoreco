@@ -2,6 +2,7 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
   include PrettyId
+  include UserRecommendations
 
   field :firstname
   field :lastname
