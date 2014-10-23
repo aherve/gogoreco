@@ -16,7 +16,6 @@ angular.module( 'gogoreco.recommendations', [])
   $scope.score = function( val ){
     return $filter( 'normalizeScores' )( $scope.item )[ val ];
   };
-  console.log( $scope.score(3) );
 }])
 
 .filter('normalizeScores', [function(){
@@ -61,7 +60,10 @@ angular.module( 'gogoreco.recommendations', [])
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'RecommendationsCtrl', ['$scope', function RecommendationsController( $scope ) {
+.controller( 'RecommendationsCtrl', ['$scope', 'Item', function RecommendationsController( $scope, Item ) {
+  Item.latest_evaluated().then( function( response ){
+    $scope.items = response.items;
+  });
 }]);
 
 

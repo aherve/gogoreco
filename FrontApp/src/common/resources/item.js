@@ -121,7 +121,30 @@ angular.module('resources.item', [
         }
       };
       return Restangular.one('items', id).post();
+    },
+
+    latest_evaluated: function( nmax ){
+      var params = {
+        entities: {
+          nmax: nmax || 10,
+          item: {
+            "comments": true,
+            "comments_count": true,
+            "current_user_commented": true,
+            "current_user_score": true,
+            "id": true,
+            "likers_count": true,
+            "lovers_count": true,
+            "haters_count": true,
+            "mehers_count": true,
+            "name": true,
+            "tags": true
+          }
+        }
+      };
+      return Restangular.all( 'items' ).customPOST( params, 'latest_evaluated' );
     }
+
   };
   return Item;
 }]);
