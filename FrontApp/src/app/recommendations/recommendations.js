@@ -71,6 +71,7 @@ angular.module( 'gogoreco.recommendations', [])
   $scope.typeaheadSelect = function(){
     if( $scope.search.type == 'item' ){
       Item.get( $scope.search.id ).then( function( response ){
+        console.log( response );
         $scope.items = [ response.item ];
       });
     }
@@ -84,11 +85,17 @@ angular.module( 'gogoreco.recommendations', [])
   $scope.getSearch = function( search ){
     var result = [];
     return Item.typeahead( search, 10, [], [] ).then( function( response ){
+      if( response.items ){
+        response.items[0].displayItemDivider = true;
+      }
       angular.forEach( response.items, function( item ){
         item.type = 'item';
         result.push( item );
       });
       return Tag.typeahead( search, null ).then( function( response ){
+      if( response.tags ){
+        response.tags[0].displayTagsDivider = true;
+      }
         angular.forEach( response.tags, function( tag ){
           tag.type = 'tag';
           result.push( tag );

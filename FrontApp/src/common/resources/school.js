@@ -17,6 +17,17 @@ angular.module('resources.school', [
         }
       };
       return Restangular.all('schools').customPOST( params, 'typeahead');
+    },
+
+    get: function( id ){
+      var params = {
+        entities: {
+          school: {
+            name: true
+          }
+        }
+      };
+      return Restangular.one('schools', id ).customPOST( params );
     }
 
   };

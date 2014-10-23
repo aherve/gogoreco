@@ -62,7 +62,12 @@ angular.module( 'gogoreco', [
 }])
 
 
-.run(['localStorageService', '$window', '$rootScope', '$state', function( localStorageService, $window, $rootScope, $state ){
+.run(['localStorageService', '$window', '$rootScope', '$state', 'School', function( localStorageService, $window, $rootScope, $state, School ){
+  if( localStorageService.get('schoolId')){
+    School.get( localStorageService.get('schoolId') ).then( function( response ){
+      $rootScope.school = response.school;
+    });
+  }
   if( localStorageService.get('back url')){
     var url = '#' + localStorageService.get('back url');
     localStorageService.remove('back url');
