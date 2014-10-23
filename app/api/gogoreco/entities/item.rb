@@ -11,6 +11,8 @@ module Gogoreco
       expose :mehers_count, if: lambda {|i,o| o[:entity_options]["item"][:mehers_count]}
       expose :lovers_count, if: lambda {|i,o| o[:entity_options]["item"][:lovers_count]}
 
+      expose :latest_evaluation_at, if: lambda {|i,o| o[:entity_options]["item"][:latest_evaluation_at]}
+
       expose :comments, using: Gogoreco::Entities::Item, if: lambda{|i,o| o[:entity_options]["item"][:comments]}
       expose :tags, using: Gogoreco::Entities::Tag, if: lambda{|i,o| o[:entity_options]["item"][:tags]}
 
