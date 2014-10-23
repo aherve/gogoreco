@@ -57,13 +57,24 @@ angular.module( 'gogoreco.recommendations', [])
   });
 }])
 
-/**
- * And of course we define a controller for our route.
- */
-.controller( 'RecommendationsCtrl', ['$scope', 'Item', function RecommendationsController( $scope, Item ) {
-  Item.latest_evaluated().then( function( response ){
+.controller( 'RecommendationsCtrl', ['$scope', 'Item', '$rootScope', 'School', function RecommendationsController( $scope, Item, $rootScope, School ) {
+
+  $scope.$rootScope = $rootScope;
+  School.typeahead( '', 100 ).then( function( response ){
+    $scope.schools = response.schools;
+  });
+  
+  Item.latest_evaluated(50).then( function( response ){
     $scope.items = response.items;
   });
+
+  $scope.getSearch = function( search ){
+    var results = [];
+    Item.typeahead( search, 10, [], [] ).then( function( response ){
+      if( response.items.length ){
+      }
+      results.push( response.items );
+    });
+    return results;
+  };
 }]);
-
-

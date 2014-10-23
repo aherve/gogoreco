@@ -100,7 +100,7 @@ angular.module('resources.item', [
         comment_content: comment_content,
         entities: {
           item: {
-            "comments": false,
+            "comments": true,
             "comments_count": true,
             "current_user_commented": true,
             "current_user_score": true,
@@ -138,6 +138,14 @@ angular.module('resources.item', [
       return Restangular.one('items', id).post();
     },
 
+    addTagsById: function( tag_names, id ){
+      var params = {
+        tag_names: tag_names
+      };
+      return Restangular.one('items', id).customPOST( params, 'tags' );
+    },
+
+
     latest_evaluated: function( nmax ){
       var params = {
         entities: {
@@ -145,8 +153,8 @@ angular.module('resources.item', [
           item: {
             "comments": true,
             "comments_count": true,
-            "current_user_commented": true,
-            "current_user_score": true,
+            "current_user_commented": false,
+            "current_user_score": false,
             "id": true,
             "likers_count": true,
             "lovers_count": true,
@@ -154,6 +162,12 @@ angular.module('resources.item', [
             "mehers_count": true,
             "name": true,
             "tags": true
+          },
+          comment: {
+            content: true
+          },
+          tag: {
+            name: true
           }
         }
       };

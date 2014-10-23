@@ -51,8 +51,22 @@ angular.module( 'gogoreco.contribute', [])
 
   $scope.createItem = function(){
     Item.create( ['Dauphine'], $scope.itemToRecommend.name, [], $scope.itemToRecommend.current_user_eval, $scope.itemToRecommend.content ).then( function( response ){
-      $scope.initialize();
+      $scope.itemToRecommend = response.item;
+      $scope.addTagsMode = true;
     });
+  };
+
+  $scope.addTag = function(){
+    $scope.itemToRecommend.tags = $scope.itemToRecommend.tags ? $scope.itemToRecommend.tags : [];
+    if( !!$scope.itemToRecommend.tagToAdd ){
+      $scope.itemToRecommend.tags.push( $scope.itemToRecommend.tagToAdd );
+    }
+    $scope.itemToRecommend.tagToAdd = null;
+  };
+
+  $scope.addTagsToItem = function(){
+    Item.addTagsById( $scope.itemToRecommend.tags, $scope.itemToRecommend.id );
+    $scope.initialize();
   };
 
 }]);
