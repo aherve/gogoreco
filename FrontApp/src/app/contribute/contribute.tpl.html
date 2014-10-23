@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2" style="margin-top: 100px">
+
+      <!-- initial mode -->
+      <div ng-hide="mode">
+        <div class="lead bold text-aqua center">
+          Choisis un cours que tu aimerais recommander à Dauphine :
+        </div>
+        <div class="form-group">
+          <input class="form-control" typeahead="item as item.name for item in getTypeahead( $viewValue )" typeahead-min-length="3" ng-model="selectedItem" typeahead-on-select="onItemSelect()">
+        </div>
+        <div class="form-group clearfix">
+          <div class="pull-right">
+            <button class="btn btn-bluejeans" ng-click="selectTextItem()">Valider</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- create mode -->
+      <div ng-show="mode == 'create'" class="gr-well">
+        <div class="lead bold text-aqua">
+          {{ itemToRecommend.name }}
+        </div>
+
+        <div class="reco-buttons">
+          <div class="btn btn-love selected"><span class="fa fa-heart"></span></div>
+          <div class="btn btn-reco"><span class="fa fa-smile-o"></span></div>
+          <div class="btn btn-meh"><span class="fa fa-meh-o"></span></div>
+        </div>
+
+      </div>
+
+      <!-- edit mode -->
+      <div ng-show="mode == 'edit'">
+      </div>
+
+    </div>
+  </div>
+</div>

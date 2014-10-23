@@ -7,6 +7,7 @@ angular.module( 'gogoreco', [
   'ui.bootstrap',
   'LocalStorageModule',
   'security',
+
   'gogoreco.header',
   'gogoreco.config',
   'gogoreco.welcome',
@@ -14,9 +15,14 @@ angular.module( 'gogoreco', [
   'gogoreco.contribute',
   'gogoreco.recommendations',
   'gogoreco.usersConfirmation',
+
   'services.analytics',
   'services.alerts',
-  'services.appText'
+  'services.appText',
+
+  'resources.item',
+  'resources.school',
+  'resources.evaluation'
 ])
 
 .config( ['$stateProvider', '$urlRouterProvider', function myAppConfig ( $stateProvider, $urlRouterProvider ) {

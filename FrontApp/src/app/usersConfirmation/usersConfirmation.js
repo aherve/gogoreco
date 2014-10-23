@@ -1,6 +1,6 @@
 angular.module('gogoreco.usersConfirmation', [])
 
-.config(function config( $stateProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
   $stateProvider.state( 'usersConfirmation', {
     url: '/users/confirmation',
     views: {
@@ -12,7 +12,7 @@ angular.module('gogoreco.usersConfirmation', [])
     },
     data:{ pageTitle: "UsersConfirmation" }
   });
-})
+}])
 
 .controller('UsersConfirmationCtrl', ['$scope', '$location', 'security', function($scope, $location, security){
   activationKey = $location.search().confirmation_token;

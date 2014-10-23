@@ -24,7 +24,7 @@
 
 
       <ul class="nav navbar-nav navbar-right">
-        <li ng-hide="security.isAuthenticated()" ng-click="security.showLogin()"><a>Connect</a></li>
+        <li ng-hide="security.isAuthenticated()" ng-click="security.showLogin()"><a href="" style="text-decoration: underline">Connect</a></li>
         <li class="dropdown" ng-show="security.isAuthenticated()">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ security.currentUser.firstname + ' ' + security.currentUser.lastname }}<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
