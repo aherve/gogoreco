@@ -91,11 +91,13 @@ angular.module('resources.item', [
       });
     },
 
-    create: function( school_names, item_name, tag_names ){
+    create: function( school_names, item_name, tag_names, eval_score, comment_content ){
       var params = {
         school_names: school_names,
         item_name: item_name,
-        tag_names: tag_names
+        tag_names: tag_names,
+        eval_score: eval_score,
+        comment_content: comment_content
       };
       return Restangular.all('items').customPOST( params, 'create' );
     },
@@ -119,9 +121,6 @@ angular.module('resources.item', [
       };
       return Restangular.one('items', id).post();
     }
-
   };
-
   return Item;
-
 }]);

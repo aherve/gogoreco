@@ -24,8 +24,9 @@ angular.module( 'gogoreco.contribute', [])
   $scope.activeSchool = {};
   $scope.mode = null;
 
-  $scope.resetSelectedItem = function(){
+  $scope.initialize = function(){
     $scope.selectedItem = null;
+    $scope.itemToRecommend = null;
     $scope.mode = null;
   };
 
@@ -44,8 +45,14 @@ angular.module( 'gogoreco.contribute', [])
     $scope.mode = "create";
     $scope.itemToRecommend = {
       name: $scope.selectedItem,
-      current_user_score: 4
+      current_user_eval: 4
     };
+  };
+
+  $scope.createItem = function(){
+    Item.create( ['Dauphine'], $scope.itemToRecommend.name, [], $scope.itemToRecommend.current_user_eval, $scope.itemToRecommend.content ).then( function( response ){
+      $scope.initialize();
+    });
   };
 
 }]);

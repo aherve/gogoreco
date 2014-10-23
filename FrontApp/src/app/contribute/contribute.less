@@ -1,4 +1,4 @@
-.reco-buttons {
+.eval-buttons {
   &:extend( .btn-group, .btn-group-justified );
   & .btn + .btn {
     margin-left: 5px;
@@ -6,13 +6,28 @@
 }
 
 .btn-love {
-  &:extend( .btn-pinkrose );
+  .button-variant(white, @mediumgray, @mediumgray, @mediumgray);
+  &.selected,
+  &.selected:hover,
+  &.active:hover {
+    &:extend( .btn-s-pinkrose );
+  }
 }
 
 .btn-reco {
-  &:extend( .btn-s-mint );
+  .button-variant(white, @mediumgray, @mediumgray, @mediumgray);
+  &.selected,
+  &.selected:hover,
+  &.active:hover {
+    &:extend( .btn-s-mint );
+  }
 }
 
 .btn-meh {
-  &:extend( .btn-sunflower );
+  .button-variant(white, @mediumgray, @mediumgray, @mediumgray);
+  &.selected,
+  &.selected:hover,
+  &.active:hover {
+    &:extend( .btn-s-bluejeans );
+  }
 }

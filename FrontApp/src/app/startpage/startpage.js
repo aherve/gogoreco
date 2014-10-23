@@ -28,7 +28,9 @@ angular.module( 'gogoreco.startpage', [])
 .controller( 'StartpageCtrl', ['$scope', 'security', function StartpageController( $scope, security ) {
 
   if( security.isAuthenticated() ){
-    $scope.nav('/contribute');
+    if( security.currentUser.schools ){
+      $scope.nav('/contribute');
+    }
   }
 
   $scope.$on('login success', function(){
