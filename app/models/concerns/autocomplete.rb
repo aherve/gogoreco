@@ -3,6 +3,7 @@ module Autocomplete
 
   included do
     field :autocomplete
+    field :autocomplete_length
     before_save :generate_autocomplete
   end
 
@@ -11,6 +12,7 @@ module Autocomplete
     s = self.name
     s = s.truncate(100, omission: "", separator: " ") if s.length > 100
     write_attribute(:autocomplete, Autocomplete.normalize(s))
+    write_attribute(:autocomplete_length, Autocomplete.normalize(s).size)
   end
 
   # turn strings into autocomplete keys

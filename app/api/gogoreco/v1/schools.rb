@@ -13,7 +13,7 @@ module Gogoreco
         end
         post :typeahead do
           nmax = params[:nmax] || 10
-          schools = School.where(autocomplete: /#{Autocomplete.normalize(params[:search])}/).take(nmax) 
+          schools = School.asc(:autocomplete_length).where(autocomplete: /#{Autocomplete.normalize(params[:search])}/).take(nmax) 
           present :schools, schools, with: Gogoreco::Entities::School, entity_options: entity_options
         end
         #}}}

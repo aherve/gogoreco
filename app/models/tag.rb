@@ -6,11 +6,14 @@ class Tag
   include Autocomplete
 
   field :name, type: String
+  field :item_ids_size, type: Integer
+
   validates_presence_of :name
   validates_uniqueness_of :name
 
   index({name: 1},{unique: true, name: 'TagNameIndex'} )
 
+  before_save :set_item_ids_size
 
   has_and_belongs_to_many :items, class_name: "Item", inverse_of: "tags"
 
@@ -29,4 +32,11 @@ class Tag
       end
     end
   end
+
+  protected
+
+  def set_item_ids_size
+    self.item_ids_size = item_ids.size
+  end
+
 end

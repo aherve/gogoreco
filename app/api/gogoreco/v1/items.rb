@@ -16,7 +16,7 @@ module Gogoreco
         post :typeahead do
           error!("please search at least something") if params[:school_ids].blank? and params[:tag_ids].blank? and params[:search].blank?
 
-          found = Item
+          found = Item.asc(:autocomplete_length)
           if params[:school_ids]
             found = found.all_in(school_ids: params[:school_ids])
           end
