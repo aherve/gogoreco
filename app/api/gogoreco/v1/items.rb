@@ -76,7 +76,6 @@ module Gogoreco
             end
 
             if params[:eval_score]
-              byebug
               e = Evaluation.new(
                 score: params[:eval_score],
                 author: current_user,
