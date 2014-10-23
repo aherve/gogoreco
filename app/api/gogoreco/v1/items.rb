@@ -17,15 +17,15 @@ module Gogoreco
           error!("please search at least something") if params[:school_ids].blank? and params[:tag_ids].blank? and params[:search].blank?
 
           found = Item.asc(:autocomplete_length)
-          if params[:school_ids]
+          unless params[:school_ids].blank?
             found = found.all_in(school_ids: params[:school_ids])
           end
 
-          if params[:tag_ids]
+          unless params[:tag_ids].blank?
             found = found.all_in(tag_ids: params[:tag_ids])
           end
 
-          if params[:search]
+          unless params[:search].blank?
             found = found.where(autocomplete: /#{Autocomplete.normalize(params[:search])}/)
           end
 
