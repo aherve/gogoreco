@@ -113,6 +113,7 @@ angular.module('resources.item', [
             "id": true,
             "likers_count": true,
             "lovers_count": true,
+            "haters_count": true,
             "mehers_count": true,
             "name": true,
             "tags": true

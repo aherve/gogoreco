@@ -8,6 +8,8 @@ angular.module( 'gogoreco', [
   'LocalStorageModule',
   'security',
 
+  // yes, I sorted those by name length. Because that's HOW I RULE 
+  'gogoreco.home',
   'gogoreco.header',
   'gogoreco.config',
   'gogoreco.welcome',
