@@ -31,7 +31,9 @@ angular.module( 'gogoreco.contribute', [])
   };
 
   $scope.getTypeahead = function( search ){
-    return Item.typeahead( search, 15, [], $scope.activeSchool.id );
+    return Item.typeahead( search, 15, [], $scope.activeSchool.id ).then( function( response ){
+      return response.items;
+    });
   };
 
   $scope.onItemSelect = function(){

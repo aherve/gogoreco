@@ -58,16 +58,27 @@ angular.module( 'gogoreco', [
 }])
 
 .config(['localStorageServiceProvider', function(localStorageServiceProvider){
-    localStorageServiceProvider.setPrefix('gogoreco');
+  localStorageServiceProvider.setPrefix('gogoreco');
 }])
 
 
 .run(['localStorageService', '$window', '$rootScope', '$state', 'School', function( localStorageService, $window, $rootScope, $state, School ){
-  if( localStorageService.get('schoolId')){
+
+  if( localStorageService.get('schoolId') ){
     School.get( localStorageService.get('schoolId') ).then( function( response ){
       $rootScope.school = response.school;
     });
   }
+
+  $rootScope.$watch( function(){
+    return $rootScope.school ? $rootScope.school.id : null;
+  }, function( oldVal, newVal ){
+    if( $rootScope.school ){
+      localStorageService.set('schoolId', $rootScope.school.id);
+    }
+  });
+
+
   if( localStorageService.get('back url')){
     var url = '#' + localStorageService.get('back url');
     localStorageService.remove('back url');

@@ -65,27 +65,43 @@ angular.module( 'gogoreco.recommendations', [])
   });
 
   Item.latest_evaluated(50).then( function( response ){
-    $scope.items = response.items;
+    $scope.latestItems = response.items;
   });
+
+  $scope.clearIfEmpty = function(){
+    $scope.items = null;
+  };
+
+  $scope.onItemSelect = function( itemId ){
+    Item.get( itemId ).then( function( response ){
+      $scope.items = [ response.item ];
+    });
+  };
+
+  $scope.onTagSelect = function( tagId ){
+    Item.filter( null, 50, [ tagId ], [$rootScope.school.id] ).then( function( response ){
+      $scope.items = response.items;
+    });
+  };
 
   $scope.typeaheadSelect = function(){
     if( $scope.search.type == 'item' ){
-      Item.get( $scope.search.id ).then( function( response ){
-        console.log( response );
-        $scope.items = [ response.item ];
-      });
+      $scope.onItemSelect( $scope.search.id );
     }
     else if( $scope.search.type == 'tag' ){
-      Item.filter( null, 50, [ $scope.search.id ], [$rootScope.school.id] ).then( function( response ){
-        $scope.items = response.items;
-      });
+      $scope.onTagSelect( $scope.search.id );
     }
+  };
+
+  $scope.selectTag = function( tag ){
+    $scope.search = tag;
+    $scope.onTagSelect( tag.id );
   };
 
   $scope.getSearch = function( search ){
     var result = [];
     return Item.typeahead( search, 10, [], [] ).then( function( response ){
-      if( response.items ){
+      if( response.items.length ){
         response.items[0].displayItemDivider = true;
       }
       angular.forEach( response.items, function( item ){
@@ -93,9 +109,9 @@ angular.module( 'gogoreco.recommendations', [])
         result.push( item );
       });
       return Tag.typeahead( search, null ).then( function( response ){
-      if( response.tags ){
-        response.tags[0].displayTagsDivider = true;
-      }
+        if( response.tags.length ){
+          response.tags[0].displayTagsDivider = true;
+        }
         angular.forEach( response.tags, function( tag ){
           tag.type = 'tag';
           result.push( tag );
