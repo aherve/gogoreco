@@ -22,6 +22,7 @@ angular.module( 'gogoreco', [
   'services.alerts',
   'services.appText',
 
+  'resources.tag',
   'resources.item',
   'resources.school',
   'resources.evaluation'
