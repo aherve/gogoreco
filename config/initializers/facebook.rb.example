@@ -1,0 +1,8 @@
+if Rails.env.production?
+  FACEBOOK_APP_TOKEN ||= 'xxx'
+  FACEBOOK_APP_SECRET ||=  'yyy'
+else
+  FACEBOOK_APP_TOKEN ||= 'xxx'
+  FACEBOOK_APP_SECRET ||=  'yyy'
+end
+
