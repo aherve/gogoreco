@@ -95,6 +95,18 @@ module Gogoreco
         end
         #}}}
 
+        #{{{ latest_evaluated
+        desc "get latest evaluated items"
+        params do 
+          optional :nmax, type: Integer, desc: "max items count(default 10)", default: 10
+        end
+        post :latest_evaluated do
+          n = params[:nmax] || 10
+          is = Item.desc(:latest_evaluation_at).not.where(latest_evaluation_at: nil).take(n)
+          present :items, is, with: Gogoreco::Entities::Item, entity_options: entity_options
+        end
+        #}}}
+
         namespace ':item_id' do 
           before do 
             params do 

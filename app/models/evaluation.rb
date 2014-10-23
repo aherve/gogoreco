@@ -22,6 +22,7 @@ class Evaluation
 
   before_save :set_schools!
   before_save :look_for_related_comments
+  after_save :set_latest_eval_for_item
 
   def schools
     school_ids.any? ? School.find(school_ids) : []
@@ -32,6 +33,10 @@ class Evaluation
   end
 
   protected
+
+  def set_latest_eval_for_item
+    item.set_latest_eval! if item
+  end
 
   def set_schools!
     self.school_ids = item.school_ids rescue []
