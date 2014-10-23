@@ -177,4 +177,24 @@ describe Gogoreco::V1::Items do
   end
   #}}}
 
+  #{{{ latest_evaluated
+  describe :latest_evaluated do 
+    it "should take latest evaluated items" do 
+      @i = FactoryGirl.create(:item)
+
+        post "items/latest_evaluated"
+        h = JSON.parse(@response.body)
+        expect(h["items"].size).to eq 0
+
+        @user.evaluate_item!(@i,1)
+        @i.reload
+
+        post "items/latest_evaluated"
+        h = JSON.parse(@response.body)
+        expect(h["items"].size).to eq 1
+
+    end
+  end
+  #}}}
+
 end

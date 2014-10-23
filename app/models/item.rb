@@ -6,6 +6,7 @@ class Item
   include Autocomplete
 
   field :name
+  field :latest_evaluation_at, type: DateTime
 
   has_and_belongs_to_many :schools, class_name: "School", inverse_of: :items
   validates_presence_of :school_ids
@@ -68,6 +69,10 @@ class Item
 
   def user_commented(user)
     comments.where(author_id: user.id).exists?
+  end
+
+  def set_latest_eval!
+    update_attributes(latest_evaluation_at: evaluations.max(:created_at))
   end
 
   protected
