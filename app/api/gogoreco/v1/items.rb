@@ -107,6 +107,14 @@ module Gogoreco
         end
         #}}}
 
+        #{{{ you_should_like
+        desc "items the user has not commented, but should like"
+        post :you_should_like do
+          check_confirmed_user!
+          present :items, current_user.should_like, with: Gogoreco::Entities::Item, entity_options: entity_options
+        end
+        #}}}
+
         namespace ':item_id' do 
           before do 
             params do 
@@ -118,7 +126,7 @@ module Gogoreco
           #{{{ get
           desc "get an item from its id"
           post do 
-            present @item, with: Gogoreco::Entities::Item, entity_options: entity_options
+            present :item, @item, with: Gogoreco::Entities::Item, entity_options: entity_options
           end
           #}}}
 
@@ -136,7 +144,7 @@ module Gogoreco
 
               @item.tags << tags
               if (tags.map(&:save) << @item.save).reduce(:&)
-                present @item, with: Gogoreco::Entities::Item, entity_options: entity_options
+                present :item, @item, with: Gogoreco::Entities::Item, entity_options: entity_options
               else
                 error!("something went wrong")
               end
@@ -155,7 +163,7 @@ module Gogoreco
 
               @item.tags -= tags
               if (tags.map(&:save) << @item.save).reduce(:&)
-                present @item, with: Gogoreco::Entities::Item, entity_options: entity_options
+                present :item, @item, with: Gogoreco::Entities::Item, entity_options: entity_options
               else
                 error!("something went wrong")
               end
@@ -174,7 +182,7 @@ module Gogoreco
 
               @item.tags = tags
               if (tags.map(&:save) << @item.save).reduce(:&)
-                present @item, with: Gogoreco::Entities::Item, entity_options: entity_options
+                present :item, @item, with: Gogoreco::Entities::Item, entity_options: entity_options
               else
                 error!("something went wrong")
               end
