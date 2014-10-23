@@ -57,24 +57,44 @@ angular.module( 'gogoreco.recommendations', [])
   });
 }])
 
-.controller( 'RecommendationsCtrl', ['$scope', 'Item', '$rootScope', 'School', function RecommendationsController( $scope, Item, $rootScope, School ) {
+.controller( 'RecommendationsCtrl', ['$scope', 'Item', '$rootScope', 'School', 'Tag', function RecommendationsController( $scope, Item, $rootScope, School, Tag ) {
 
   $scope.$rootScope = $rootScope;
   School.typeahead( '', 100 ).then( function( response ){
     $scope.schools = response.schools;
   });
-  
+
   Item.latest_evaluated(50).then( function( response ){
     $scope.items = response.items;
   });
 
+  $scope.typeaheadSelect = function(){
+    if( $scope.search.type == 'item' ){
+      Item.get( $scope.search.id ).then( function( response ){
+        $scope.items = [ response.item ];
+      });
+    }
+    else if( $scope.search.type == 'tag' ){
+      Item.filter( null, 50, [ $scope.search.id ], [$rootScope.school.id] ).then( function( response ){
+        $scope.items = response.items;
+      });
+    }
+  };
+
   $scope.getSearch = function( search ){
-    var results = [];
-    Item.typeahead( search, 10, [], [] ).then( function( response ){
-      if( response.items.length ){
-      }
-      results.push( response.items );
+    var result = [];
+    return Item.typeahead( search, 10, [], [] ).then( function( response ){
+      angular.forEach( response.items, function( item ){
+        item.type = 'item';
+        result.push( item );
+      });
+      return Tag.typeahead( search, null ).then( function( response ){
+        angular.forEach( response.tags, function( tag ){
+          tag.type = 'tag';
+          result.push( tag );
+        });
+        return result;
+      });
     });
-    return results;
   };
 }]);

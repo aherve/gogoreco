@@ -86,9 +86,39 @@ angular.module('resources.item', [
           }
         }
       };
-      return Restangular.all('items').customPOST( params, 'typeahead' ).then( function( response ){
-        return response.items || [];
-      });
+      return Restangular.all('items').customPOST( params, 'typeahead' );
+    },
+
+    filter: function( search, nmax, tag_ids, school_ids ){
+      var params = {
+        search: search,
+        nmax: nmax,
+        tag_ids: tag_ids,
+        school_ids: school_ids,
+        entities: {
+          nmax: nmax || 10,
+          item: {
+            "comments": true,
+            "comments_count": true,
+            "current_user_commented": false,
+            "current_user_score": false,
+            "id": true,
+            "likers_count": true,
+            "lovers_count": true,
+            "haters_count": true,
+            "mehers_count": true,
+            "name": true,
+            "tags": true
+          },
+          comment: {
+            content: true
+          },
+          tag: {
+            name: true
+          }
+        }
+      };
+      return Restangular.all('items').customPOST( params, 'typeahead' );
     },
 
     create: function( school_names, item_name, tag_names, eval_score, comment_content ){
@@ -135,7 +165,7 @@ angular.module('resources.item', [
           }
         }
       };
-      return Restangular.one('items', id).post();
+      return Restangular.one('items', id).customPOST( params );
     },
 
     addTagsById: function( tag_names, id ){

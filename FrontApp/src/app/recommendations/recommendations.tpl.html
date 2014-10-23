@@ -26,7 +26,7 @@
   <div class="row" ng-show="$rootScope.school">
     <div class="col-md-8 col-md-offset-2">
       <div class="form-group form-search" style="margin-bottom: 15px">
-        <input class="form-control search-query" placeholder="Trouve des cours recommandés à {{ $rootScope.school.name }}" typeahead="elem as elem.name for elem in getSearch( $viewValue )" typeahead-template-url="'recommendations/resultsTemplate.tpl.html'" ng-model="search">
+        <input class="form-control search-query" placeholder="Trouve des cours recommandés à {{ $rootScope.school.name }}" typeahead="elem as elem.name for elem in getSearch( $viewValue )" ng-model="search" typeahead-on-select="typeaheadSelect()" typeahead-editable="false">
       </div>
     </div>
   </div>
