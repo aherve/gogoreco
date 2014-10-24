@@ -44,7 +44,8 @@ angular.module('resources.item', [
         },
         user: {
           firstname: true,
-          lastname: true
+          lastname: true,
+          image: true
         }
       }
 
@@ -130,7 +131,13 @@ angular.module('resources.item', [
           "tags": true
         },
         comment: {
-          content: true
+          content: true,
+          author: true
+        },
+        user: {
+          firstname: true,
+          lastname: true,
+          image: true
         },
         tag: {
           name: true
@@ -191,7 +198,8 @@ angular.module('resources.item', [
         },
         user: {
           firstname: true,
-          lastname: true
+          lastname: true,
+          image: true
         },
         tag: {
           name: true

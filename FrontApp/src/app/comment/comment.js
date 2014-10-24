@@ -12,5 +12,8 @@ angular.module('gogoreco.comment', [])
 }])
 
 .controller('CommentCtrl', ['$scope', function( $scope ){
+  $scope.comment.author = $scope.comment.author ? $scope.comment.author : { 
+    image: 'assets/images/logo_silver_square.png'
+  };
 }]);
 
