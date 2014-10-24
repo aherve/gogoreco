@@ -15,6 +15,10 @@ module Gogoreco
           post do 
             present :user, current_user, with: Gogoreco::Entities::User, entity_options: entity_options
           end
+          desc "get my informations"
+          get do 
+            present :user, current_user, with: Gogoreco::Entities::User, entity_options: entity_options
+          end
           #}}}
 
           #{{{ should_like_items
