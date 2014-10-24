@@ -3,6 +3,8 @@ class User
   include Mongoid::Timestamps
   include PrettyId
   include UserRecommendations
+  include Facebookable
+
 
   field :firstname
   field :lastname

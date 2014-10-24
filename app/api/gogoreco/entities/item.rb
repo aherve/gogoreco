@@ -23,6 +23,8 @@ module Gogoreco
       expose :user_commented, if: lambda{|i,o| o[:entity_options]["item"][:user_commented]} do |i,o|
         i.user_commented(o[:entity_options][:current_user])
       end
+
+      expose :schools, using: Gogoreco::Entities::School, if: lambda{|i,o| o[:entity_options]["item"][:schools]}
     end
   end
 end
