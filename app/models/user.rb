@@ -113,4 +113,7 @@ class User
     Evaluation.where(author_id: self.id, score: 1).distinct(:item_id)
   end
 
+  def image
+  end
+
 end
