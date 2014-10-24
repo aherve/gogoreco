@@ -84,8 +84,8 @@ module Gogoreco
               e.save
             end
 
-            schools.each{|s| s.save if s.new_record?} ;  schools.each(&:touch)
-            tags.each{|t| t.save if t.new_record?} ;  tags.each(&:touch)
+            schools.each{|s| s.items << i ;  s.save } ;  schools.each(&:touch)
+            tags.each{|t| t.items << t ;  t.save } ;  tags.each(&:touch)
 
             present :item, i, with: Gogoreco::Entities::Item, entity_options: entity_options
 

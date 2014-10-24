@@ -17,9 +17,9 @@ class Item
 
   has_and_belongs_to_many :tags, class_name: "Tag", inverse_of: "items"
 
-  has_many :comments, class_name: "Comment", inverse_of: "item"
+  has_many :comments, class_name: "Comment", inverse_of: "item", dependent: :destroy
 
-  has_many :evaluations, class_name: "Evaluation", inverse_of: :item
+  has_many :evaluations, class_name: "Evaluation", inverse_of: :item, dependent: :destroy
 
   after_save :set_evals_schools_if_needed
 
