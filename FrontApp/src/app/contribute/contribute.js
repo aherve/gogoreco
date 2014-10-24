@@ -42,8 +42,9 @@ angular.module( 'gogoreco.contribute', [])
 
   $scope.onItemSelect = function(){
     $scope.mode = "edit";
-    Item.get( selectedItem.id ).then( function( response ){
-      selectedItem = response;
+    Item.get( $scope.selectedItem.id ).then( function( response ){
+      console.log( response );
+      $scope.itemToRecommend = response.item;
     });
   };
 

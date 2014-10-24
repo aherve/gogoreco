@@ -22,12 +22,12 @@
         </div>
       </div>
 
-      <!-- create mode -->
-      <div ng-show="mode == 'create'" class="gr-well">
-        <div class="lead bold text-aqua">
-          {{ itemToRecommend.name }}
-        </div>
+      <div class="lead bold text-aqua center">
+        {{ itemToRecommend.name }}
+      </div>
 
+      <!-- create mode -->
+      <div ng-show="itemToRecommend">
         <div ng-hide="addTagsMode">
           <div class="form-group">
             <div class="eval-buttons">

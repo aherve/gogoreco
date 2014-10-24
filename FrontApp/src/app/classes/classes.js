@@ -68,7 +68,7 @@ angular.module( 'gogoreco.classes', [])
     $scope.items = null;
   };
 
-  Tag.popular(null, 30).then( function( response ){
+  Tag.popular( $rootScope.school.id, 30 ).then( function( response ){
     $scope.tagsSuggestions = response.tags;
   });
 
