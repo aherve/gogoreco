@@ -1,3 +1,4 @@
+require File.expand_path('../facebook.rb',__FILE__)
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -236,6 +237,8 @@ Devise.setup do |config|
   else
     config.omniauth :facebook, "213583302154494", "558b2acd1fa49b5312f0ada135b9bc9e"
   end
+
+  config.omniauth :facebook, FACEBOOK_APP_TOKEN, FACEBOOK_APP_SECRET
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
