@@ -7,7 +7,7 @@ module UserRecommendations
 
     buddy_ids = evaluations.reduce(Hash.new(0)) do |h,evaluation|
       my_score = evaluation.score
-      item = evaluation.item
+      item = evaluation.item || byebug
       item.evaluations.not.where(author_id: id).each do |eval2|
         diff = (my_score - eval2.score).abs
         r = if diff == 0
