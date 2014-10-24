@@ -24,7 +24,7 @@ module Gogoreco
           end
           post :should_like_items do
             check_confirmed_user!
-            present items: current_user.should_like, with: Gogoreco::Entities::Item, entity_options: entity_options
+            present :items, current_user.should_like, with: Gogoreco::Entities::Item, entity_options: entity_options
           end
           #}}}
 

@@ -1,13 +1,14 @@
 module UserRecommendations
   extend ActiveSupport::Concern
 
+  #{{{ should_like
   def should_like
     item_ids = evaluations.only(:item_id).distinct(:item_id)
     return [] unless item_ids.any?
 
     buddy_ids = evaluations.reduce(Hash.new(0)) do |h,evaluation|
       my_score = evaluation.score
-      item = evaluation.item || byebug
+      item = evaluation.item 
       item.evaluations.not.where(author_id: id).each do |eval2|
         diff = (my_score - eval2.score).abs
         r = if diff == 0
@@ -35,8 +36,9 @@ module UserRecommendations
     end
 
     return [] if items.empty?
-    items.select{|k,v| v>0}.sort_by{|k,v| v}.reverse.map(&:first).map{|id| Item.find(id)}
 
+    items.select{|k,v| v>0}.sort_by{|k,v| v}.reverse.map(&:first).map{|id| Item.find(id)}
   end
+  #}}}
 
 end
