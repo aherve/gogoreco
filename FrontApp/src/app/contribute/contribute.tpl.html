@@ -1,85 +1,31 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-8 col-md-offset-2" style="margin-top: 100px">
-
-      <!-- initial mode -->
-      <div ng-hide="mode">
+    <div class="col-md-6 col-md-offset-3" style="margin-top: 100px">
+      <!-- initial view -->
+      <div ng-hide="itemToRecommend">
         <div class="lead bold text-aqua center">
-          Choisis un cours que tu aimerais recommander à Dauphine :
+          Tape le nom d'un cours  que tu aimerais recommander à {{ $rootScope.school.name }} :
         </div>
-        <div class="form-group">
-          <input class="form-control" typeahead="item as item.name for item in getTypeahead( $viewValue )" typeahead-min-length="3" ng-model="selectedItem" typeahead-on-select="onItemSelect()">
-        </div>
-        <div class="form-group clearfix">
-          <div class="pull-right">
-            <button class="btn btn-bluejeans" ng-click="selectTextItem()">Valider</button>
+        <form>
+          <div class="form-group">
+            <input class="form-control" typeahead="item as item.name for item in getTypeahead( $viewValue )" typeahead-min-length="3" ng-model="selectedItem" typeahead-on-select="onItemSelect()">
           </div>
-        </div>
+          <div class="form-group clearfix">
+            <div class="pull-right">
+              <button class="btn btn-bluejeans" ng-click="selectTextItem()">Valider</button>
+            </div>
+          </div>
+        </form>
+
         <div class="gr-well">
           <ul class="list-unstyled">
-            <li ng-repeat="item in shouldLike"></li>
+            <li ng-repeat="item in shouldLike">{{ item.name }}</li>
           </ul>
         </div>
       </div>
 
-      <div class="lead bold text-aqua center">
-        {{ itemToRecommend.name }}
-      </div>
-
-      <!-- create mode -->
-      <div ng-show="itemToRecommend">
-        <div ng-hide="addTagsMode">
-          <div class="form-group">
-            <div class="eval-buttons">
-              <div class="inline-block center" style="width: 33%">
-                <div class="btn btn-love" ng-class="{'selected': itemToRecommend.current_user_eval == 4 || !itemToRecommend.current_user_eval}" ng-click="itemToRecommend.current_user_eval = 4"><span class="fa fa-heart"></span></div>
-                <div class="bold text-aqua">Coup de cœur</div>
-              </div>
-              <div class="inline-block center" style="width: 33%">
-                <div class="btn btn-reco" ng-class="{'selected': itemToRecommend.current_user_eval == 3 || !itemToRecommend.current_user_eval}" ng-click="itemToRecommend.current_user_eval = 3"><span class="fa fa-thumbs-up"></span></div>
-                <div class="bold text-aqua">Très bon</div>
-              </div>
-              <div class="inline-block center" style="width: 33%">
-                <div class="btn btn-meh" ng-class="{'selected': itemToRecommend.current_user_eval == 2 || !itemToRecommend.current_user_eval}" ng-click="itemToRecommend.current_user_eval = 2"><span class="fa fa-smile-o"></span></div>
-                <div class="bold text-aqua">Bon</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="text-aqua">Explique pourquoi tu recommandes ce cours </label>
-            <textarea rows="5" class="form-control" ng-model="itemToRecommend.content"></textarea>
-          </div>
-
-          <div class="form-group clearfix">
-            <button class="btn btn-bluejeans" ng-click="createItem()">Valider</button>
-          </div>
-        </div><!-- recommend -->
-
-        <div ng-show="addTagsMode">
-          <label class="text-aqua">Ajoute des tags à ton cours pour que les autres puissent le retrouver !</label>
-          <div class="form-group">
-            <span class="badge badge-grapefruit" ng-repeat="tag in itemToRecommend.tags">{{ tag }} <small class="glyphicon glyphicon-remove" ng-click="itemToRecommend.tags.splice( $index, 1 )"></small></span>
-          </div>
-          <form class="css-form" novalidate>
-            <div class="form-group">
-              <div class="input-group">
-                <input class="form-control" type="text" ng-model="itemToRecommend.tagToAdd">
-                <span class="input-group-btn">
-                  <button type="button"class="btn btn-default btn-bluejeans" ng-click="addTag()" style="height: 34px; padding: 5px 12px">Ajouter</button>
-                </span>
-              </div>
-            </div>
-          </form>
-          <div class="form-group">
-            <button class="btn btn-bluejeans" ng-click="addTagsToItem()">Terminer</button>
-          </div>
-        </div><!-- add tags -->
-      </div>
-
-      <!-- edit mode -->
-      <div ng-show="mode == 'edit'">
-      </div>
+      <!-- recommend -->
+      <div ng-show="itemToRecommend" gr-evaluate="itemToRecommend" cb="initialize()"></div>
 
     </div>
   </div>

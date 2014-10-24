@@ -23,7 +23,7 @@
     <div ng-repeat="i in array">
       <div class="reco-stack" ng-class="{'reco-stack-empty': (5 -$index )> score(1), 'reco-stack-full': score(1) > (5 - $index - 1)}"></div>
       <div class="reco-bar-icon" ng-show="5 - $index - 1 == score(1)">
-        <span class="fa fa-smile-o"></span>
+        <span class="fa fa-meh-o"></span>
       </div>
     </div>
     <small>{{ item.mehers_count }}</small>
@@ -33,7 +33,7 @@
     <div ng-repeat="i in array">
       <div class="reco-stack" ng-class="{'reco-stack-empty': (5 -$index )> score(0), 'reco-stack-full': score(0) > (5 - $index - 1)}"></div>
       <div class="reco-bar-icon" ng-show="5 - $index - 1 == score(0)">
-        <span class="fa fa-meh-o"></span>
+        <span class="fa fa-frown-o"></span>
       </div>
     </div>
     <small>{{ item.haters_count }}</small>
