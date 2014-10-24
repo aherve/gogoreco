@@ -16,6 +16,7 @@ class Item
   belongs_to :creator, class_name: "User", inverse_of: "created_items"
 
   has_and_belongs_to_many :tags, class_name: "Tag", inverse_of: "items"
+  has_and_belongs_to_many :profs, class_name: "Prof", inverse_of: "items"
 
   has_many :comments, class_name: "Comment", inverse_of: "item", dependent: :destroy
 
