@@ -2,6 +2,7 @@ require 'spec_helper'
 describe Gogoreco::V1::Items do 
 
   before(:each) do
+    Prof.delete_all
     Evaluation.delete_all
     Comment.delete_all
     Item.delete_all
@@ -92,6 +93,20 @@ describe Gogoreco::V1::Items do
       expect(@i.tag_ids.include?(@t.id)).to be true
 
       post "items/typeahead", {tag_ids: [@t.id]}
+      h = JSON.parse(@response.body)
+      expect(h.has_key?("items")).to be true
+      expect(h["items"].any?).to be true
+      expect(h["items"].first["id"]).to eq @i.id.to_s
+    end
+
+    it "filters by profs" do 
+      @t = FactoryGirl.create(:prof)
+      @i = FactoryGirl.create(:item)
+
+      @i.profs << @t ; @i.save ; @i.reload
+      expect(@i.prof_ids.include?(@t.id)).to be true
+
+      post "items/typeahead", {prof_ids: [@t.id]}
       h = JSON.parse(@response.body)
       expect(h.has_key?("items")).to be true
       expect(h["items"].any?).to be true
