@@ -1,36 +1,19 @@
 .item {
   margin-bottom: 30px;
-  @profile-pic-height: 22px;
-  @profile-pic-border: 2px;
   border-radius: 5px;
   background-color: white;
 //  color: @lightgray-d;
   & .item-divider {
     text-align: center;
   }
+
   & .item-heading {
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
     padding: 20px 20px 0px 20px;
   }
+
   & .item-body {
-    & .inline-block-text {
-      width: calc(~"100% - 60px");
-    }
-    & .profile-pic {
-      margin-right: 20px;
-      height: @profile-pic-height + 2 * @profile-pic-border; 
-      width: @profile-pic-height + 2 * @profile-pic-border; 
-      border-radius: ( @profile-pic-height ) / 2 + @profile-pic-border;
-      background-image: linear-gradient(to right, saturate(@bluejeans, 100%), saturate(@mint, 100%) );
-      text-align: center;
-      & img {
-        margin-top: @profile-pic-border;
-        height: @profile-pic-height;
-        width: @profile-pic-height;
-        border-radius: @profile-pic-height / 2;
-      }
-    }
     padding: 0px 20px 20px 20px;
   }
 

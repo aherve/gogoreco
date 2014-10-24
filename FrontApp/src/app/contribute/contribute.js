@@ -16,13 +16,59 @@ angular.module( 'gogoreco.contribute', [])
   });
 }])
 
+.directive('grEvaluate', [function(){
+  return {
+    restrict: 'AE',
+    controller: 'EvaluateItemCtrl',
+    templateUrl: 'contribute/evaluateItem.tpl.html',
+    scope: {
+      item: '=grEvaluate',
+      cb: '&'
+    }
+  };
+}])
+
+.controller('EvaluateItemCtrl', ['$scope', 'Item', 'Tag', '$rootScope', function( $scope, Item, Tag, $rootScope ){
+
+  commentItem = function(){
+    $scope.item.commentItem( $scope.item.comment );
+  };
+
+  $scope.getTagTypeahead = function( search ){
+    return Tag.typeahead( search, $rootScope.school.id ).then( function( response ){
+      return response.tags;
+    });
+  };
+
+  $scope.addTag = function(){
+    $scope.item.tags = $scope.item.tags ? $scope.item.tags : [];
+    if( !!$scope.item.tagToAdd ){
+      $scope.item.tags.push({
+        name: $scope.item.tagToAdd 
+      });
+    }
+    $scope.item.tagToAdd = null;
+  };
+
+  $scope.addTagsToItem = function(){
+    var getNames = function( tags ){
+      return tags.map( function( tag ){
+        return tag.name;
+      });
+    };
+    Item.addTagsById( getNames($scope.item.tags), $scope.item.id );
+    $scope.cb();
+  };
+
+}])
+
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'ContributeCtrl', ['$scope', 'Item', 'User', function ContributeController( $scope, Item, User ) {
+.controller( 'ContributeCtrl', ['$scope', 'Item', 'User', '$rootScope', function ContributeController( $scope, Item, User, $rootScope ){
 
   $scope.activeSchool = {};
-  $scope.mode = null;
+  $scope.$rootScope = $rootScope;
 
   User.should_like().then( function( response ){
     $scope.shouldLike = response.items;
@@ -31,7 +77,6 @@ angular.module( 'gogoreco.contribute', [])
   $scope.initialize = function(){
     $scope.selectedItem = null;
     $scope.itemToRecommend = null;
-    $scope.mode = null;
   };
 
   $scope.getTypeahead = function( search ){
@@ -41,19 +86,15 @@ angular.module( 'gogoreco.contribute', [])
   };
 
   $scope.onItemSelect = function(){
-    $scope.mode = "edit";
     Item.get( $scope.selectedItem.id ).then( function( response ){
-      console.log( response );
       $scope.itemToRecommend = response.item;
     });
   };
 
   $scope.selectTextItem = function(){
-    $scope.mode = "create";
-    $scope.itemToRecommend = {
-      name: $scope.selectedItem,
-      current_user_eval: 4
-    };
+    Item.create(['Dauphine'], $scope.selectedItem, [], null, null).then( function( response ){
+      $scope.itemToRecommend = response.item;
+    });
   };
 
   $scope.createItem = function(){
@@ -63,18 +104,6 @@ angular.module( 'gogoreco.contribute', [])
     });
   };
 
-  $scope.addTag = function(){
-    $scope.itemToRecommend.tags = $scope.itemToRecommend.tags ? $scope.itemToRecommend.tags : [];
-    if( !!$scope.itemToRecommend.tagToAdd ){
-      $scope.itemToRecommend.tags.push( $scope.itemToRecommend.tagToAdd );
-    }
-    $scope.itemToRecommend.tagToAdd = null;
-  };
-
-  $scope.addTagsToItem = function(){
-    Item.addTagsById( $scope.itemToRecommend.tags, $scope.itemToRecommend.id );
-    $scope.initialize();
-  };
 
 }]);
 

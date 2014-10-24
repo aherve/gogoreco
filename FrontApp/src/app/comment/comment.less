@@ -1,0 +1,26 @@
+.profile-pic {
+  @profile-pic-height: 22px;
+  @profile-pic-border: 2px;
+  margin-right: 20px;
+  height: @profile-pic-height + 2 * @profile-pic-border; 
+  width: @profile-pic-height + 2 * @profile-pic-border; 
+  border-radius: ( @profile-pic-height ) / 2 + @profile-pic-border;
+  background-image: linear-gradient(to right, saturate(@bluejeans, 100%), saturate(@mint, 100%) );
+  text-align: center;
+  & img {
+    margin-top: @profile-pic-border;
+    height: @profile-pic-height;
+    width: @profile-pic-height;
+    border-radius: @profile-pic-height / 2;
+  }
+}
+
+& .inline-block-text {
+  width: calc(~"100% - 60px");
+}
+
+[gr-comment] {
+  color: red;
+  background-color: black;
+  margin-top: 20px;
+}

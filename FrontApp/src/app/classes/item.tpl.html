@@ -16,19 +16,7 @@
     </div>
   </div>
   <div class="item-body">
-    <div class="comment-in-reco" ng-repeat="comment in item.comments">
-      <div class="inline-block">
-        <a class="pull-left">
-          <div class="profile-pic">
-            <img src="assets/images/moi.jpeg">
-          </div>
-        </a>
-      </div>
-      <div class="inline-block inline-block-text" style="text-align: justify">
-        <span class="bold">{{ comment.author.firstname }}</span>
-        <span>{{ comment.content }}</span>
-      </div>
-    </div>
+    <div gr-comment ng-repeat="comment in item.comments" comment="comment" style="margin-bottom: 20px"></div>
   </div>
   <div class="item-tags">
     <span class="badge pointer" ng-repeat="tag in item.tags" ng-click="selectTag( tag )">{{ tag.name }}</span>

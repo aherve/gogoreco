@@ -12,6 +12,7 @@ angular.module( 'gogoreco', [
   'gogoreco.home',
   'gogoreco.header',
   'gogoreco.config',
+  'gogoreco.comment',
   'gogoreco.classes',
   'gogoreco.welcome',
   'gogoreco.startpage',
