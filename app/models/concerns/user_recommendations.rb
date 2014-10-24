@@ -30,7 +30,7 @@ module UserRecommendations
       end
     end
 
-    puts "debug: #{@items}"
+    return [] if @items.empty?
     @items.select{|k,v| v>0}.sort_by{|k,v| v}.reverse.map(&:first).map{|id| Item.find(id)}
 
   end
