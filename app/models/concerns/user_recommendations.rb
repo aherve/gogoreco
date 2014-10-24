@@ -3,6 +3,8 @@ module UserRecommendations
 
   def should_like
     item_ids = evaluations.only(:item_id).distinct(:item_id)
+    return [] unless item_ids.any?
+
     buddy_ids = evaluations.reduce(Hash.new(0)) do |h,evaluation|
       my_score = evaluation.score
       item = evaluation.item
@@ -22,16 +24,18 @@ module UserRecommendations
       h
     end
 
-    @items = Hash.new(0)
+    return [] if buddy_ids.empty?
+
+    items = Hash.new(0)
     buddy_ids.each do |buddy_id,buddy_r|
 
       Evaluation.where(author_id: buddy_id).not.where(item_id: item_ids).each do |buddy_evaluation|
-        @items[buddy_evaluation.item_id] += buddy_r * buddy_evaluation.score
+        items[buddy_evaluation.item_id] += buddy_r * buddy_evaluation.score
       end
     end
 
-    return [] if @items.empty?
-    @items.select{|k,v| v>0}.sort_by{|k,v| v}.reverse.map(&:first).map{|id| Item.find(id)}
+    return [] if items.empty?
+    items.select{|k,v| v>0}.sort_by{|k,v| v}.reverse.map(&:first).map{|id| Item.find(id)}
 
   end
 
