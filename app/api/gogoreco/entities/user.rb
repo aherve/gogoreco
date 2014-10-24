@@ -7,6 +7,8 @@ module Gogoreco
       expose :email, if: lambda {|u,o| o[:entity_options]["user"][:email]} do |u,o|
         u.public_email(o[:entity_options][:current_user])
       end
+
+      expose :image, if: lambda {|u,o| o[:entity_options]["user"][:image]}
     end
   end
 end
