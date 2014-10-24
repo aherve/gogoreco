@@ -24,14 +24,14 @@
           </div>
         </a>
       </div>
-      <div class="inline-block inline-block-text">
+      <div class="inline-block inline-block-text" style="text-align: justify">
         <span class="bold">{{ comment.author.firstname }}</span>
         <span>{{ comment.content }}</span>
       </div>
     </div>
   </div>
   <div class="item-tags">
-    <span class="badge" ng-repeat="tag in item.tags" ng-click="selectTag( tag )">{{ tag.name }}</span>
+    <span class="badge pointer" ng-repeat="tag in item.tags" ng-click="selectTag( tag )">{{ tag.name }}</span>
   </div>
 </div>
 

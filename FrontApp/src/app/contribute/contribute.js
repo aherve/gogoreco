@@ -19,10 +19,14 @@ angular.module( 'gogoreco.contribute', [])
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'ContributeCtrl', ['$scope', 'Item', function ContributeController( $scope, Item ) {
+.controller( 'ContributeCtrl', ['$scope', 'Item', 'User', function ContributeController( $scope, Item, User ) {
 
   $scope.activeSchool = {};
   $scope.mode = null;
+
+  User.should_like().then( function( response ){
+    $scope.shouldLike = response.items;
+  });
 
   $scope.initialize = function(){
     $scope.selectedItem = null;

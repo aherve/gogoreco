@@ -219,6 +219,7 @@ angular.module('security.service', [
           service.currentUser = response.user;
           return service.currentUser;
         }, function( err ){
+          return null;
         });
       }
     },

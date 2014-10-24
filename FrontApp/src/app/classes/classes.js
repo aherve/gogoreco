@@ -1,9 +1,9 @@
-angular.module( 'gogoreco.recommendations', [])
+angular.module( 'gogoreco.classes', [])
 
 .directive('grRecoBars', [function(){
   return {
     restrict: 'A',
-    templateUrl: 'recommendations/recoBars.tpl.html',
+    templateUrl: 'classes/recoBars.tpl.html',
     controller: 'RecoBarsCtrl',
     scope: {
       item: '='
@@ -42,35 +42,35 @@ angular.module( 'gogoreco.recommendations', [])
 }])
 
 .config(['securityAuthorizationProvider', '$stateProvider', function config( securityAuthorizationProvider, $stateProvider ) {
-  $stateProvider.state( 'recommendations', {
-    url: '/recommendations',
+  $stateProvider.state( 'classes', {
+    url: '/classes',
     views: {
       "main": {
-        controller: 'RecommendationsCtrl',
-        templateUrl: 'recommendations/recommendations.tpl.html'
+        controller: 'ClassesCtrl',
+        templateUrl: 'classes/classes.tpl.html'
       }
     },
-    data:{ pageTitle: 'Recommendations' },
+    data:{ pageTitle: 'Classes' },
     resolve: {
       authenticatedUser: securityAuthorizationProvider.requireAuthenticatedUser
     }
   });
 }])
 
-.controller( 'RecommendationsCtrl', ['$scope', 'Item', '$rootScope', 'School', 'Tag', function RecommendationsController( $scope, Item, $rootScope, School, Tag ) {
+.controller( 'ClassesCtrl', ['$scope', 'Item', '$rootScope', 'School', 'Tag', '$q', function ClassesController( $scope, Item, $rootScope, School, Tag, $q ) {
 
   $scope.$rootScope = $rootScope;
   School.typeahead( '', 100 ).then( function( response ){
     $scope.schools = response.schools;
   });
 
-  Item.latest_evaluated(50).then( function( response ){
-    $scope.latestItems = response.items;
-  });
-
   $scope.clearIfEmpty = function(){
     $scope.items = null;
   };
+
+  Tag.popular(null, 30).then( function( response ){
+    $scope.tagsSuggestions = response.tags;
+  });
 
   $scope.onItemSelect = function( itemId ){
     Item.get( itemId ).then( function( response ){
@@ -100,24 +100,26 @@ angular.module( 'gogoreco.recommendations', [])
 
   $scope.getSearch = function( search ){
     var result = [];
-    return Item.typeahead( search, 10, [], [] ).then( function( response ){
-      if( response.items.length ){
-        response.items[0].displayItemDivider = true;
+    var itemsPromise = Item.typeahead( search, 10, [], [] );
+    var tagsPromise =  Tag.typeahead( search, null );
+
+    return $q.all([itemsPromise, tagsPromise]).then( function( response ){
+      if( response[0].items.length ){
+        response[0].items[0].displayItemDivider = true;
       }
-      angular.forEach( response.items, function( item ){
+      angular.forEach( response[0].items, function( item ){
         item.type = 'item';
         result.push( item );
       });
-      return Tag.typeahead( search, null ).then( function( response ){
-        if( response.tags.length ){
-          response.tags[0].displayTagsDivider = true;
-        }
-        angular.forEach( response.tags, function( tag ){
-          tag.type = 'tag';
-          result.push( tag );
-        });
-        return result;
+      if( response[1].tags.length ){
+        response[1].tags[0].displayTagsDivider = true;
+      }
+      angular.forEach( response[1].tags, function( tag ){
+        tag.type = 'tag';
+        result.push( tag );
       });
+      return result;
     });
+
   };
 }]);

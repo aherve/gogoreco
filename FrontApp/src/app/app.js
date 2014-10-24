@@ -12,10 +12,10 @@ angular.module( 'gogoreco', [
   'gogoreco.home',
   'gogoreco.header',
   'gogoreco.config',
+  'gogoreco.classes',
   'gogoreco.welcome',
   'gogoreco.startpage',
   'gogoreco.contribute',
-  'gogoreco.recommendations',
   'gogoreco.usersConfirmation',
 
   'services.analytics',
@@ -23,6 +23,7 @@ angular.module( 'gogoreco', [
   'services.appText',
 
   'resources.tag',
+  'resources.user',
   'resources.item',
   'resources.school',
   'resources.evaluation'
