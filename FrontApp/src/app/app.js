@@ -12,10 +12,10 @@ angular.module( 'gogoreco', [
   'gogoreco.home',
   'gogoreco.header',
   'gogoreco.config',
+  'gogoreco.classes',
   'gogoreco.welcome',
   'gogoreco.startpage',
   'gogoreco.contribute',
-  'gogoreco.recommendations',
   'gogoreco.usersConfirmation',
 
   'services.analytics',
@@ -23,6 +23,7 @@ angular.module( 'gogoreco', [
   'services.appText',
 
   'resources.tag',
+  'resources.user',
   'resources.item',
   'resources.school',
   'resources.evaluation'
@@ -58,11 +59,27 @@ angular.module( 'gogoreco', [
 }])
 
 .config(['localStorageServiceProvider', function(localStorageServiceProvider){
-    localStorageServiceProvider.setPrefix('gogoreco');
+  localStorageServiceProvider.setPrefix('gogoreco');
 }])
 
 
-.run(['localStorageService', '$window', '$rootScope', '$state', function( localStorageService, $window, $rootScope, $state ){
+.run(['localStorageService', '$window', '$rootScope', '$state', 'School', function( localStorageService, $window, $rootScope, $state, School ){
+
+  if( localStorageService.get('schoolId') ){
+    School.get( localStorageService.get('schoolId') ).then( function( response ){
+      $rootScope.school = response.school;
+    });
+  }
+
+  $rootScope.$watch( function(){
+    return $rootScope.school ? $rootScope.school.id : null;
+  }, function( oldVal, newVal ){
+    if( $rootScope.school ){
+      localStorageService.set('schoolId', $rootScope.school.id);
+    }
+  });
+
+
   if( localStorageService.get('back url')){
     var url = '#' + localStorageService.get('back url');
     localStorageService.remove('back url');

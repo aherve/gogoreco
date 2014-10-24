@@ -177,7 +177,6 @@ angular.module('security.service', [
       Restangular.all('users').all('sign_in').post({user: user}).then(function(response) {
         return Restangular.all('users').customPOST(params, 'me').then( function( response ){
           service.currentUser = response.user;
-          $rootScope.school = service.currentUser.schools ? service.currentUser.schools[0] : null;
           if ( service.isAuthenticated() ) {
             $rootScope.$broadcast('login success');
             closeEmailLoginModal(true);
@@ -218,9 +217,9 @@ angular.module('security.service', [
         };
         return Restangular.all('users').customPOST(params, 'me' ).then(function(response) {
           service.currentUser = response.user;
-          $rootScope.school = service.currentUser.schools ? service.currentUser.schools[0] : null;
           return service.currentUser;
         }, function( err ){
+          return null;
         });
       }
     },

@@ -19,10 +19,14 @@ angular.module( 'gogoreco.contribute', [])
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'ContributeCtrl', ['$scope', 'Item', function ContributeController( $scope, Item ) {
+.controller( 'ContributeCtrl', ['$scope', 'Item', 'User', function ContributeController( $scope, Item, User ) {
 
   $scope.activeSchool = {};
   $scope.mode = null;
+
+  User.should_like().then( function( response ){
+    $scope.shouldLike = response.items;
+  });
 
   $scope.initialize = function(){
     $scope.selectedItem = null;
@@ -31,7 +35,9 @@ angular.module( 'gogoreco.contribute', [])
   };
 
   $scope.getTypeahead = function( search ){
-    return Item.typeahead( search, 15, [], $scope.activeSchool.id );
+    return Item.typeahead( search, 15, [], $scope.activeSchool.id ).then( function( response ){
+      return response.items;
+    });
   };
 
   $scope.onItemSelect = function(){

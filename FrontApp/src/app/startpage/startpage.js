@@ -28,13 +28,11 @@ angular.module( 'gogoreco.startpage', [])
 .controller( 'StartpageCtrl', ['$scope', 'security', function StartpageController( $scope, security ) {
 
   if( security.isAuthenticated() ){
-    if( security.currentUser.schools ){
-      $scope.nav('/contribute');
-    }
+    $scope.nav('/home');
   }
 
   $scope.$on('login success', function(){
-    $scope.nav('/contribute');
+    $scope.nav('/home');
   });
 
 }]);
