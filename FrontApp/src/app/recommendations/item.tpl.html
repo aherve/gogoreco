@@ -1,0 +1,37 @@
+<div class="item">
+  <div class="item-heading">
+    <div class="h3 text-aqua" style="margin: 0">{{ item.name }}</div>
+  </div>
+  <div class="item-divider">
+    <div class="row">
+      <div class="col-xs-3 col-sm-4">
+        <hr class="reco-hr">
+      </div>
+      <div class="col-xs-6 col-sm-4">
+        <div gr-reco-bars item="item"></div>
+      </div>
+      <div class="col-xs-3 col-sm-4">
+        <hr class="reco-hr">
+      </div>
+    </div>
+  </div>
+  <div class="item-body">
+    <div class="comment-in-reco" ng-repeat="comment in item.comments">
+      <div class="inline-block">
+        <a class="pull-left">
+          <div class="profile-pic">
+            <img src="assets/images/moi.jpeg">
+          </div>
+        </a>
+      </div>
+      <div class="inline-block inline-block-text">
+        <span class="bold">{{ comment.author.firstname }}</span>
+        <span>{{ comment.content }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="item-tags">
+    <span class="badge" ng-repeat="tag in item.tags" ng-click="selectTag( tag )">{{ tag.name }}</span>
+  </div>
+</div>
+

@@ -40,10 +40,10 @@
         <!-- email -->
         <form calss="css-form" name="loginForm" ng-show="state.initialMode">
           <div class="form-group">
-            <input class="form-control form-control-grey" placeholder="email" ng-model="loginUser.email">
+            <input class="form-control form-control-grey" placeholder="Email" ng-model="loginUser.email">
           </div>
           <div class="form-group">
-            <input class="form-control form-control-grey" type="password" placeholder="{{ AppText.security.password | language }}" ng-model="loginUser.password">
+            <input class="form-control form-control-grey" type="password" placeholder="Mot de passe" ng-model="loginUser.password">
           </div>
           <div class="form-group" style="margin-top: 20px">
             <div class="pull-right">
@@ -58,16 +58,16 @@
       <div ng-show="state.emailSignupMode">
         <form class="css-form" name="signupFrom" >
           <div class="form-group">
-            <input class="form-control form-control-grey" ng-model="signupUser.firstname" type="text" placeholder="{{ AppText.security.first_name | language }}" required>
+            <input class="form-control form-control-grey" ng-model="signupUser.firstname" type="text" placeholder="Prénom" required>
           </div>
           <div class="form-group">
-            <input class="form-control form-control-grey" ng-model="signupUser.lastname" type="text" placeholder="{{ AppText.security.last_name | language }}" required>
+            <input class="form-control form-control-grey" ng-model="signupUser.lastname" type="text" placeholder="Nom" required>
           </div>
           <div class="form-group">
-            <input class="form-control form-control-grey" ng-model="signupUser.email" type="email" placeholder="{{ AppText.security.email | language }}" required>
+            <input class="form-control form-control-grey" ng-model="signupUser.email" type="email" placeholder="Email" required>
           </div>
           <div class="form-group">
-            <input class="form-control form-control-grey" ng-model="signupUser.password" type="password" placeholder="{{ AppText.security.password | language }}" required>
+            <input class="form-control form-control-grey" ng-model="signupUser.password" type="password" placeholder="Mot de passe" required>
           </div>
           <div class="form-group">
             <button class="btn btn-info" ng-click="signup()">signup</button>
