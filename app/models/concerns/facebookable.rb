@@ -4,6 +4,36 @@ module Facebookable
   included do 
     field :provider, type: String
     field :uid, type: String
+    index({uid: 1},{unique: true, name: 'UsrfacebookUid', sparse: true} )
+  end
+
+  class FbConnector
+    class << self
+      def conn
+        Faraday.new(:url => 'https://graph.facebook.com') do |faraday|
+          faraday.request  :url_encoded             # form-encode POST params
+          faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+          faraday.params["access_token"] = [FACEBOOK_APP_TOKEN,FACEBOOK_APP_SECRET].join("|")
+        end
+      end
+    end
+  end
+
+  def fb_friends_hash
+    f = Rails.cache.fetch("usrFbFriends|#{id}", expires_in: 5.minutes) do 
+      provider == "facebook" ? JSON.parse(FbConnector.conn.get("/#{uid}/friends").body)["data"] : []
+    end
+    f || []
+  end
+
+  def fb_friend_uids
+    f = (provider == "facebook" ? fb_friends_hash.map{|h| h["id"]} : [])
+    f || []
+  end
+
+  def fb_app_friends
+    f = (provider == "facebook" ? User.find(uid: fb_friend_uids) : [] )
+    f || []
   end
 
   def image
