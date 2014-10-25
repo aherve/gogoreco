@@ -235,7 +235,11 @@ angular.module('resources.item', [
           "haters_count": true,
           "mehers_count": true,
           "name": true,
-          "tags": true
+          "tags": true,
+          "schools": true
+        },
+        school: {
+          name: true
         },
         comment: {
           content: true

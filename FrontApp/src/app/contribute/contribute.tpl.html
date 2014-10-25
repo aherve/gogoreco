@@ -1,31 +1,65 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3" style="margin-top: 100px">
-      <!-- initial view -->
-      <div ng-hide="itemToRecommend">
-        <div class="lead bold text-aqua center">
-          Tape le nom d'un cours  que tu aimerais recommander à {{ $rootScope.school.name }} :
-        </div>
-        <form>
-          <div class="form-group">
-            <input class="form-control" typeahead="item as item.name for item in getTypeahead( $viewValue )" typeahead-min-length="3" ng-model="selectedItem" typeahead-on-select="onItemSelect()">
-          </div>
-          <div class="form-group clearfix">
-            <div class="pull-right">
-              <button class="btn btn-bluejeans" ng-click="selectTextItem()">Valider</button>
-            </div>
-          </div>
-        </form>
 
-        <div class="gr-well">
-          <ul class="list-unstyled">
-            <li ng-repeat="item in shouldLike">{{ item.name }}</li>
-          </ul>
+      <div class="dropdown" style="margin-bottom: 20px" ng-hide="itemToRecommend || displayAddSchool">
+        <span class="lead bold text-aqua dropdown-toggle">
+          <span ng-hide="$rootScope.school">
+            Sélectionne un établissement 
+          </span>
+          <span ng-show="$rootScope.school">{{ $rootScope.school.name }} </span>
+          <span class="caret"></span>
+        </span>
+        <ul class="dropdown-menu" style="text-align: left">
+          <li ng-repeat="school in schools" ng-click="$rootScope.school = school" class="pointer">
+            <a>
+              {{ school.name }}
+            </a>
+          </li>
+          <li ng-click="displayAddSchool = true; $rootScope.school = {}"><a><span class="fa fa-plus"></span> Ajouter une école</a></li>
+        </ul>
+      </div>
+
+      <div ng-show="displayAddSchool">
+        <label>Donne le nom de ton établissement !</label>
+        <div class="form-group">
+          <input class="form-control" ng-model="$rootScope.school.name">
+        </div>
+        <div class="form-group">
+          <button class="btn btn-sunflower">Annuler</button>
+          <button class="btn btn-bluejeans" ng-click="displayAddSchool = false">Valider</button>
         </div>
       </div>
 
-      <!-- recommend -->
-      <div ng-show="itemToRecommend" gr-evaluate="itemToRecommend" cb="initialize()"></div>
+
+      <div ng-show="$rootScope.school.name && !displayAddSchool">
+        <!-- initial view -->
+        <div ng-hide="itemToRecommend">
+          <div class="lead bold text-aqua">
+            Tape le nom d'un cours  que tu aimerais recommander :
+          </div>
+          <form>
+            <div class="form-group">
+              <input class="form-control" typeahead="item as item.name for item in getTypeahead( $viewValue )" typeahead-min-length="3" ng-model="selectedItem" typeahead-on-select="onItemSelect()">
+            </div>
+            <div class="form-group clearfix">
+              <div class="pull-right">
+                <button class="btn btn-bluejeans" ng-click="selectTextItem()">Valider</button>
+              </div>
+            </div>
+          </form>
+          <!--
+          <div class="gr-well">
+            <ul class="list-unstyled">
+              <li ng-repeat="item in shouldLike">{{ item.name }}</li>
+            </ul>
+          </div>
+          -->
+        </div>
+
+        <!-- recommend -->
+        <div ng-show="itemToRecommend" gr-evaluate="itemToRecommend" cb="initialize()"></div>
+      </div>
 
     </div>
   </div>

@@ -11,6 +11,9 @@ angular.module( 'gogoreco.classes', [])
   };
 }])
 
+.directive('grItem', [function(){
+}])
+
 .controller('RecoBarsCtrl', ['$scope', '$filter', function( $scope, $filter ){
   $scope.array = [0, 1, 2, 3, 4];
   $scope.score = function( val ){
@@ -100,8 +103,8 @@ angular.module( 'gogoreco.classes', [])
 
   $scope.getSearch = function( search ){
     var result = [];
-    var itemsPromise = Item.typeahead( search, 10, [], [] );
-    var tagsPromise =  Tag.typeahead( search, null );
+    var itemsPromise = Item.typeahead( search, 10, [], [$rootScope.school.id] );
+    var tagsPromise =  Tag.typeahead( search, $rootScope.school.id );
 
     return $q.all([itemsPromise, tagsPromise]).then( function( response ){
       if( response[0].items.length ){

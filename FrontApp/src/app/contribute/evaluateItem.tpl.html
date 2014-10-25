@@ -25,6 +25,8 @@
 <!-- comment -->
 <div ng-show="item.current_user_score && !item.current_user_commented">
   <div class="form-group">
+    <small ng-click="item.evalItem(0)"><span class="glyphicon glyphicon-remove"></span> Annuler la recommandation</small>
+    <br>
     <label class="text-aqua">Explique pourquoi tu recommandes ce cours </label>
     <textarea rows="5" class="form-control" ng-model="item.comment"></textarea>
   </div>
