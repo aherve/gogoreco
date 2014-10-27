@@ -1,5 +1,5 @@
 class DailyReportingMailer < ActionMailer::Base
-  default from: "report@gogoreco.com"
+  default from: "report@gogoreco.io"
 
   def daily_new_comments_report
     @start_time = Time.now - 24.hours

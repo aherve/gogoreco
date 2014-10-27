@@ -1,5 +1,5 @@
 class ReportCommentMailer < ActionMailer::Base
-  default from: "report@gogoreco.com"
+  default from: "report@gogoreco.io"
 
   def report_comment_email(comment_report)
     @reporter_email     = comment_report.reporter.email
