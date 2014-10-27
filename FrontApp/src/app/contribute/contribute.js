@@ -1,4 +1,6 @@
-angular.module( 'gogoreco.contribute', [])
+angular.module( 'gogoreco.contribute', [
+  'services.analytics'
+])
 
 .config(['securityAuthorizationProvider', '$stateProvider', function config( securityAuthorizationProvider, $stateProvider ) {
   $stateProvider.state( 'contribute', {
@@ -58,14 +60,12 @@ angular.module( 'gogoreco.contribute', [])
     };
     Item.addTagsById( getNames($scope.item.tags), $scope.item.id );
     $scope.cb();
+    Analytics.tagItem( $scope.item );
   };
 
 }])
 
-/**
- * And of course we define a controller for our route.
- */
-.controller( 'ContributeCtrl', ['$scope', 'Item', 'User', '$rootScope', 'School', function ContributeController( $scope, Item, User, $rootScope, School ){
+.controller( 'ContributeCtrl', ['$scope', 'Item', 'User', '$rootScope', 'School', 'Analytics', function ContributeController( $scope, Item, User, $rootScope, School, Analytics ){
 
   $scope.activeSchool = {};
   $scope.$rootScope = $rootScope;
@@ -84,7 +84,7 @@ angular.module( 'gogoreco.contribute', [])
   };
 
   $scope.getTypeahead = function( search ){
-    return $rootScope.school.id ? Item.typeahead( search, 15, [], $scope.activeSchool.id ).then( function( response ){
+    return $rootScope.school.id ? Item.typeahead( search, 15, [], [$rootScope.school.id] ).then( function( response ){
       return response.items;
     }) : [];
   };
@@ -101,6 +101,7 @@ angular.module( 'gogoreco.contribute', [])
       if( response.item.schools.length ){
         $rootScope.school = response.item.schools[0];
       }
+      Analytics.createItem( response.item );
     });
   };
 

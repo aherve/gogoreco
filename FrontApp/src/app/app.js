@@ -26,6 +26,7 @@ angular.module( 'gogoreco', [
   'resources.user',
   'resources.item',
   'resources.school',
+  'resources.teacher',
   'resources.evaluation'
 ])
 
