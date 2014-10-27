@@ -19,7 +19,9 @@ angular.module( 'gogoreco.home', [])
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', ['$scope', 'Item', function HomeController( $scope, Item ) {
+.controller( 'HomeCtrl', ['$scope', 'Item', 'Analytics', function HomeController( $scope, Item, Analytics ) {
+
+  Analytics.home();
 
   Item.latest_evaluated(50).then( function( response ){
     $scope.latestItems = response.items;

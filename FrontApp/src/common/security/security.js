@@ -45,6 +45,7 @@ angular.module('security.service', [
     if ( success ) {
       $rootScope.$broadcast('login success');
       queue.retryAll();
+      Analytics.loginSuccess();
     } else {
       queue.cancelAll();
       redirect();
@@ -68,7 +69,6 @@ angular.module('security.service', [
     }, function(error){
       forgotPasswordModal = null;
       queue.cancelAll();
-      //redirect();
     });
   }
 
@@ -82,7 +82,7 @@ angular.module('security.service', [
   function onForgotPasswordModalClose(success) {
     forgotPasswordModal = null;
     if ( success ) {
-      //queue.retryAll();
+      Analytics.changePasswordMailSent();
     } else {
       queue.cancelAll();
     }
@@ -121,8 +121,7 @@ angular.module('security.service', [
         }
 
         Analytics.signupSuccess();
-        Analytics.confirmationMailSent( 'email' );
-
+        Analytics.confirmationMailSent();
 
         closeEmailLoginModal(true);
         redirect('/confirmationSent');
@@ -150,13 +149,13 @@ angular.module('security.service', [
 
     // open forgot password modal
     showForgotPassword: function(){
-      Analytics.forgotPassword();
       openForgotPasswordModal();
+      Analytics.forgotPassword();
     },
 
     cancelForgotPassword: function(){
-      Analytics.cancelForgotPassword();
       closeForgotPasswordModal(false);
+      Analytics.cancelForgotPassword();
     },
 
     closeForgotPasswordModalService: function(){
@@ -180,6 +179,7 @@ angular.module('security.service', [
           if ( service.isAuthenticated() ) {
             $rootScope.$broadcast('login success');
             closeEmailLoginModal(true);
+            Analytics.loginSuccess();
           }
           return service.isAuthenticated();
         });
@@ -205,6 +205,7 @@ angular.module('security.service', [
     // Ask the backend to see if a user is already authenticated - this may be from a previous session.
     requestCurrentUser: function() {
       if ( service.isAuthenticated() ) {
+        Analytics.identify( service.currentUser );
         return $q.when(service.currentUser);
       } else {
         var params = {
@@ -217,6 +218,7 @@ angular.module('security.service', [
         };
         return Restangular.all('users').customPOST(params, 'me' ).then(function(response) {
           service.currentUser = response.user;
+          Analytics.identify( response.user );
           return service.currentUser;
         }, function( err ){
           return null;
@@ -226,8 +228,8 @@ angular.module('security.service', [
 
     forgotPassword: function(email){
       return Restangular.all('users').all("password").post({user: {email:email}}).then(function(response) {
-        Analytics.successChangePassword();
         service.closeForgotPasswordModalService();
+        Analytics.successChangePassword();
         return response;
       }, function(x){
         return {success: false};
