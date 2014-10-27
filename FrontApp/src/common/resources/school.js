@@ -6,6 +6,17 @@ angular.module('resources.school', [
 
   var School = {
 
+    index: function(){
+      var params = {
+        entities: {
+          school: {
+            name: true
+          }
+        }
+      };
+      return Restangular.all('schools').customPOST( params, 'index' );
+    },
+
     typeahead: function( search, nmax ){
       var params = {
         search: search,

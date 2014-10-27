@@ -65,10 +65,14 @@ angular.module( 'gogoreco.contribute', [])
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'ContributeCtrl', ['$scope', 'Item', 'User', '$rootScope', function ContributeController( $scope, Item, User, $rootScope ){
+.controller( 'ContributeCtrl', ['$scope', 'Item', 'User', '$rootScope', 'School', function ContributeController( $scope, Item, User, $rootScope, School ){
 
   $scope.activeSchool = {};
   $scope.$rootScope = $rootScope;
+
+  School.index().then( function( response ){
+    $scope.schools = response.schools;
+  });
 
   User.should_like().then( function( response ){
     $scope.shouldLike = response.items;
@@ -92,13 +96,13 @@ angular.module( 'gogoreco.contribute', [])
   };
 
   $scope.selectTextItem = function(){
-    Item.create(['Dauphine'], $scope.selectedItem, [], null, null).then( function( response ){
+    Item.create([ $rootScope.school.name ], $scope.selectedItem, [], null, null).then( function( response ){
       $scope.itemToRecommend = response.item;
     });
   };
 
   $scope.createItem = function(){
-    Item.create( ['Dauphine'], $scope.itemToRecommend.name, [], $scope.itemToRecommend.current_user_eval, $scope.itemToRecommend.content ).then( function( response ){
+    Item.create( [$rootScope.school.name], $scope.itemToRecommend.name, [], $scope.itemToRecommend.current_user_eval, $scope.itemToRecommend.content ).then( function( response ){
       $scope.itemToRecommend = response.item;
       $scope.addTagsMode = true;
     });
