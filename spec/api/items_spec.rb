@@ -2,7 +2,7 @@ require 'spec_helper'
 describe Gogoreco::V1::Items do 
 
   before(:each) do
-    Prof.delete_all
+    Teacher.delete_all
     Evaluation.delete_all
     Comment.delete_all
     Item.delete_all
@@ -99,14 +99,14 @@ describe Gogoreco::V1::Items do
       expect(h["items"].first["id"]).to eq @i.id.to_s
     end
 
-    it "filters by profs" do 
-      @t = FactoryGirl.create(:prof)
+    it "filters by teachers" do 
+      @t = FactoryGirl.create(:teacher)
       @i = FactoryGirl.create(:item)
 
-      @i.profs << @t ; @i.save ; @i.reload
-      expect(@i.prof_ids.include?(@t.id)).to be true
+      @i.teachers << @t ; @i.save ; @i.reload
+      expect(@i.teacher_ids.include?(@t.id)).to be true
 
-      post "items/typeahead", {prof_ids: [@t.id]}
+      post "items/typeahead", {teacher_ids: [@t.id]}
       h = JSON.parse(@response.body)
       expect(h.has_key?("items")).to be true
       expect(h["items"].any?).to be true

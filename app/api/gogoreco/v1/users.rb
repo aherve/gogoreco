@@ -32,6 +32,21 @@ module Gogoreco
           end
           #}}}
 
+        end
+
+        namespace ':user_id' do 
+          before do 
+            params do
+              requires :user_id, desc: "user id"
+            end
+            @user = User.find(params[:user_id]) || error!("user not found",404)
+          end
+
+          #{{{ evaluations
+          post :evaluations do 
+            present :evaluations, @user.evaluations, with: Gogoreco::Entities::Evaluation, entity_options: entity_options
+          end
+          #}}}
 
         end
       end

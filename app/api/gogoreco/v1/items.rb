@@ -11,19 +11,19 @@ module Gogoreco
           optional :search, type: String, desc: "search string"
           optional :nmax, type: Integer, desc: "max number of results (default 10)", default: 10
           optional :tag_ids, type: Array, desc: "filter by tags"
-          optional :prof_ids, type: Array, desc: "filter by profs"
+          optional :teacher_ids, type: Array, desc: "filter by teachers"
           optional :school_ids, type: Array, desc: "filter by schools"
         end
         post :typeahead do
-          error!("please search at least something") if params[:school_ids].blank? and params[:tag_ids].blank? and params[:search].blank? and params[:prof_ids].blank?
+          error!("please search at least something") if params[:school_ids].blank? and params[:tag_ids].blank? and params[:search].blank? and params[:teacher_ids].blank?
 
           found = Item.asc(:autocomplete_length)
           unless params[:school_ids].blank?
             found = found.all_in(school_ids: params[:school_ids])
           end
 
-          unless params[:prof_ids].blank?
-            found = found.all_in(prof_ids: params[:prof_ids])
+          unless params[:teacher_ids].blank?
+            found = found.all_in(teacher_ids: params[:teacher_ids])
           end
 
           unless params[:tag_ids].blank?

@@ -1,6 +1,7 @@
 require 'spec_helper'
 describe Gogoreco::V1::Users do 
   before(:each) do 
+    Evaluation.delete_all
     User.delete_all
     School.delete_all
     @user = FactoryGirl.create(:user)
@@ -88,6 +89,21 @@ describe Gogoreco::V1::Users do
   #    expect(s.student_ids).to eq [@user.id]
   #  end
   #end
+  #}}}
+
+  #{{{ /id/evaluations
+  describe :evaluations do
+    it "gest the user's evaluations" do
+      e = FactoryGirl.build(:evaluation)
+      e.author = @user
+      e.save
+      expect(e.valid?).to be true
+      post "/users/#{@user.id}/evaluations"
+      h = JSON.parse(@response.body)
+      expect(h.has_key?("evaluations")).to be true
+      expect(h["evaluations"].first["id"]).to eq Evaluation.last.id.to_s
+    end
+  end
   #}}}
 
 end

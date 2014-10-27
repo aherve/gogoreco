@@ -12,6 +12,7 @@ module Gogoreco
           present :school, [:id, :name].sort
           present :evaluation, [:id, :score, :created_at, :updated_at, :schools, :author, :item, :related_comments].sort
           present :tag, [:id, :name].sort
+          present :teacher, [:id, :name].sort
 
         end
       end

@@ -11,6 +11,7 @@ module Gogoreco
           "comment" => (params[:entities]["comment"] rescue nil )|| {},
           "evaluation" => (params[:entities]["evaluation"] rescue nil )|| {},
           "tag" => (params[:entities]["tag"] rescue nil )|| {},
+          "teacher" => (params[:entities]["teacher"] rescue nil )|| {},
         }
 
         empty_h.merge({:current_user => current_user || User.new})

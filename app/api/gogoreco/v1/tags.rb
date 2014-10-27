@@ -13,7 +13,7 @@ module Gogoreco
         end
         post :typeahead do 
           tags = Tag.asc(:autocomplete_length).where(autocomplete: /#{Autocomplete.normalize(params[:search])}/)
-          if params[:school_id]
+          unless params[:school_id].blank?
             school = School.find(params[:school_id]) || error!("school not found",404)
             tags = tags.any_in(item_ids: school.item_ids)
           end
