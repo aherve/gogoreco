@@ -4,9 +4,9 @@ class DailyReportingMailer < ActionMailer::Base
   def daily_new_comments_report
     @start_time = Time.now - 24.hours
     @end_time = Time.now
-    @comments = Item.gte(updated_at: Date.today).flat_map(&:comments).select{|c| (c.created_at >= Date.today) rescue nil}.compact
+    @comments = Comment.gte(created_at: Date.today)
     mail(
-      to: "moderate@gogoreco.com",
+      to: "moderate@shapter.com",
       subject: "[GOGORECO DAILY REPORT]: #{@comments.count} new comment(s)",
     )
   end
