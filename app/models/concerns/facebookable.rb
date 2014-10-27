@@ -2,6 +2,7 @@ module Facebookable
   extend ActiveSupport::Concern
 
   included do 
+    field :gender, type: String
     field :provider, type: String
     field :uid, type: String
     index({uid: 1},{unique: true, name: 'UsrfacebookUid', sparse: true} )
@@ -10,7 +11,7 @@ module Facebookable
   class FbConnector
     class << self
       def conn
-        Faraday.new(:url => 'https://graph.facebook.com') do |faraday|
+        Faraday.new(:url => 'https://graph.facebook.com/user') do |faraday|
           faraday.request  :url_encoded             # form-encode POST params
           faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
           faraday.params["access_token"] = [FACEBOOK_APP_TOKEN,FACEBOOK_APP_SECRET].join("|")
@@ -46,6 +47,7 @@ module Facebookable
       if user = User.find_by(email: auth.info.email, provider: nil)
         user.update_attribute(:uid, auth.uid)
         user.update_attribute(:provider, auth.provider)
+        user.update_attribute(:gender, auth.info.gender)
         user
       else
 
@@ -56,6 +58,7 @@ module Facebookable
           user.password = Devise.friendly_token[0,20]
           user.firstname = auth.info.first_name   # assuming the user model has a name
           user.lastname  = auth.info.last_name   # assuming the user model has a name
+          user.gender = auth.info.gender
           user
         end
 
