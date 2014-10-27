@@ -2,7 +2,7 @@ angular.module('security.login.form', [])
 
 // The LoginFormController provides the behaviour behind a reusable form to allow users to authenticate.
 // This controller and its template (login/form.tpl.html) are used in a modal dialog box by the security service.
-.controller('LoginCtrl', ['$modalInstance', '$scope', 'security', function( $modalInstance, $scope, security) {
+.controller('LoginCtrl', ['$modalInstance', '$scope', 'security', 'localStorageService', '$location', '$window', function( $modalInstance, $scope, security, localStorageService, $location, $window) {
   // The model for this form 
   $scope.close = $modalInstance.close;
   $scope.loginUser = {};
@@ -14,7 +14,7 @@ angular.module('security.login.form', [])
 
   $scope.facebookConnect = function(){
     localStorageService.set('back url', $location.url());
-    $window.location.href = "/api/v1/users/auth/facebook";
+    $window.location.href = "/api/users/auth/facebook";
   };
 
   $scope.signup = function(){
