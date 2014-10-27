@@ -11,6 +11,7 @@ rerun.txt
 pickle-email-*.html
 config/initializers/secret_token.rb
 config/initializers/facebook.rb
+config/initializers/front_app_url.rb
 config/secrets.yml
 config/mongoid.yml
 dump.rdb

@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    redirect_to "http://gogoreco.com/#/browse" if Rails.env.production?
+    redirect_to FRONT_APP_ROOT_URL
   end
 end
