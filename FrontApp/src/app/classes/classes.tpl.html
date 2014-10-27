@@ -7,7 +7,7 @@
             {{ $rootScope.school.name }} <span class="caret"></span>
           </span>
           <ul class="dropdown-menu">
-            <li ng-repeat="school in schools" ng-click="$rootScope.school = school"><a>{{ school.name }}</a></li>
+            <li ng-repeat="school in schools" ng-click="selectSchool( school )"><a>{{ school.name }}</a></li>
           </ul>
         </span>
       </div>
@@ -15,9 +15,9 @@
         <div class="lead center bold text-aqua">
           Sélectionne un établissement
         </div>
-        <ul class="list-unstyled" style="text-align: left">
-          <li ng-repeat="school in schools" ng-click="$rootScope.school = school" class="pointer">
-            {{ school.name }}
+        <ul class="nav vertical-nav" style="text-align: left">
+          <li ng-repeat="school in schools" ng-click="selectSchool( school )" class="pointer">
+            <a>{{ school.name }}</a>
           </li>
         </ul>
       </div>

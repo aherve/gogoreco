@@ -52,7 +52,6 @@ angular.module('resources.item', [
     };
     return Restangular.one('items', item.id).all('comments').customPOST( params, 'create' ).then( function( response ){
       item.current_user_commented = true;
-      console.log( response.comment );
       item.currentUserComment = response.comment;
       return response;
     });
@@ -166,7 +165,11 @@ angular.module('resources.item', [
           "haters_count": true,
           "mehers_count": true,
           "name": true,
-          "tags": true
+          "tags": true,
+          "schools": true
+        },
+        school: {
+          name: true
         }
       }
     };

@@ -1,6 +1,6 @@
 <div class="item">
   <div class="item-heading">
-    <div class="h3 text-aqua" style="margin: 0">{{ item.name }}</div>
+    <div class="h3 text-aqua" style="margin: 0">{{ item.name }} <small><span class="text-orange" ng-repeat="school in item.schools">@{{ school.name }} </span></small></div>
   </div>
   <div class="item-divider">
     <div class="row">

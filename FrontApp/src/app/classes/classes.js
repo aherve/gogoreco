@@ -67,13 +67,24 @@ angular.module( 'gogoreco.classes', [])
     $scope.schools = response.schools;
   });
 
-  $scope.clearIfEmpty = function(){
+  $scope.refreshSchool = function(){
     $scope.items = null;
+    Tag.popular( $rootScope.school.id, 30 ).then( function( response ){
+      $scope.tagsSuggestions = response.tags;
+    });
   };
 
-  Tag.popular( $rootScope.school.id, 30 ).then( function( response ){
-    $scope.tagsSuggestions = response.tags;
-  });
+  if( !!$rootScope.school && angular.isDefined( $rootScope.school.id )){
+    $scope.refreshSchool();
+  }
+  else if ( $rootScope.school && !$rootScope.school.id ){
+    $rootScope.school = null;
+  }
+
+  $scope.selectSchool = function( school ){
+    $rootScope.school = school;
+    $scope.refreshSchool();
+  };
 
   $scope.onItemSelect = function( itemId ){
     Item.get( itemId ).then( function( response ){

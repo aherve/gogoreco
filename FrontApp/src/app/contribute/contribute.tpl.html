@@ -11,12 +11,13 @@
           <span class="caret"></span>
         </span>
         <ul class="dropdown-menu" style="text-align: left">
+          <li ng-click="displayAddSchool = true; $rootScope.school = {}"><a><span class="fa fa-plus"></span> Ajouter une école</a></li>
+          <li class="divider"></li>
           <li ng-repeat="school in schools" ng-click="$rootScope.school = school" class="pointer">
             <a>
               {{ school.name }}
             </a>
           </li>
-          <li ng-click="displayAddSchool = true; $rootScope.school = {}"><a><span class="fa fa-plus"></span> Ajouter une école</a></li>
         </ul>
       </div>
 
@@ -26,17 +27,15 @@
           <input class="form-control" ng-model="$rootScope.school.name">
         </div>
         <div class="form-group">
-          <button class="btn btn-sunflower">Annuler</button>
           <button class="btn btn-bluejeans" ng-click="displayAddSchool = false">Valider</button>
         </div>
       </div>
-
 
       <div ng-show="$rootScope.school.name && !displayAddSchool">
         <!-- initial view -->
         <div ng-hide="itemToRecommend">
           <div class="lead bold text-aqua">
-            Tape le nom d'un cours  que tu aimerais recommander :
+            Tape le nom d'un cours que tu aimerais recommander :
           </div>
           <form>
             <div class="form-group">

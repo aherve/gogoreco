@@ -14,7 +14,6 @@ angular.module( 'gogoreco', [
   'gogoreco.config',
   'gogoreco.comment',
   'gogoreco.classes',
-  'gogoreco.welcome',
   'gogoreco.startpage',
   'gogoreco.contribute',
   'gogoreco.usersConfirmation',

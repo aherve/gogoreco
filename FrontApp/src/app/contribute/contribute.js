@@ -84,9 +84,9 @@ angular.module( 'gogoreco.contribute', [])
   };
 
   $scope.getTypeahead = function( search ){
-    return Item.typeahead( search, 15, [], $scope.activeSchool.id ).then( function( response ){
+    return $rootScope.school.id ? Item.typeahead( search, 15, [], $scope.activeSchool.id ).then( function( response ){
       return response.items;
-    });
+    }) : [];
   };
 
   $scope.onItemSelect = function(){
@@ -98,16 +98,10 @@ angular.module( 'gogoreco.contribute', [])
   $scope.selectTextItem = function(){
     Item.create([ $rootScope.school.name ], $scope.selectedItem, [], null, null).then( function( response ){
       $scope.itemToRecommend = response.item;
+      if( response.item.schools.length ){
+        $rootScope.school = response.item.schools[0];
+      }
     });
   };
-
-  $scope.createItem = function(){
-    Item.create( [$rootScope.school.name], $scope.itemToRecommend.name, [], $scope.itemToRecommend.current_user_eval, $scope.itemToRecommend.content ).then( function( response ){
-      $scope.itemToRecommend = response.item;
-      $scope.addTagsMode = true;
-    });
-  };
-
-
 }]);
 
