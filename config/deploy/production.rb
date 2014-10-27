@@ -15,7 +15,7 @@ role :db,  %w{ubuntu@54.171.128.100}
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server '54.72.151.118', user: 'ubuntu', roles: %w{web app}#, my_property: :my_value
+server '54.171.128.100', user: 'ubuntu', roles: %w{web app}#, my_property: :my_value
 
 set :branch, "production"
 
