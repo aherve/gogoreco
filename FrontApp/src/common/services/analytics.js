@@ -83,8 +83,30 @@ angular.module('services.analytics', [])
 
     contribute: function(){
       mixpanel.track("Contribute");
-    }
+    },
 
+    createItem: function( item ){
+      mixpanel.track("Create Item", {
+        item_id: item.id,
+        item_name: item.name,
+        school: item.schools ? item.schools[0].name : null
+      });
+    },
+
+    tagItem: function( item ){
+      mixpanel.track("Tag Item", {
+        item_id: item.id,
+        item_name: item.name
+      });
+    },
+
+    evalItem: function( item, score ){
+      mixpanel.track("Evaluate Item", {
+        item_name: item.name,
+        item_id: item.id,
+        score: score
+      });
+    }
 
   };
   return Analytics;

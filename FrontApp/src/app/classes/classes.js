@@ -60,7 +60,7 @@ angular.module( 'gogoreco.classes', [])
   });
 }])
 
-.controller( 'ClassesCtrl', ['$scope', 'Item', '$rootScope', 'School', 'Tag', '$q', 'Analytics', function ClassesController( $scope, Item, $rootScope, School, Tag, $q, Analytics ) {
+.controller( 'ClassesCtrl', ['$scope', 'Item', '$rootScope', 'School', 'Tag', '$q', 'Analytics', 'Teacher', function ClassesController( $scope, Item, $rootScope, School, Tag, $q, Analytics, Teacher ) {
 
 
   $scope.$rootScope = $rootScope;
@@ -118,10 +118,11 @@ angular.module( 'gogoreco.classes', [])
 
   $scope.getSearch = function( search ){
     var result = [];
-    var itemsPromise = Item.typeahead( search, 10, [], [$rootScope.school.id] );
+    var itemsPromise = Item.typeahead( search, 5, [], [$rootScope.school.id] );
     var tagsPromise =  Tag.typeahead( search, $rootScope.school.id );
+    var teachersPromise = Teacher.typeahead( search, $rootScope.school.id );
 
-    return $q.all([itemsPromise, tagsPromise]).then( function( response ){
+    return $q.all([itemsPromise, tagsPromise, teachersPromise]).then( function( response ){
       if( response[0].items.length ){
         response[0].items[0].displayItemDivider = true;
       }
@@ -135,6 +136,13 @@ angular.module( 'gogoreco.classes', [])
       angular.forEach( response[1].tags, function( tag ){
         tag.type = 'tag';
         result.push( tag );
+      });
+      if( response[2].tags.length ){
+        response[2].tags[0].displayTeacherDivider = true;
+      }
+      angular.forEach( response[2].teachers, function( teacher ){
+        tag.type = 'teacher';
+        result.push( teacher );
       });
       return result;
     });

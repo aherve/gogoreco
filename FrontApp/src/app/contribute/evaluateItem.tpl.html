@@ -41,7 +41,7 @@
 
 <!-- tag -->
 <div ng-show="item.currentUserComment || item.willCommentLater" style="margin-top: 30px">
-  <label class="text-aqua">Référence ton cours en ajoutant des tags (sinon, les autres ne pourront pas trouver ton évaluation)</label>
+  <label class="text-aqua">Référence ton cours en ajoutant des tags <br> (sinon, les autres ne pourront pas trouver ton évaluation)</label>
   <div class="form-group">
     <span class="badge badge-grapefruit" ng-repeat="tag in item.tags">{{ tag.name }} <small class="glyphicon glyphicon-remove" ng-click="item.tags.splice( $index, 1 )"></small></span>
   </div>

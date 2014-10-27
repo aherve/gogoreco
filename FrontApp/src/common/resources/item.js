@@ -1,8 +1,9 @@
 angular.module('resources.item', [
-  'restangular'
+  'restangular',
+  'services.analytics'
 ])
 
-.factory('Item', ['Restangular', function( Restangular ){
+.factory('Item', ['Restangular', 'Analytics', function( Restangular, Analytics ){
 
   /**
    * Defines some cool function for item
@@ -64,6 +65,7 @@ angular.module('resources.item', [
     };
     return Restangular.one('items', item.id).customPUT( params, 'evals' ).then( function( response ){
       item.current_user_score = score;
+      Analytics.evalItem( item, score );
     });
   };
 
@@ -245,11 +247,18 @@ angular.module('resources.item', [
           name: true
         },
         comment: {
-          content: true
+          content: true,
+          author: true
         },
         tag: {
           name: true
+        },
+        user: {
+          firstname: true,
+          lastname: true,
+          image: true
         }
+
       }
     };
     return Restangular.all( 'items' ).customPOST( params, 'latest_evaluated' );
