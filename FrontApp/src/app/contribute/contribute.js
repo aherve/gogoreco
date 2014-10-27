@@ -28,7 +28,7 @@ angular.module( 'gogoreco.contribute', [])
   };
 }])
 
-.controller('EvaluateItemCtrl', ['$scope', 'Item', 'Tag', '$rootScope', function( $scope, Item, Tag, $rootScope ){
+.controller('EvaluateItemCtrl', ['$scope', 'Item', 'Tag', '$rootScope', 'Analytics', function( $scope, Item, Tag, $rootScope, Analytics ){
 
   commentItem = function(){
     $scope.item.commentItem( $scope.item.comment );
@@ -103,5 +103,7 @@ angular.module( 'gogoreco.contribute', [])
       }
     });
   };
+
+  Analytics.contribute();
 }]);
 

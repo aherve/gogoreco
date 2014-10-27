@@ -60,7 +60,8 @@ angular.module( 'gogoreco.classes', [])
   });
 }])
 
-.controller( 'ClassesCtrl', ['$scope', 'Item', '$rootScope', 'School', 'Tag', '$q', function ClassesController( $scope, Item, $rootScope, School, Tag, $q ) {
+.controller( 'ClassesCtrl', ['$scope', 'Item', '$rootScope', 'School', 'Tag', '$q', 'Analytics', function ClassesController( $scope, Item, $rootScope, School, Tag, $q, Analytics ) {
+
 
   $scope.$rootScope = $rootScope;
   School.typeahead( '', 100 ).then( function( response ){
@@ -84,17 +85,20 @@ angular.module( 'gogoreco.classes', [])
   $scope.selectSchool = function( school ){
     $rootScope.school = school;
     $scope.refreshSchool();
+    Analytics.selectSchool( school );
   };
 
   $scope.onItemSelect = function( itemId ){
     Item.get( itemId ).then( function( response ){
       $scope.items = [ response.item ];
+      Analytics.searchItem( response.item );
     });
   };
 
   $scope.onTagSelect = function( tagId ){
     Item.filter( null, 50, [ tagId ], [$rootScope.school.id] ).then( function( response ){
       $scope.items = response.items;
+      Analytics.searchTag( tagId );
     });
   };
 
@@ -134,6 +138,7 @@ angular.module( 'gogoreco.classes', [])
       });
       return result;
     });
-
   };
+
+  Analytics.browse();
 }]);
