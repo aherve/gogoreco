@@ -137,7 +137,7 @@ angular.module( 'gogoreco.classes', [])
         tag.type = 'tag';
         result.push( tag );
       });
-      if( response[2].tags.length ){
+      if( response[2].teachers.length ){
         response[2].tags[0].displayTeacherDivider = true;
       }
       angular.forEach( response[2].teachers, function( teacher ){
