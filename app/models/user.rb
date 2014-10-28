@@ -69,6 +69,10 @@ class User
                    end
   end
 
+  def name
+    [firstname,lastname].join(" ")
+  end
+
   def confirmed_user?
     confirmed? or provider.to_s == "facebook"
   end

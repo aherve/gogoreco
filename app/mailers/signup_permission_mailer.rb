@@ -1,5 +1,5 @@
 class SignupPermissionMailer < ActionMailer::Base
-  default from: "team@gogoreco.com"
+  default from: "team@gogoreco.io"
 
   def send_user_email(email,school_names)
     @user_email = email
