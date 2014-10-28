@@ -1,14 +1,7 @@
-<div class="comment">
-  <div class="inline-block">
-    <a class="pull-left">
-      <div class="profile-pic">
-        <img src="{{comment.author.image}}" ng-show="comment.author.image"/>
-      </div>
-    </a>
-  </div>
-  <div class="inline-block inline-block-text" style="text-align: justify">
-    <p style="margin-bottom: 5px" class="bold text-aqua">{{ comment.author.firstname }}</p>
-    <span>{{ comment.content }}</span>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2" style="margin-top: 100px">
+      <div gr-comment comment="comment"></div>
+    </div>
   </div>
 </div>
-
