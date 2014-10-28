@@ -35,8 +35,7 @@ class Comment
 
   def tweet_if_loved!
     if related_evaluation and related_evaluation.score == 4
-      #TwitterBot.delay.tweet_comment!(comment)
-      TwitterBot.tweet_comment!(self)
+      TwitterBot.delay.tweet_comment!(self)
     end
   end
 
