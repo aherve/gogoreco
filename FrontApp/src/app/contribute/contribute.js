@@ -104,7 +104,7 @@ angular.module( 'gogoreco.contribute', [
   };
 }])
 
-.controller( 'ContributeCtrl', ['$scope', 'Item', 'User', '$rootScope', 'School', 'Analytics', function ContributeController( $scope, Item, User, $rootScope, School, Analytics ){
+.controller( 'ContributeCtrl', ['$scope', 'Item', 'User', '$rootScope', 'School', 'Analytics', 'Alerts', function ContributeController( $scope, Item, User, $rootScope, School, Analytics, Alerts ){
 
   $scope.activeSchool = {};
   $scope.$rootScope = $rootScope;
