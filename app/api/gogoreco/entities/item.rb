@@ -20,7 +20,7 @@ module Gogoreco
         i.user_eval_score(o[:entity_options][:current_user])
       end
 
-      expose :user_commented, if: lambda{|i,o| o[:entity_options]["item"][:user_commented]} do |i,o|
+      expose :current_user_commented, if: lambda{|i,o| o[:entity_options]["item"][:current_user_commented]} do |i,o|
         i.user_commented(o[:entity_options][:current_user])
       end
 
