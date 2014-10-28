@@ -1,65 +1,179 @@
-<div class="lead bold text-aqua center">
-  {{ item.name }}
-</div>
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
+    <div class="evaluate-module">
 
-<!-- evaluate -->
-<div ng-hide="item.current_user_score">
-  <div class="form-group">
-    <div class="eval-buttons">
-      <div class="inline-block center" style="width: 33%">
-        <div class="btn btn-love" ng-click="item.evalItem(4)"><span class="fa fa-heart"></span></div>
-        <div class="bold text-aqua">coup de cœur</div>
+      <!-- {{{ header  -->
+      <div class="evaluate-header">
+        <ul class="nav nav-justified evaluate-nav">
+          <li ng-click="step = 1" ng-class="{'active': step == 1}">
+            <a>
+              <span class="fa-stack fa-lg">
+                <span class="fa fa-circle fa-stack-2x"></span>
+                <span class="fa fa-question fa-stack-1x fa-inverse"></span>
+              </span>
+              <div>Recommande</div>
+            </a>
+          </li>
+          <li ng-click="step = 2" ng-class="{'active': step == 2}">
+            <a>
+              <span class="fa-stack fa-lg">
+                <span class="fa fa-circle fa-stack-2x"></span>
+                <span class="fa fa-comment fa-stack-1x fa-inverse"></span>
+              </span>
+              <div>Explique</div>
+            </a>
+          </li>
+          <li ng-click="step = 3" ng-class="{'active': step == 3}">
+            <a>
+              <span class="fa-stack fa-lg">
+                <span class="fa fa-circle fa-stack-2x"></span>
+                <span class="fa fa-question fa-stack-1x fa-inverse"></span>
+              </span>
+              <div>Référence</div>
+            </a>
+          </li>
+          <!--
+          <li ng-click="step = 4" ng-class="{'active': step ==4}">
+            <a>
+              <span class="fa-stack fa-lg">
+                <span class="fa fa-circle fa-stack-2x"></span>
+                <span class="fa fa-question fa-stack-1x fa-inverse"></span>
+              </span>
+              <div>*Voilà*</div>
+            </a>
+          </li>
+          -->
+        </ul>
       </div>
-      <div class="inline-block center" style="width: 33%">
-        <div class="btn btn-reco" ng-click="item.evalItem(3)"><span class="fa fa-thumbs-up"></span></div>
-        <div class="bold text-aqua">très bon</div>
-      </div>
-      <div class="inline-block center" style="width: 33%">
-        <div class="btn btn-meh" ng-click="item.evalItem(2)"><span class="fa fa-smile-o"></span></div>
-        <div class="bold text-aqua">bon</div>
-      </div>
-    </div>
+      <!-- }}} -->
+
+      <div class="evaluate-body">
+
+        <!-- {{{ step 1 -->
+        <div ng-show="step == 1" class="animate-from-left">
+          <div class="step-background">
+            <div class="h3 text-aqua center">Recommande ce cours !</div>
+            <div class="evaluate-buttons">
+              <table>
+                <tr>
+                  <td>
+                    <button class="btn love" ng-class="{'selected': item.current_user_score == 4, 'not-selectd': item.current_user_score != 4 && item.current_user_score !== 0, 'btn-s-pinkrose': !item.current_user_score}" ng-click="evalItem( item,4)">
+                      <span class="not-hovering">
+                        <div><span class="fa fa-heart-o fa-3x"></span></div>
+                      </span>
+                      <span class="when-hovering">
+                        <div>
+                        <span class="fa fa-remove fa-3x"></span>
+                      </div>
+                      <div>Annuler</div>
+                      </span>
+                    </button>
+                  </td>
+                  <td>
+                    <button class="btn smile" ng-class="{'selected': item.current_user_score == 3, 'not-selectd': item.current_user_score != 3 && item.current_user_score !== 0, 'btn-s-mint': !item.current_user_score}" ng-click="evalItem( item,3)">
+                      <span class="not-hovering">
+                        <span class="fa fa-smile-o fa-3x"></span>
+                        <div>
+                      </div>
+                      </span>
+                      <span class="when-hovering">
+                        <div>
+                        <span class="fa fa-remove fa-3x"></span>
+                      </div>
+                      <div>Annuler</div>
+                      </span>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button class="btn meh" ng-class="{'selected': item.current_user_score == 2, 'not-selectd': item.current_user_score != 2 && item.current_user_score !== 0, 'btn-s-sunflower':  !item.current_user_score }" ng-click="evalItem( item,2)">
+                      <span class="not-hovering">
+                        <span class="fa fa-meh-o fa-3x"></span>
+                        <div>
+                      </div>
+                      </span>
+                      <span class="when-hovering">
+                        <div>
+                        <span class="fa fa-remove fa-3x"></span>
+                      </div>
+                      <div>Annuler</div>
+                      </span>
+                    </button>
+                  </td>
+                  <td>
+                    <button class="btn frown" ng-class="{'selected': item.current_user_score == 1, 'not-selectd': item.current_user_score != 1 && item.current_user_score !== 0, 'btn-s-grapefruit': !item.current_user_score}" ng-click="evalItem( item,1)">
+                      <span class="not-hovering">
+                        <div>
+                        <span class="fa fa-frown-o fa-3x"></span>
+                      </div>
+                      </span>
+                      <span class="when-hovering">
+                        <div>
+                        <span class="fa fa-remove fa-3x"></span>
+                      </div>
+                      <div>Annuler</div>
+                      </span>
+
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div><!-- step 1 -->
+        <!-- }}} -->
+
+        <!-- {{{ step 2 -->
+        <div ng-show="step == 2">
+
+          <div class="step-background">
+            <div class="form-group">
+              <h3 class="text-aqua">Explique pourquoi le prendre </h3>
+              <textarea rows="5" class="form-control" ng-model="item.comment"></textarea>
+            </div>
+            <div class="form-group clearfix">
+              <button class="btn btn-bluejeans" ng-click="commentItem(  item )">Valider</button>
+            </div>
+          </div>
+
+        </div><!-- step 1 -->
+        <!-- }}} -->
+
+        <!-- {{{ step 3 -->
+        <div ng-show="step == 3">
+          <div class="step-background">
+            <div class="h3 text-aqua">Ajoute des tags au cours ! </div> 
+            <div class="form-group">
+              <span class="badge badge-grapefruit" ng-repeat="tag in item.tags">{{ tag.name }} <small class="glyphicon glyphicon-remove" ng-click="item.tags.splice( $index, 1 )"></small></span>
+            </div>
+            <form class="css-form" novalidate name="addTagsForm">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" type="text" ng-model="item.tagToAdd" typeahead="tag.name as tag.name for tag in getTagTypeahead( $viewValue )" typeahead-editable="true" typeahead-on-select="addTag()" typeahead-min-length="3">
+                  <span class="input-group-btn">
+                    <button class="btn btn-mint" ng-click="addTag()" style="height: 34px; padding: 5px 12px">Ajouter</button>
+                  </span>
+                </div>
+              </div>
+            </form>
+            <form>
+              <div class="form-group">
+                <button class="btn btn-bluejeans" ng-click="addTagsToItem()">Terminer</button>
+              </div>
+            </form>
+          </div>
+        </div><!-- step 3 -->
+        <!-- }}} -->
+
+        <!-- {{{ step 4 -->
+        <div ng-show="step == 4">
+          Allright !
+        </div><!-- step 1 -->
+        <!-- }}} -->
+
+      </div><!-- evaluate-body -->
+
+    </div><!-- evaluate-module -->
   </div>
 </div>
-
-<!-- comment -->
-<div ng-show="item.current_user_score && !item.current_user_commented">
-  <div class="form-group">
-    <small ng-click="item.evalItem(0)"><span class="glyphicon glyphicon-remove"></span> Annuler la recommandation</small>
-    <br>
-    <label class="text-aqua">Explique pourquoi tu recommandes ce cours </label>
-    <textarea rows="5" class="form-control" ng-model="item.comment"></textarea>
-  </div>
-  <div class="form-group clearfix">
-    <button class="btn btn-bluejeans" ng-click="item.commentItem(  item.comment )">Valider</button>
-  </div>
-</div>
-
-<div ng-show="item.currentUserComment">
-  <gr-comment comment="item.currentUserComment"></gr-comment>
-</div>
-
-<!-- tag -->
-<div ng-show="item.currentUserComment || item.willCommentLater" style="margin-top: 30px">
-  <label class="text-aqua">Référence ton cours en ajoutant des tags <br> (sinon, les autres ne pourront pas trouver ton évaluation)</label>
-  <div class="form-group">
-    <span class="badge badge-grapefruit" ng-repeat="tag in item.tags">{{ tag.name }} <small class="glyphicon glyphicon-remove" ng-click="item.tags.splice( $index, 1 )"></small></span>
-  </div>
-  <form class="css-form" novalidate name="addTagsForm">
-    <div class="form-group">
-      <div class="input-group">
-        <input class="form-control" type="text" ng-model="item.tagToAdd" typeahead="tag.name as tag.name for tag in getTagTypeahead( $viewValue )" typeahead-editable="true" typeahead-on-select="addTag()" typeahead-min-length="3">
-        <span class="input-group-btn">
-          <button class="btn btn-mint" ng-click="addTag()" style="height: 34px; padding: 5px 12px">Ajouter</button>
-        </span>
-      </div>
-    </div>
-  </form>
-  <form>
-  <div class="form-group">
-    <button class="btn btn-bluejeans" ng-click="addTagsToItem()">Terminer</button>
-  </div>
-</form>
-</div>
-
-

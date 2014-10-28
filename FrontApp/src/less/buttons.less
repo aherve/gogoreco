@@ -42,7 +42,7 @@
 }
 
 .btn-pinkrose {
-  .button-variant(@btn-default-color, @pinkrose, @pinkrose, @pinkrose);
+  .button-variant(@btn-default-color, @pinkrose, @ss-pinkrose, @pinkrose);
 }
 
 .btn-s-pinkrose {
@@ -66,6 +66,10 @@
   .button-variant(@btn-default-color, @grapefruit, @grapefruit, @grapefruit);
 }
 
+.btn-s-grapefruit {
+  .button-variant(@btn-default-color, @s-grapefruit, @ss-grapefruit, @grapefruit);
+}
+
 .btn-mint {
   .button-variant(white, @mint, @mint, @mint);
 }
@@ -80,6 +84,10 @@
 
 .btn-sunflower {
   .button-variant(@btn-default-color, @sunflower, lighten(@sunflower, 10%), @sunflower);
+}
+
+.btn-s-sunflower {
+  .button-variant(@btn-default-color, @s-sunflower, @ss-sunflower, @s-sunflower);
 }
 
 .btn-sunflower-d {
@@ -120,6 +128,22 @@
   border: 1px solid @mediumgray;
   &:hover {
     border: 1px solid @mediumgray;
+  }
+}
+
+.btn-default {
+  background-color: @lightgray-d;
+  color: white;
+  &:hover {
+    background-color: @lightgray;
+  }
+}
+
+.btn-darkgray {
+  background-color: @darkgray;
+  color: white;
+  &:hover {
+    background-color: @darkgray;
   }
 }
 

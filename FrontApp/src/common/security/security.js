@@ -114,7 +114,7 @@ angular.module('security.service', [
       return Restangular.all('users').post({user: user}).then(function(response) {
         service.currentUser = response.user;
         try {
-          Analytics.identify( response );
+          Analytics.identify( response.user );
         }
         catch( err ){
           console.log( err );
