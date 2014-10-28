@@ -18,9 +18,9 @@ angular.module( 'gogoreco', [
   'gogoreco.contribute',
   'gogoreco.usersConfirmation',
 
-  'services.analytics',
   'services.alerts',
   'services.appText',
+  'services.analytics',
 
   'resources.tag',
   'resources.user',
@@ -45,6 +45,12 @@ angular.module( 'gogoreco', [
   catch( err ){
     console.log( err );
   }
+}])
+
+.run(['$rootScope', 'Alerts', function( $rootScope, Alerts ){
+  $rootScope.$on('$stateChangeSuccess', function(){
+    Alerts.clear();
+  });
 }])
 
 .controller( 'AppCtrl', ['$scope', '$location', function AppCtrl ( $scope, $location ) {

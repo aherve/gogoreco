@@ -1,2 +1,1 @@
-<alert type="alert.type" ng-repeat="alert in Alerts.getAlerts">{{ alert.msg }} <span class="pull-right glyphicon glyphicon-remove" ng-click="removeAlert( alert )"></span></alert>
-
+    <alert type="alert.type" ng-repeat="alert in Alerts.getAlerts()">{{ alert.msg }}<span class="pull-right glyphicon glyphicon-remove" ng-click="removeAlert( alert )"></span></alert>

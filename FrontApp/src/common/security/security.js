@@ -5,7 +5,7 @@ angular.module('security.service', [
   'security.login'         // Contains the login form template and controller
 ])
 
-.factory('security', ['Analytics', 'Restangular', '$q', '$location', 'securityRetryQueue', '$modal', '$rootScope', function(Analytics, Restangular, $q, $location, queue, $modal, $rootScope) {
+.factory('security', ['Analytics', 'Restangular', '$q', '$location', 'securityRetryQueue', '$modal', '$rootScope', 'Alerts', function(Analytics, Restangular, $q, $location, queue, $modal, $rootScope, Alerts) {
 
   // Redirect to the given url (defaults to '/')
   function redirect(url) {
@@ -127,6 +127,8 @@ angular.module('security.service', [
         redirect('/confirmationSent');
 
         return {success: true};
+      }, function( err ){
+        Alerts.setAlertFromErr( err );
       });
     },
 
