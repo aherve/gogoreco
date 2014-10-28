@@ -28,6 +28,7 @@ angular.module('security.service', [
     loginModal.result.then(function(success){
       onLoginModalClose(success);
     }, function(error){
+      console.log('lol');
       loginModal = null;
       queue.cancelAll();
       redirect();
@@ -43,13 +44,16 @@ angular.module('security.service', [
   function onLoginModalClose(success) {
     loginModal = null;
     if ( success ) {
-      $rootScope.$broadcast('login success');
       queue.retryAll();
       Analytics.loginSuccess();
     } else {
       queue.cancelAll();
       redirect();
     }
+  }
+
+  function loginModalDismiss(){
+    closeEmailLoginModal( false );
   }
 
   // forgot password dialog stuff
@@ -112,8 +116,10 @@ angular.module('security.service', [
         lastname: lastname
       };
       return Restangular.all('users').post({user: user}).then(function(response) {
+        console.log( response );
         service.currentUser = response.user;
         try {
+        console.log( service.currentUser );
           Analytics.identify( response.user );
         }
         catch( err ){
@@ -123,11 +129,13 @@ angular.module('security.service', [
         Analytics.signupSuccess();
         Analytics.confirmationMailSent();
 
-        closeEmailLoginModal(true);
+        closeEmailLoginModal( true );
         redirect('/confirmationSent');
 
         return {success: true};
       }, function( err ){
+        console.log( 'error' );
+        console.log( err );
         Alerts.setAlertFromErr( err );
       });
     },
@@ -185,6 +193,8 @@ angular.module('security.service', [
           }
           return service.isAuthenticated();
         });
+      }, function( err ){
+        Alerts.setAlertFromErr( err );
       });
     },
 
@@ -207,6 +217,7 @@ angular.module('security.service', [
     // Ask the backend to see if a user is already authenticated - this may be from a previous session.
     requestCurrentUser: function() {
       if ( service.isAuthenticated() ) {
+        console.log( service.currentUser );
         Analytics.identify( service.currentUser );
         return $q.when(service.currentUser);
       } else {
@@ -220,6 +231,7 @@ angular.module('security.service', [
         };
         return Restangular.all('users').customPOST(params, 'me' ).then(function(response) {
           service.currentUser = response.user;
+        console.log( service.currentUser );
           Analytics.identify( response.user );
           return service.currentUser;
         }, function( err ){

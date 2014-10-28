@@ -28,12 +28,21 @@ angular.module('services.alerts', [])
     },
 
     setAlertFromErr: function( err ){
+      if( err.data.errors ){
       alerts = Object.keys( err.data.errors ).map( function( value, index ){
         return {
           msg: value + ': ' + err.data.errors[value],
           type: 'danger'
         };
       });
+      }
+      else if( err.data.error ){
+        console.log( err.data.error );
+        alerts = [{
+          type: 'danger',
+          msg: err.data.error
+        }];
+      }
     },
 
     setAlert: function( type, msg ){

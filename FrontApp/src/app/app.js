@@ -16,6 +16,7 @@ angular.module( 'gogoreco', [
   'gogoreco.classes',
   'gogoreco.startpage',
   'gogoreco.contribute',
+  'gogoreco.confirmationSent',
   'gogoreco.usersConfirmation',
 
   'services.alerts',
