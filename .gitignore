@@ -31,3 +31,4 @@ config/initializers/aws_credentials.rb
 config/initializers/behave_io.rb
 public/tmp
 public/uploads
+config/initializers/twitter_app_creds.rb
