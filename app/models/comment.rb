@@ -15,6 +15,7 @@ class Comment
   validates_presence_of :content
 
   before_save :look_for_related_evaluations
+  after_create :tweet_if_loved!
 
   def related_evaluation
     related_evaluation_id.nil? ? nil : Evaluation.find(related_evaluation_id)
@@ -29,6 +30,12 @@ class Comment
         self.related_evaluation_id = es.map(&:id).first
         es.each{|e| e.add_to_set(related_comment_ids: id)}
       end
+    end
+  end
+
+  def tweet_if_loved!
+    if related_evaluation and related_evaluation.score == 4
+      TwitterBot.delay.tweet_comment!(comment)
     end
   end
 

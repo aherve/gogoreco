@@ -61,3 +61,4 @@ gem 'mongo_session_store-rails4'
 #gem 'mongoid-elasticsearch'
 
 gem 'whenever'
+gem 'twitter'

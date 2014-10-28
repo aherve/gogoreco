@@ -21,4 +21,8 @@ every 1.days, at: '11:30 pm' do
   runner "DailyReportingMailer.daily_new_comments_report.deliver"
 end
 
+every 1.hours do
+  runner "TwitterBot.favorite_feed_selection!"
+end
+
 # Learn more: http://github.com/javan/whenever
