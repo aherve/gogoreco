@@ -4,19 +4,21 @@ angular.module('services.analytics', [])
   var Analytics = {
     identify: function( user ){
 
-      mixpanel.people.set_once({
-        "$email": user.email
-      });
-
       mixpanel.people.set({
         "id": user.id,
         "$first_name": user.firstname || null,
+        "$email": user.email,
         "$last_name": user.lastname || null
+      });
+
+      /*
+      mixpanel.people.set_once({
       });
 
       // data passed with every event sent
       mixpanel.register({
       });
+      */
     },
 
     showLogin: function(){

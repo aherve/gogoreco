@@ -5,7 +5,7 @@
       <div class="dropdown" style="margin-bottom: 20px" ng-hide="itemToRecommend || displayAddSchool">
         <span class="lead bold text-orange dropdown-toggle">
           <span ng-hide="$rootScope.school">
-            Sélectionne un établissement 
+            Sélectionne un établissement dans lequel tu as suivi des cours
           </span>
           <span ng-show="$rootScope.school">{{ $rootScope.school.name }} </span>
           <span class="caret"></span>
@@ -35,7 +35,7 @@
         <!-- initial view -->
         <div ng-hide="itemToRecommend">
           <div class="lead bold text-aqua">
-            Tape le nom d'un cours que tu aimerais recommander :
+            Tape le nom d'un cours que tu aimerais recommander à <span ng-show="$rootScope.school">{{ $rootScope.school.name }} :</span>
           </div>
           <form>
             <div class="form-group">
@@ -53,9 +53,6 @@
           </div>
           -->
         </div>
-
-        <!-- recommend -->
-        <div ng-show="itemToRecommend" gr-evaluate="itemToRecommend" cb="initialize()"></div>
       </div>
 
     </div>

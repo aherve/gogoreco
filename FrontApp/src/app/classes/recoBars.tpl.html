@@ -13,7 +13,7 @@
     <div ng-repeat="i in array">
       <div class="reco-stack" ng-class="{'reco-stack-empty': (5 -$index )> score(2), 'reco-stack-full': score(2) > (5 - $index - 1)}"></div>
       <div class="reco-bar-icon" ng-show="5 - $index - 1 == score(2)">
-        <span class="fa fa-thumbs-o-up"></span>
+        <span class="fa fa-smile-o"></span>
       </div>
     </div>
     <small>{{ item.likers_count }}</small>

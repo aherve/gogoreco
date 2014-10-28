@@ -1,9 +1,25 @@
 angular.module( 'gogoreco.contribute', [
-  'services.analytics'
+  'services.analytics',
+  'resources.item'
 ])
 
 .config(['securityAuthorizationProvider', '$stateProvider', function config( securityAuthorizationProvider, $stateProvider ) {
-  $stateProvider.state( 'contribute', {
+  $stateProvider.state( 'recommend item', {
+    url: '/contribute/:itemId',
+    views: {
+      "main": {
+        controller: 'EvaluateItemCtrl',
+        templateUrl: 'contribute/evaluateItem.tpl.html'
+      }
+    },
+    data:{ pageTitle: 'Recommander' },
+    resolve: {
+      item: ['Item', '$stateParams', function( Item, $stateParams ){
+        return Item.get( $stateParams.itemId );
+      }],
+      authenticatedUser: securityAuthorizationProvider.requireAuthenticatedUser
+    }
+  }).state( 'contribute', {
     url: '/contribute',
     views: {
       "main": {
@@ -30,10 +46,23 @@ angular.module( 'gogoreco.contribute', [
   };
 }])
 
-.controller('EvaluateItemCtrl', ['$scope', 'Item', 'Tag', '$rootScope', 'Analytics', function( $scope, Item, Tag, $rootScope, Analytics ){
+.controller('EvaluateItemCtrl', ['$scope', 'Item', 'Tag', '$rootScope', 'Analytics', 'item', '$timeout', function( $scope, Item, Tag, $rootScope, Analytics, item, $timeout ){
 
-  commentItem = function(){
-    $scope.item.commentItem( $scope.item.comment );
+  $scope.item = item.item;
+
+  if( $scope.item.current_user_score && $scope.item.current_user_commented ){
+    $scope.step = 4;
+  }
+  else if( $scope.item.current_user_score && !$scope.item.current_user_commented ){
+    $scope.step = 2;
+  }
+  else {
+    $scope.step = 1;
+  }
+
+  $scope.commentItem = function( item ){
+    item.commentItem( item.comment );
+    $scope.step = 3;
   };
 
   $scope.getTagTypeahead = function( search ){
@@ -59,10 +88,20 @@ angular.module( 'gogoreco.contribute', [
       });
     };
     Item.addTagsById( getNames($scope.item.tags), $scope.item.id );
-    $scope.cb();
     Analytics.tagItem( $scope.item );
+    $scope.nav('/contribute');
   };
 
+  $scope.evalItem = function( item, score ){
+    if( item.current_user_score == score ){
+      item.evalItem( 0 );
+    }
+    else {
+      item.evalItem( score ).then( function(){
+        $scope.step = 2;
+      });
+    }
+  };
 }])
 
 .controller( 'ContributeCtrl', ['$scope', 'Item', 'User', '$rootScope', 'School', 'Analytics', function ContributeController( $scope, Item, User, $rootScope, School, Analytics ){
@@ -91,18 +130,20 @@ angular.module( 'gogoreco.contribute', [
 
   $scope.onItemSelect = function(){
     Item.get( $scope.selectedItem.id ).then( function( response ){
-      $scope.itemToRecommend = response.item;
+      $scope.nav('/contribute/' + response.item.id );
     });
   };
 
   $scope.selectTextItem = function(){
-    Item.create([ $rootScope.school.name ], $scope.selectedItem, [], null, null).then( function( response ){
-      $scope.itemToRecommend = response.item;
-      if( response.item.schools.length ){
-        $rootScope.school = response.item.schools[0];
-      }
-      Analytics.createItem( response.item );
-    });
+    if( $scope.selectedItem ){
+      Item.create([ $rootScope.school.name ], $scope.selectedItem, [], null, null).then( function( response ){
+        $scope.nav('/contribute/' + response.item.id );
+        if( response.item.schools.length ){
+          $rootScope.school = response.item.schools[0];
+        }
+        Analytics.createItem( response.item );
+      });
+    }
   };
 
   Analytics.contribute();

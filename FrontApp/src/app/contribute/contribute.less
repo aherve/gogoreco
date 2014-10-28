@@ -28,3 +28,84 @@
     &:extend( .btn-s-bluejeans );
   }
 }
+
+
+.when-hovering {
+  display: none;
+}
+
+
+.evaluate-module {
+  margin-top: 50px;
+  & .evaluate-header {
+    padding: 5px 20px;
+    background-color: @lightgray;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+  & .evaluate-body {
+    background-color: white;
+    padding: 20px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  & .evaluate-buttons {
+    text-align: center;
+    & table {
+      margin-left: auto;
+      margin-right: auto;
+      & button {
+        margin: 10px;
+        padding: 5px 8px;
+        width: 110px;
+        height: 110px;
+        &.not-selectd {
+          &:extend( .btn-default );
+        }
+        &.selected {
+          &.love {
+            &:extend( .btn-s-pinkrose );
+          }
+          &.smile {
+            &:extend( .btn-s-mint );
+          }
+          &.meh {
+            &:extend( .btn-s-sunflower );
+          }
+          &.frown {
+            &:extend( .btn-s-grapefruit );
+          }
+          &:hover.love:not( :focus ),
+          &:hover.smile:not( :focus ),
+          &:hover.meh:not( :focus ),
+          &:hover.frown:not( :focus ) {
+            &:extend( .btn-darkgray );
+            & .not-hovering {
+              display: none;
+            }
+            & .when-hovering {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.evaluate-nav {
+  & > li > a {
+    color: @mediumgray-d;
+    &:hover {
+      background-color: @lightgray;
+    }
+  }
+  & > li.active > a {
+    color: @s-mint;
+  }
+}
+
+.step-background {
+  padding: 0px 30px 30px 30px;
+}
+
