@@ -4,10 +4,11 @@ angular.module('services.analytics', [])
   var Analytics = {
     identify: function( user ){
 
+      mixpanel.identify( user.id );
       mixpanel.people.set({
         "id": user.id,
         "$first_name": user.firstname || null,
-        "$email": user.email,
+        "$email": user.email || null,
         "$last_name": user.lastname || null
       });
 
