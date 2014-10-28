@@ -8,7 +8,7 @@ class Comment
   field :related_evaluation_id
 
   belongs_to :author, class_name: "User", inverse_of: "comments"
-  belongs_to :item, class_name: "User", inverse_of: "comments"
+  belongs_to :item, class_name: "Item", inverse_of: "comments"
 
   validates_presence_of :author_id
   validates_presence_of :item_id
@@ -35,7 +35,8 @@ class Comment
 
   def tweet_if_loved!
     if related_evaluation and related_evaluation.score == 4
-      TwitterBot.delay.tweet_comment!(comment)
+      #TwitterBot.delay.tweet_comment!(comment)
+      TwitterBot.tweet_comment!(self)
     end
   end
 
