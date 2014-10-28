@@ -13,6 +13,13 @@ module Gogoreco
             @comment = Comment.find(params[:comment_id]) || error!("comment not found",404)
           end
 
+          #{{{ get
+          desc "get comment"
+          post do 
+            present :comment, @comment, with: Gogoreco::Entities::Comment, entity_options: entity_options
+          end
+          #}}}
+
           #{{{ update
           desc "updates comment content"
           params do 
