@@ -18,9 +18,7 @@ angular.module('services.alerts', [])
 
 .factory('Alerts', [function(){
   var alerts = [];
-
   var Alerts = {
-
     clear: function(){
       alerts = [];
     },
@@ -45,6 +43,5 @@ angular.module('services.alerts', [])
       }];
     }
   };
-
   return Alerts;
 }]);
