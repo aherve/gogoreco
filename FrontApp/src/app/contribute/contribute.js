@@ -50,8 +50,8 @@ angular.module( 'gogoreco.contribute', [
 
   $scope.item = item.item;
 
-  if( $scope.item.current_user_score && $scope.item.current_user_commented ){
-    $scope.step = 4;
+  if( $scope.item.current_user_score && $scope.item.current_user_commented  ){
+    $scope.step = 3;
   }
   else if( $scope.item.current_user_score && !$scope.item.current_user_commented ){
     $scope.step = 2;
@@ -61,8 +61,9 @@ angular.module( 'gogoreco.contribute', [
   }
 
   $scope.commentItem = function( item ){
-    item.commentItem( item.comment );
-    $scope.step = 3;
+    item.commentItem( item.comment ).then( function(){
+      $scope.step = 3;
+    });
   };
 
   $scope.getTagTypeahead = function( search ){

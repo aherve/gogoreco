@@ -5,31 +5,22 @@
       <!-- {{{ header  -->
       <div class="evaluate-header">
         <ul class="nav nav-justified evaluate-nav">
-          <li ng-click="step = 1" ng-class="{'active': step == 1}">
+          <li ng-click="step = 1" ng-class="{'active': step == 1, 'done': item.current_user_score}">
             <a>
-              <span class="fa-stack fa-lg">
-                <span class="fa fa-circle fa-stack-2x"></span>
-                <span class="fa fa-question fa-stack-1x fa-inverse"></span>
-              </span>
+              <span class="fa fa-heart-o fa-2x"></span>
               <div>Recommande</div>
             </a>
           </li>
-          <li ng-click="step = 2" ng-class="{'active': step == 2}">
+          <li ng-click="step = 2" ng-class="{'active': step == 2, 'done': item.current_user_commented}">
             <a>
-              <span class="fa-stack fa-lg">
-                <span class="fa fa-circle fa-stack-2x"></span>
-                <span class="fa fa-comment fa-stack-1x fa-inverse"></span>
-              </span>
+              <span class="fa fa-comment fa-2x"></span>
               <div>Explique</div>
             </a>
           </li>
-          <li ng-click="step = 3" ng-class="{'active': step == 3}">
+          <li ng-click="step = 3" ng-class="{'active': step == 3, 'done': item.current_user_commented && item.current_user_score && item.tags.length}">
             <a>
-              <span class="fa-stack fa-lg">
-                <span class="fa fa-circle fa-stack-2x"></span>
-                <span class="fa fa-question fa-stack-1x fa-inverse"></span>
-              </span>
-              <div>Référence</div>
+              <span class="fa fa-2x fa-tag"></span>
+              <div>Tag</div>
             </a>
           </li>
           <!--
@@ -52,7 +43,12 @@
         <!-- {{{ step 1 -->
         <div ng-show="step == 1" class="animate-from-left">
           <div class="step-background">
-            <div class="h3 text-aqua center">Recommande ce cours !</div>
+            <div class="h3 text-aqua center">Recommande ce cours ! <small class="text-aqua">(étape 1/3)</small> </div>
+
+            <div class="explain">
+              Tu as le choix entre donner un coup de coeur, recommander, être mitigé ou déconseiller le cours. Tu justifieras ton choix ensuite :-)
+            </div>
+
             <div class="evaluate-buttons">
               <table>
                 <tr>
@@ -63,9 +59,9 @@
                       </span>
                       <span class="when-hovering">
                         <div>
-                        <span class="fa fa-remove fa-3x"></span>
-                      </div>
-                      <div>Annuler</div>
+                          <span class="fa fa-remove fa-3x"></span>
+                        </div>
+                        <div>Annuler</div>
                       </span>
                     </button>
                   </td>
@@ -74,13 +70,13 @@
                       <span class="not-hovering">
                         <span class="fa fa-smile-o fa-3x"></span>
                         <div>
-                      </div>
+                        </div>
                       </span>
                       <span class="when-hovering">
                         <div>
-                        <span class="fa fa-remove fa-3x"></span>
-                      </div>
-                      <div>Annuler</div>
+                          <span class="fa fa-remove fa-3x"></span>
+                        </div>
+                        <div>Annuler</div>
                       </span>
                     </button>
                   </td>
@@ -91,13 +87,13 @@
                       <span class="not-hovering">
                         <span class="fa fa-meh-o fa-3x"></span>
                         <div>
-                      </div>
+                        </div>
                       </span>
                       <span class="when-hovering">
                         <div>
-                        <span class="fa fa-remove fa-3x"></span>
-                      </div>
-                      <div>Annuler</div>
+                          <span class="fa fa-remove fa-3x"></span>
+                        </div>
+                        <div>Annuler</div>
                       </span>
                     </button>
                   </td>
@@ -105,14 +101,14 @@
                     <button class="btn frown" ng-class="{'selected': item.current_user_score == 1, 'not-selectd': item.current_user_score != 1 && item.current_user_score !== 0, 'btn-s-grapefruit': !item.current_user_score}" ng-click="evalItem( item,1)">
                       <span class="not-hovering">
                         <div>
-                        <span class="fa fa-frown-o fa-3x"></span>
-                      </div>
+                          <span class="fa fa-frown-o fa-3x"></span>
+                        </div>
                       </span>
                       <span class="when-hovering">
                         <div>
-                        <span class="fa fa-remove fa-3x"></span>
-                      </div>
-                      <div>Annuler</div>
+                          <span class="fa fa-remove fa-3x"></span>
+                        </div>
+                        <div>Annuler</div>
                       </span>
 
                     </button>
@@ -128,12 +124,42 @@
         <div ng-show="step == 2">
 
           <div class="step-background">
-            <div class="form-group">
-              <h3 class="text-aqua">Explique pourquoi le prendre </h3>
-              <textarea rows="5" class="form-control" ng-model="item.comment"></textarea>
+            <div ng-hide="item.current_user_commented">
+              <div class="form-group">
+                <h3 class="text-aqua">
+                  <span ng-show="item.current_user_score == 4" >Explique pourquoi tu donnes un coup de cœur à ce cours</span>
+                  <span ng-show="item.current_user_score == 3" >Explique pourquoi tu recommandes ce cours</span>
+                  <span ng-show="item.current_user_score == 2" >Explique pourquoi tu es mitigé sur ce cours</span>
+                  <span ng-show="item.current_user_score == 1" >Explique pourquoi tu déconseilles ce cours</span>
+                  <small class="text-aqua"> (étape 2/3)</small></h3>
+
+                <div class="explain">
+                  <p>
+                    <ul class="list-unstyled">
+                      <li>Que contient ce cours ?</li>
+                      <li>A qui le recommandes-tu et pourquoi ?</li>
+                    </ul>
+                  </p>
+                  <p>Les commentaires sur Gogoreco sont publiques. Sois malin :-)</p>
+
+                </div>
+
+                <textarea rows="5" class="form-control" ng-model="item.comment"></textarea>
+              </div>
+
+
+              <div class="form-group clearfix">
+                <button class="btn btn-bluejeans" ng-click="commentItem(  item )">Valider</button>
+              </div>
             </div>
-            <div class="form-group clearfix">
-              <button class="btn btn-bluejeans" ng-click="commentItem(  item )">Valider</button>
+
+            <div ng-show="item.current_user_commented">
+              <h3 class="text-aqua">Tu as expliqué ta recommandation</h3>
+              <div class="form-group">
+                <div ng-repeat="comment in item.current_user_comments">
+                  <div gr-comment comment="comment"></div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -143,16 +169,16 @@
         <!-- {{{ step 3 -->
         <div ng-show="step == 3">
           <div class="step-background">
-            <div class="h3 text-aqua">Ajoute des tags au cours ! </div> 
+            <div class="h3 text-aqua">Ajoute des tags au cours ! <small class="text-aqua">(étape 3/3)</small></div> 
             <div class="form-group">
-              <span class="badge badge-grapefruit" ng-repeat="tag in item.tags">{{ tag.name }} <small class="glyphicon glyphicon-remove" ng-click="item.tags.splice( $index, 1 )"></small></span>
+              <span class="badge badge-ss-orange" ng-repeat="tag in item.tags">{{ tag.name }} <small class="glyphicon glyphicon-remove" ng-click="item.tags.splice( $index, 1 )"></small></span>
             </div>
             <form class="css-form" novalidate name="addTagsForm">
               <div class="form-group">
                 <div class="input-group">
                   <input class="form-control" type="text" ng-model="item.tagToAdd" typeahead="tag.name as tag.name for tag in getTagTypeahead( $viewValue )" typeahead-editable="true" typeahead-on-select="addTag()" typeahead-min-length="3">
                   <span class="input-group-btn">
-                    <button class="btn btn-mint" ng-click="addTag()" style="height: 34px; padding: 5px 12px">Ajouter</button>
+                    <button class="btn btn-s-mint" ng-click="addTag()" style="height: 34px; padding: 5px 12px">Ajouter</button>
                   </span>
                 </div>
               </div>
@@ -168,7 +194,7 @@
 
         <!-- {{{ step 4 -->
         <div ng-show="step == 4">
-          Allright !
+          <div class="h3 text-aqua">Bravo ! Tu as évalué ce cours</div> 
         </div><!-- step 1 -->
         <!-- }}} -->
 

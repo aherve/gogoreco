@@ -53,7 +53,7 @@ angular.module('resources.item', [
     };
     return Restangular.one('items', item.id).all('comments').customPOST( params, 'create' ).then( function( response ){
       item.current_user_commented = true;
-      item.currentUserComment = response.comment;
+      item.current_user_comments = [ response.comment ];
       return response;
     });
   };
@@ -187,6 +187,7 @@ angular.module('resources.item', [
         item: {
           "comments": true,
           "comments_count": true,
+          "current_user_comments": true,
           "current_user_commented": true,
           "current_user_score": true,
           "id": true,
