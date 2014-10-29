@@ -37,7 +37,6 @@ angular.module('services.alerts', [])
       });
       }
       else if( err.data.error ){
-        console.log( err.data.error );
         alerts = [{
           type: 'danger',
           msg: err.data.error
