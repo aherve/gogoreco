@@ -26,8 +26,7 @@ angular.module('resources.evaluation', [
             name: true
           },
           author: {
-            firstname: true,
-            lastname: true
+            name: true
           },
           comment: {
             content: true

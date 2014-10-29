@@ -44,8 +44,7 @@ angular.module('resources.item', [
           related_evaluation: true
         },
         user: {
-          firstname: true,
-          lastname: true,
+          name: true,
           image: true
         }
       }
@@ -54,6 +53,7 @@ angular.module('resources.item', [
     return Restangular.one('items', item.id).all('comments').customPOST( params, 'create' ).then( function( response ){
       item.current_user_commented = true;
       item.current_user_comments = [ response.comment ];
+      Analytics.itemComment( item );
       return response;
     });
   };
@@ -136,8 +136,7 @@ angular.module('resources.item', [
           author: true
         },
         user: {
-          firstname: true,
-          lastname: true,
+          name: true,
           image: true
         },
         tag: {
@@ -203,8 +202,7 @@ angular.module('resources.item', [
           author: true
         },
         user: {
-          firstname: true,
-          lastname: true,
+          name: true,
           image: true
         },
         tag: {
@@ -255,8 +253,7 @@ angular.module('resources.item', [
           name: true
         },
         user: {
-          firstname: true,
-          lastname: true,
+          name: true,
           image: true
         }
 

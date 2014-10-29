@@ -67,7 +67,7 @@ angular.module( 'gogoreco.contribute', [
         $scope.step = 2;
       }
       else {
-        Alerts.setAlert( 'info', 'Choisis une recommandation avant d\'aller l\'expliquer');
+        Alerts.setAlert( 'warning', 'Choisis une recommandation avant d\'aller l\'expliquer');
       }
     }
     else {
@@ -78,6 +78,10 @@ angular.module( 'gogoreco.contribute', [
   $scope.commentItem = function( item ){
     item.commentItem( item.comment ).then( function(){
       $scope.navToStep(3);
+    }, function( err ){
+      if( err.data.error == 'content is missing' ){
+        Alerts.setAlert('warning', 'Explique ta recommandation dans le champ texte avant de valider !');
+      }
     });
   };
 
@@ -106,6 +110,7 @@ angular.module( 'gogoreco.contribute', [
     if( $scope.item.tags.length > 0 ){
       Item.addTagsById( getNames($scope.item.tags), $scope.item.id );
       Analytics.tagItem( $scope.item );
+      Alerts.setAlert('info', 'Ta recommandation a bien été prise en compte !');
       $scope.nav('/contribute');
     }
     else {
@@ -115,10 +120,21 @@ angular.module( 'gogoreco.contribute', [
 
   $scope.evalItem = function( item, score ){
     if( item.current_user_score == score ){
-      item.evalItem( 0 );
+      if( !item.current_user_comments ){
+        item.evalItem( 0 );
+      }
+      else {
+        Alerts.setAlert('warning', 'Tu ne peux pas retirer une recommandation que tu as justifiée par un texte');
+      }
     }
     else {
       item.evalItem( score ).then( function(){
+        if( score == 1 ){
+          item.placeholder = "Je ne recommande pas ce cours pour un profil comme le mien parce que ...";
+        }
+        else{
+          item.placeholder = "Je recommande ce cours à ...";
+        }
         $scope.navToStep(2);
       });
     }

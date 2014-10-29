@@ -16,6 +16,7 @@ angular.module( 'gogoreco', [
   'gogoreco.classes',
   'gogoreco.startpage',
   'gogoreco.contribute',
+  'gogoreco.pickASchool',
   'gogoreco.confirmationSent',
   'gogoreco.usersConfirmation',
 
@@ -29,7 +30,9 @@ angular.module( 'gogoreco', [
   'resources.school',
   'resources.teacher',
   'resources.comment',
-  'resources.evaluation'
+  'resources.evaluation',
+
+  'filters.congruance'
 ])
 
 .config( ['$stateProvider', '$urlRouterProvider', function myAppConfig ( $stateProvider, $urlRouterProvider ) {
@@ -47,12 +50,6 @@ angular.module( 'gogoreco', [
   catch( err ){
     console.log( err );
   }
-}])
-
-.run(['$rootScope', 'Alerts', function( $rootScope, Alerts ){
-  $rootScope.$on('$stateChangeSuccess', function(){
-    Alerts.clear();
-  });
 }])
 
 .controller( 'AppCtrl', ['$scope', '$location', function AppCtrl ( $scope, $location ) {

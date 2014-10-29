@@ -1,0 +1,25 @@
+.school {
+  padding: 10px;
+  color: @darkgray;
+  font-weight: bold;
+  text-align: center;
+  &:hover {
+    & .school-icon {
+      color: @s-mint;
+      border-color: @s-mint;
+    }
+    & .school-name {
+      color: @s-mint;
+    }
+  }
+  & .school-name {
+    margin-top: 5px;
+  }
+  & .school-icon {
+    width: 80px;
+    height: 80px;
+    padding: 15px;
+    border: 1px solid @mediumgray;
+    border-radius: 5px;
+  }
+}

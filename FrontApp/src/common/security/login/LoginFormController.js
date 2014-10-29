@@ -17,6 +17,11 @@ angular.module('security.login.form', [])
     $window.location.href = "/api/users/auth/facebook";
   };
 
+  $scope.twitterConnect = function(){
+    localStorageService.set('back url', $location.url());
+    $window.location.href = "/api/users/auth/twitter";
+  };
+
   $scope.signup = function(){
     $scope.pendingRequest = true;
     security.signup($scope.signupUser.email, $scope.signupUser.password, $scope.signupUser.firstname, $scope.signupUser.lastname).then(function(data){

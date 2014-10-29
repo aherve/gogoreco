@@ -35,6 +35,7 @@
 
 @import '../app/header/header.less';
 @import '../app/startpage/startpage.less';
+@import '../app/pickASchool/pickASchool.less';
 @import '../app/classes/classes.less';
 @import '../app/contribute/contribute.less';
 @import '../app/comment/comment.less';
@@ -218,7 +219,18 @@ input.search-query {
   color: white;
   &:hover {
     background-color: @ss-bluejeans;
+  }
 }
+
+.btn-twitter {
+  & .text-twitter {
+    color: @s-aqua;
+  }
+  background-color: @s-aqua;
+  color: white;
+  &:hover {
+    background-color: @ss-aqua;
+  }
 }
 
 .text-facebook {
@@ -232,3 +244,5 @@ input.search-query {
 [ng-click] {
   cursor: pointer;
 }
+
+@alert-warning-text: darken(@sunflower, 20%);

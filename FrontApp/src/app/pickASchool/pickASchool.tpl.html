@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="gr-well" style="padding: 30px; margin-bottom: 50px">
+
+        <div ng-show="addingMode">
+          <div class="form-group">
+            <div class="lead text-darkgray">Renseigne le nom de ton établissement :</div>
+            <input ng-model="schoolName" class="form-control">
+          </div>
+          <div class="form-group">
+            <div class="clearfix">
+              <div class="pull-right">
+                <button class="btn btn-s-mint" ng-click="selectSchool({name: schoolName})">Valider</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div ng-hide="addingMode">
+          <div class="center lead bold text-darkgray">Sélectionne un établissement ou ajoute le tiens</div>
+          <div class="explain">
+            Sélectionne ton établissement pour y recommander tes cours et voir les recommandations des autres. Tu peux changer d'établissement quand tu veux !
+          </div>
+          <div class="form-group">
+
+
+            <div class="input-group">
+                <input class="form-control" ng-model="schoolName" placeholder="Cherche parmi les établissement">
+              <span class="input-group-btn">
+                <button class="btn btn-s-mint" ng-click="addingMode = true" style="height: 34px; padding: 5px 12px"><span class="fa fa-plus"></span> Ajouter</button>
+              </span>
+            </div>
+
+
+
+
+
+
+            <div class="row" style="margin-top: 40px">
+              <div class="col-xs-4" ng-repeat="i in [0, 1, 2]">
+                <div class="school" ng-repeat="school in schools | filter: schoolName | congruance:i:3" ng-click="selectSchool( school )">
+                  <img ng-show="school.image" ng-src="{{ school.image }}" style="width: 80px; height: 80px">
+                  <div ng-hide="school.image">
+                    <span class="fa fa-3x fa-institution text-mediumgray school-icon" ></span>
+                  </div>
+                  <div class="school-name">
+                    {{ school.name }}
+                  </div>
+                </div>
+              </div>
+            </div><!-- row -->
+          </div><!-- adding-mode -->
+        </div>
+      </div>
+    </div>
+  </div>

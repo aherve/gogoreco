@@ -7,6 +7,8 @@
       <p class="bold" ng-show="state.initialMode">Connexion</p>
       <p class="bold" ng-hide="state.initialMode">Inscription</p>
       <div ng-hide="state.emailSignupMode">
+
+        <div ng-hide="state.emailConnect">
         <!-- facebook -->
         <div class="form-group" style="margin-top: 10px">
           <a class="btn btn-facebook" ng-click="facebookConnect()" style="width: 100%">
@@ -22,6 +24,23 @@
             </span>
           </a>
         </div>
+
+        <!-- twitter -->
+        <div class="form-group" style="margin-top: 10px" ng-hide="true">
+          <a class="btn btn-twitter" ng-click="twitterConnect()" style="width: 100%">
+            <span class="fa-stack">
+              <i class="fa fa-square fa-stack-2x"></i>
+              <i class="fa fa-twitter fa-stack-1x text-twitter"></i>
+            </span>
+            <span ng-hide="state.initialMode">
+              inscription twitter
+            </span>
+            <span ng-show="state.initialMode">
+              connexion twitter
+            </span>
+          </a>
+        </div>
+
         <div style="text-align: center; width: 100%">
           <div class="row">
             <div class="col-xs-5">
@@ -38,53 +57,64 @@
           </div>
         </div>
 
-        <!-- email -->
-        <form calss="css-form" name="loginForm" ng-show="state.initialMode">
-          <div class="form-group">
-            <input class="form-control form-control-grey" placeholder="Email" ng-model="loginUser.email">
-          </div>
-          <div class="form-group">
-            <input class="form-control form-control-grey" type="password" placeholder="Mot de passe" ng-model="loginUser.password">
-          </div>
-          <div class="form-group" style="margin-top: 20px">
-            <div class="pull-right">
-              <small class="pointer" style="position: relative; top: 10px" ng-click="showForgotPassword()">Mot de passe oublié</small>
+        <div class="form-group" ng-show="state.initialMode">
+          <button class="btn btn-enter" style="width: 100%;" ng-click="state.emailConnect = true">Connexion compte email </button>
+        </div>
+        </div>
+
+        <div ng-show="state.emailConnect">
+          <!-- email -->
+          <form calss="css-form" name="loginForm" ng-show="state.initialMode">
+            <div class="form-group">
+              <input class="form-control form-control-grey" placeholder="Email" ng-model="loginUser.email">
             </div>
-            <button class="btn btn-s-bluejeans" ng-click="login()">connexion</button>
-          </div>
-        </form>
-        <button class="btn btn-enter text-default" style="width: 100%" ng-hide="state.initialMode" ng-click="state.emailSignupMode = true">inscription par email</button>
-      </div><!-- !email signup mode -->
+            <div class="form-group">
+              <input class="form-control form-control-grey" type="password" placeholder="Mot de passe" ng-model="loginUser.password">
+            </div>
+            <div class="form-group" style="margin-top: 20px">
+              <div class="pull-right">
+                <small class="pointer" style="position: relative; top: 10px" ng-click="showForgotPassword()">Mot de passe oublié</small>
+              </div>
+              <button class="btn btn-s-bluejeans" ng-click="login()">connexion</button>
+              <div class="form-group" style="position: absolute; bottom: 0">
+                <small class="fa fa-arrow-left" ng-click="state.emailConnect = false">retour</small>
+              </div>
+            </div>
+          </form>
+        </div>
 
-      <div ng-show="state.emailSignupMode">
-        <form class="css-form" name="signupFrom" >
-          <div class="form-group">
-            <input class="form-control form-control-grey" ng-model="signupUser.firstname" type="text" placeholder="Prénom" required>
-          </div>
-          <div class="form-group">
-            <input class="form-control form-control-grey" ng-model="signupUser.lastname" type="text" placeholder="Nom" required>
-          </div>
-          <div class="form-group">
-            <input class="form-control form-control-grey" ng-model="signupUser.email" type="email" placeholder="Email" required>
-          </div>
-          <div class="form-group">
-            <input class="form-control form-control-grey" ng-model="signupUser.password" type="password" placeholder="Mot de passe" required>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-info" ng-click="signup()">inscription</button>
-          </div>
-        </form>
-      </div><!-- email signup mode -->
+          <button class="btn btn-enter text-default" style="width: 100%" ng-hide="state.initialMode" ng-click="state.emailSignupMode = true">inscription par email</button>
+        </div><!-- !email signup mode -->
 
-      <div ng-hide="state.initialMode" class="pointer form-group" style="position: absolute; bottom: 20px" ng-click="state.initialMode = true; state.emailSignupMode = false">
-        <small>
-          <span class="fa fa-arrow-left"></span> retour
-        </small>
+        <div ng-show="state.emailSignupMode">
+          <form class="css-form" name="signupFrom" >
+            <div class="form-group">
+              <input class="form-control form-control-grey" ng-model="signupUser.firstname" type="text" placeholder="Prénom" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control form-control-grey" ng-model="signupUser.lastname" type="text" placeholder="Nom" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control form-control-grey" ng-model="signupUser.email" type="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control form-control-grey" ng-model="signupUser.password" type="password" placeholder="Mot de passe" required>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-info" ng-click="signup()">inscription</button>
+            </div>
+          </form>
+        </div><!-- email signup mode -->
+
+        <div ng-hide="state.initialMode" class="pointer form-group" style="position: absolute; bottom: 20px" ng-click="state.initialMode = true; state.emailSignupMode = false">
+          <small>
+            <span class="fa fa-arrow-left"></span> retour
+          </small>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="col-md-5 signup-col hidden-sm hidden-xs" ng-show="state.initialMode" ng-include="'security/login/signupCol.tpl.html'"></div>
-</div>
+    <div class="col-md-5 signup-col hidden-sm hidden-xs" ng-show="state.initialMode" ng-include="'security/login/signupCol.tpl.html'"></div>
+  </div>
 
 </div>

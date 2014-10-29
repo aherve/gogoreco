@@ -15,8 +15,7 @@ angular.module('resources.comment', [
             "related_evaluation": true
           },
           user: {
-            firstname: true,
-            lastname: true,
+            name: true,
             image: true
           }
         }

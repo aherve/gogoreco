@@ -115,6 +115,7 @@ angular.module('security.service', [
         lastname: lastname
       };
       return Restangular.all('users').post({user: user}).then(function(response) {
+        Alerts.clear();
         service.currentUser = response.user;
         try {
           Analytics.identify( response.user );
@@ -179,6 +180,7 @@ angular.module('security.service', [
       };
       var user = {email: email, password: password};
       Restangular.all('users').all('sign_in').post({user: user}).then(function(response) {
+        Alerts.clear();
         return Restangular.all('users').customPOST(params, 'me').then( function( response ){
           service.currentUser = response.user;
           if ( service.isAuthenticated() ) {
@@ -205,7 +207,7 @@ angular.module('security.service', [
         $rootScope.$broadcast('logout');
         service.currentUser = null;
         Analytics.logout();
-        redirect(redirectTo);
+        redirect();
       });
     },
 

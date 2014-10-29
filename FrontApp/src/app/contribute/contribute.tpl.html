@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3" style="margin-top: 100px">
+      <div gr-alert></div>
 
       <div class="dropdown" style="margin-bottom: 20px" ng-hide="itemToRecommend || displayAddSchool">
         <span class="lead bold text-orange dropdown-toggle">
@@ -10,7 +11,7 @@
           <span ng-show="$rootScope.school">{{ $rootScope.school.name }} </span>
           <span class="caret"></span>
         </span>
-        <ul class="dropdown-menu" style="text-align: left">
+        <ul class="dropdown-menu" style="text-align: left; margin-bottom: 50px;">
           <li ng-click="displayAddSchool = true; $rootScope.school = {}"><a><span class="fa fa-plus"></span> Ajouter une école</a></li>
           <li class="divider"></li>
           <li ng-repeat="school in schools" ng-click="$rootScope.school = school" class="pointer">
