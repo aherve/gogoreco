@@ -28,7 +28,7 @@ class TwitterBot
     timeline_selection(s).each{|t| puts client.favorite t}
 
     # Favorite some random tweets:
-    timeline_selection(10,s).each{|t| puts client.favorite t}
+    timeline_selection(3,s).each{|t| puts client.favorite t}
     puts "done"
   end
 
