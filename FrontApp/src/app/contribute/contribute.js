@@ -103,9 +103,14 @@ angular.module( 'gogoreco.contribute', [
         return tag.name;
       });
     };
-    Item.addTagsById( getNames($scope.item.tags), $scope.item.id );
-    Analytics.tagItem( $scope.item );
-    $scope.nav('/contribute');
+    if( $scope.item.tags.length > 0 ){
+      Item.addTagsById( getNames($scope.item.tags), $scope.item.id );
+      Analytics.tagItem( $scope.item );
+      $scope.nav('/contribute');
+    }
+    else {
+      Alerts.setAlert('warning', 'Ajoute des tags avant de terminer !');
+    }
   };
 
   $scope.evalItem = function( item, score ){
