@@ -18,6 +18,7 @@ before_script:
   - cp config/initializers/aws_credentials.rb.example config/initializers/aws_credentials.rb
   - cp config/initializers/behave_io.rb.example config/initializers/behave_io.rb
   - cp config/initializers/facebook.rb.example config/initializers/facebook.rb
+  - cp config/initializers/twitter_app_creds.rb.example config/initializers/twitter_app_creds.rb
   - cp config/mongoid.yml.example config/mongoid.yml
   - cp FrontApp/src/app/config/config.js.example FrontApp/src/app/config/config.js
   - cd FrontApp
