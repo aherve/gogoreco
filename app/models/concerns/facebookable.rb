@@ -43,6 +43,7 @@ module Facebookable
 
   module ClassMethods
     def from_omniauth(auth)
+      binding.pry
 
       if user = User.find_by(email: auth.info.email, provider: nil)
         user.update_attribute(:uid, auth.uid)
