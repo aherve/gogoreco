@@ -6,7 +6,7 @@ module Gogoreco
       namespace :entities do 
         get do 
 
-          present :item, [:schools,:current_user_commented, :current_user_score, :tags, :id, :name, :lovers_count, :likers_count, :mehers_count, :haters_count, :comments_count, :comments, :latest_evaluation_at].sort
+          present :item, [:current_user_comments, :schools,:current_user_commented, :current_user_score, :tags, :id, :name, :lovers_count, :likers_count, :mehers_count, :haters_count, :comments_count, :comments, :latest_evaluation_at].sort
           present :user, [:id, :firstname, :lastname, :email, :image].sort
           present :comment, [:author,:id, :content, :related_evaluation].sort
           present :school, [:id, :name].sort

@@ -20,6 +20,10 @@ module Gogoreco
         i.user_eval_score(o[:entity_options][:current_user])
       end
 
+      expose :current_user_comments, using: Gogoreco::Entities::Comment, if: lambda{|i,o| o[:entity_options]["item"][:current_user_comments]} do |i,o|
+        i.comments.where(author: o[:entity_options][:current_user])
+      end
+
       expose :current_user_commented, if: lambda{|i,o| o[:entity_options]["item"][:current_user_commented]} do |i,o|
         i.user_commented(o[:entity_options][:current_user])
       end
