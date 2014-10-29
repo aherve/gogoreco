@@ -30,7 +30,7 @@ class TwitterBot
     comment = Comment.find(comment_id) || (return nil)
 
     if comment.related_evaluation and comment.related_evaluation.score == 4
-      head = "coup de coeur à #{comment.item.schools.first.name}: "
+      head = "coup de coeur à #{comment.item.schools.first.twitter_name}: "
       tail = "... http://gogoreco.io/comments/#{comment.pretty_id}"
       body_size = 140 - head.size - tail.size
 
