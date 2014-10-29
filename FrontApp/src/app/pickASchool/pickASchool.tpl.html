@@ -35,13 +35,21 @@
             <div class="row" style="margin-top: 40px">
               <div class="col-xs-4" ng-repeat="i in [0, 1, 2]">
                 <div class="school" ng-repeat="school in schools | filter: schoolName | congruance:i:3" ng-click="selectSchool( school )">
-                  <img ng-show="school.image" ng-src="{{ school.image }}" class="thumbnail">
-                  <span ng-hide="school.image">
-                    <span class="fa fa-2x fa-institution text-mediumgray school-icon" ></span>
-                  </span>
-                  <span class="school-name">
-                    {{ school.name }}
-                  </span>
+                  <div class="media">
+                    <a class="pull-left">
+                      <img ng-show="school.image" ng-src="{{ school.image }}" class="thumbnail">
+                      <span ng-hide="school.image">
+                        <span class="fa fa-2x fa-institution text-mediumgray school-icon"></span>
+                      </span>
+                    </a>
+                    <div class="media-body">
+                      <div class="media-heading">
+                        <span class="school-name">
+                          {{ school.name }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div><!-- row -->

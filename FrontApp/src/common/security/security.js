@@ -173,8 +173,7 @@ angular.module('security.service', [
       var params = {
         entities: {
           user: {
-            firstname: true,
-            lastname: true
+            name: true
           }
         }
       };
@@ -220,8 +219,7 @@ angular.module('security.service', [
         var params = {
           entities: {
             user: {
-              firstname: true,
-              lastname: true
+              name: true
             }
           }
         };
