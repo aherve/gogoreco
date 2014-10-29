@@ -2,6 +2,7 @@ class School
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  include TwittableSchool
   include PrettyId
   include Autocomplete
 
