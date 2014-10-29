@@ -44,6 +44,7 @@ gem 'redis-store'
 gem 'redis-rack-cache'
 
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 gem 'certified'
 
 gem 'behave.io'

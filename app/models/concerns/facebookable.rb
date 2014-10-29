@@ -38,7 +38,11 @@ module Facebookable
   end
 
   def image
-    provider == "facebook" ? "http://graph.facebook.com/#{uid}/picture" : nil
+    if self.image.blank? and provider.to_s == "facebook"
+      self.image = "http://graph.facebook.com/#{uid}/picture"
+    else
+      self.image
+    end
   end
 
   module ClassMethods
