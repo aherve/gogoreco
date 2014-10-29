@@ -8,7 +8,11 @@ module TwittableUser
         user.provider = auth.provider
         user.uid = auth.uid
         user.password = Devise.friendly_token[0,20]
-        user.firstname = auth.info.name   # assuming the user model has a name
+
+        splitted_name = auth.info.name.chomp.strip.split(" ").map(&:strip)
+        user.firstname = splitted_name.first
+        user.lastname = splitted_name[1..-1].join(" ") #des fois que
+
         user.image_url = auth.info.image
         user
       end
