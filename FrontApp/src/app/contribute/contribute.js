@@ -46,7 +46,7 @@ angular.module( 'gogoreco.contribute', [
   };
 }])
 
-.controller('EvaluateItemCtrl', ['$scope', 'Item', 'Tag', '$rootScope', 'Analytics', 'item', '$timeout', function( $scope, Item, Tag, $rootScope, Analytics, item, $timeout ){
+.controller('EvaluateItemCtrl', ['$scope', 'Item', 'Tag', '$rootScope', 'Analytics', 'item', '$timeout', 'Alerts', function( $scope, Item, Tag, $rootScope, Analytics, item, $timeout, Alerts ){
 
   $scope.item = item.item;
 
@@ -60,9 +60,24 @@ angular.module( 'gogoreco.contribute', [
     $scope.step = 1;
   }
 
+  $scope.navToStep = function( step ){
+    Alerts.clear();
+    if( step == 2 ){
+      if( !!$scope.item.current_user_score || !!$scope.item.current_user_commented ){
+        $scope.step = 2;
+      }
+      else {
+        Alerts.setAlert( 'info', 'Choisis une recommandation avant d\'aller l\'expliquer');
+      }
+    }
+    else {
+      $scope.step = step;
+    }
+  };
+
   $scope.commentItem = function( item ){
     item.commentItem( item.comment ).then( function(){
-      $scope.step = 3;
+      $scope.navToStep(3);
     });
   };
 
@@ -99,7 +114,7 @@ angular.module( 'gogoreco.contribute', [
     }
     else {
       item.evalItem( score ).then( function(){
-        $scope.step = 2;
+        $scope.navToStep(2);
       });
     }
   };
