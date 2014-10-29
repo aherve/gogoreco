@@ -9,6 +9,13 @@ class TwitterBot
     end
   end
 
+  def timeline_sample(n,seconds)
+    client.home_timeline(count: 1000)
+    .select{|t| t.created_at > Time.now - seconds}
+    .reject(&:favorited?)
+    .sample(n)
+  end
+
   def timeline_selection(seconds)
     client.home_timeline(count: 1000)
     .select{|t| t.created_at > Time.now - seconds}
@@ -17,7 +24,11 @@ class TwitterBot
   end
 
   def favorite_feed_selection!(s=3600)
+    # Favorite already favorited tweets:
     timeline_selection(s).each{|t| puts client.favorite t}
+
+    # Favorite some random tweets:
+    timeline_selection(3,s).each{|t| puts client.favorite t}
     puts "done"
   end
 
