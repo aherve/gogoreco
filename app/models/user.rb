@@ -4,6 +4,7 @@ class User
   include PrettyId
   include UserRecommendations
   include Facebookable
+  include TwittableUser
 
 
   field :firstname
@@ -16,11 +17,16 @@ class User
   has_many :evaluations, class_name: "Evaluation", inverse_of: :author, dependent: :destroy
 
   #{{{ devise
+
+  def email_required?
+    super && provider.to_s != "twitter"
+  end
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable, :confirmable
-  devise :omniauthable, :omniauth_providers => [:facebook]
+  devise :omniauthable, :omniauth_providers => [:facebook,:twitter]
 
   ## Database authenticatable
   field :email,              type: String, default: ""
