@@ -18,7 +18,7 @@
         </div>
 
         <div ng-hide="addingMode">
-          <div class="center lead bold text-darkgray">Sélectionne un établissement ou ajoute le tiens</div>
+          <div class="lead bold text-darkgray">Sélectionne un établissement ou ajoute le tiens</div>
           <div class="explain">
             Sélectionne ton établissement pour y recommander tes cours et voir les recommandations des autres. Tu peux changer d'établissement quand tu veux !
           </div>
@@ -26,27 +26,22 @@
 
 
             <div class="input-group">
-                <input class="form-control" ng-model="schoolName" placeholder="Cherche parmi les établissement">
+              <input class="form-control" ng-model="schoolName" placeholder="Cherche parmi les établissement">
               <span class="input-group-btn">
                 <button class="btn btn-s-mint" ng-click="addingMode = true" style="height: 34px; padding: 5px 12px"><span class="fa fa-plus"></span> Ajouter</button>
               </span>
             </div>
 
-
-
-
-
-
             <div class="row" style="margin-top: 40px">
               <div class="col-xs-4" ng-repeat="i in [0, 1, 2]">
                 <div class="school" ng-repeat="school in schools | filter: schoolName | congruance:i:3" ng-click="selectSchool( school )">
-                  <img ng-show="school.image" ng-src="{{ school.image }}" style="width: 80px; height: 80px">
-                  <div ng-hide="school.image">
-                    <span class="fa fa-3x fa-institution text-mediumgray school-icon" ></span>
-                  </div>
-                  <div class="school-name">
+                  <img ng-show="school.image" ng-src="{{ school.image }}" class="thumbnail">
+                  <span ng-hide="school.image">
+                    <span class="fa fa-2x fa-institution text-mediumgray school-icon" ></span>
+                  </span>
+                  <span class="school-name">
                     {{ school.name }}
-                  </div>
+                  </span>
                 </div>
               </div>
             </div><!-- row -->
