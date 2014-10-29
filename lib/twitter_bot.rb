@@ -29,30 +29,25 @@ class TwitterBot
 
     comment = Comment.find(comment_id) || (return nil)
 
-    if comment.related_evaluation and comment.related_evaluation.score == 4
+    if comment.related_evaluation and comment.related_evaluation.score > 2
       msg = tweet_msg_for(comment)
       puts self.new.client.update(msg)
     end
   end
 
   def self.tweet_msg_for(comment)
-    head = "coup de coeur sur #{comment.item.name} #{comment.item.schools.first.twitter_name}: "
+
+    body = "Les étudiants <3 leurs cours #{comment.item.schools.first.twitter_name}! #{comment.item.name}: #{comment.content}"
 
     long_url = "http://gogoreco.io/comments/#{comment.pretty_id}"
-    short_url = Googl.shorten(long_url).short_url
-    tail = "... #{short_url}"
+    #short_url = Googl.shorten(long_url).short_url
+    #tail = "... #{short_url}"
+    tail = "... #{long_url}"
+    twitter_tail_size = 22 + 4 # 22 for any twitter link, 4 for the '... ' part
 
-    body = comment.content
-
-    msg = if tail.size + head.size < 140
-            body_size = 140 - head.size - tail.size
-            msg = head + body[0..body_size -1] + tail
-          elsif tail.size + head.size == 140
-            msg = head + tail
-          else
-            head_size = 140 - tail.size
-            msg = head[0..head_size - 1] + tail
-          end
+    body_size = 140 - twitter_tail_size
+    msg = body[0..body_size - 1] + tail
+    msg
 
   end
 end

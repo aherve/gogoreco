@@ -63,5 +63,5 @@ gem 'mongo_session_store-rails4'
 
 gem 'whenever'
 gem 'twitter'
-gem 'googl'
+#gem 'googl'
 
