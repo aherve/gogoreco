@@ -1,14 +1,6 @@
 module TwittableUser
   extend ActiveSupport::Concern
 
-  included do 
-    field :gender, type: String
-    field :provider, type: String
-    field :uid, type: String
-    index({uid: 1},{unique: true, name: 'UsrfacebookUid', sparse: true} )
-    field :image
-  end
-
   module ClassMethods
     def from_twitter_omniauth(auth)
 

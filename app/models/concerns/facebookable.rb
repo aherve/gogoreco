@@ -5,6 +5,7 @@ module Facebookable
     field :gender, type: String
     field :provider, type: String
     field :uid, type: String
+    field :image, type: String
     index({uid: 1},{unique: true, name: 'UsrfacebookUid', sparse: true} )
   end
 
@@ -39,7 +40,7 @@ module Facebookable
 
   def image
     if self.image.blank? and provider.to_s == "facebook"
-      self.image = "http://graph.facebook.com/#{uid}/picture"
+      "http://graph.facebook.com/#{uid}/picture"
     else
       self.image
     end
