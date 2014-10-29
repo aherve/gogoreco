@@ -25,14 +25,24 @@ angular.module( 'gogoreco.startpage', [])
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'StartpageCtrl', ['$scope', 'security', function StartpageController( $scope, security ) {
+.controller( 'StartpageCtrl', ['$scope', 'security', '$rootScope', function StartpageController( $scope, security, $rootScope ) {
 
   if( security.isAuthenticated() ){
-    $scope.nav('/home');
+    if( !!$rootScope.school ){
+      $scope.nav('/home');
+    }
+    else {
+      $scope.nav('/pickASchool');
+    }
   }
 
   $scope.$on('login success', function(){
-    $scope.nav('/home');
+    if( !!$rootScope.school ){
+      $scope.nav('/home');
+    }
+    else {
+      $scope.nav('/pickASchool');
+    }
   });
 
 }]);

@@ -10,7 +10,8 @@ angular.module('resources.school', [
       var params = {
         entities: {
           school: {
-            name: true
+            name: true,
+            index: true
           }
         }
       };

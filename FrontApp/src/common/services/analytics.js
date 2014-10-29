@@ -109,6 +109,18 @@ angular.module('services.analytics', [])
         item_id: item.id,
         score: score
       });
+    },
+
+    itemComment: function( item ){
+      mixpanel.track("Comment Item", {
+        item_name: item.name || null,
+        item_id: item.id || null,
+        school_name: item.schools ? item.schools[0].name : null
+      });
+    },
+
+    pickASchool: function(){
+      mixpanel.track("Pick A School Module");
     }
 
   };
