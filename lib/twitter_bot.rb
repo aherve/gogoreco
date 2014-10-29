@@ -25,15 +25,19 @@ class TwitterBot
     self.new.favorite_feed_selection!(s)
   end
 
-  def self.tweet_comment!(comment)
-    head = "coup de coeur à #{comment.item.schools.first.name}: "
-    tail = "... http://gogoreco.io/comments/#{comment.pretty_id}"
-    body_size = 140 - head.size - tail.size
+  def self.tweet_comment_if_loved!(comment_id)
 
-    body = body_size > 0 ? comment.content[0..body_size -1] : ""
+    comment = Comment.find(comment_id) || (return nil)
 
-    msg = head + body + tail
-    puts self.new.client.update(msg)
+    if comment.related_evaluation and comment.related_evaluation.score == 4
+      head = "coup de coeur à #{comment.item.schools.first.twitter_name}: "
+      tail = "... http://gogoreco.io/comments/#{comment.pretty_id}"
+      body_size = 140 - head.size - tail.size
+
+      body = body_size > 0 ? comment.content[0..body_size -1] : ""
+
+      msg = head + body + tail
+      puts self.new.client.update(msg)
+    end
   end
-
 end
