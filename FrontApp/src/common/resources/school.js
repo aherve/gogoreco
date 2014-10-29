@@ -11,7 +11,8 @@ angular.module('resources.school', [
         entities: {
           school: {
             name: true,
-            index: true
+            index: true,
+            image: true
           }
         }
       };

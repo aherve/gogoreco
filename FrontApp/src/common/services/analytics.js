@@ -7,9 +7,8 @@ angular.module('services.analytics', [])
       mixpanel.identify( user.id );
       mixpanel.people.set({
         "id": user.id,
-        "$first_name": user.firstname || null,
-        "$email": user.email || null,
-        "$last_name": user.lastname || null
+        "$first_name": user.name || null,
+        "$email": user.email || null
       });
 
       /*
